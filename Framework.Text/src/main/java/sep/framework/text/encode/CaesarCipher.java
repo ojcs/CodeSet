@@ -1,4 +1,4 @@
-package sep.util.security.encode;
+package sep.framework.text.encode;
 
 public class CaesarCipher {
 	public static CharSequence avocat(CharSequence value) {

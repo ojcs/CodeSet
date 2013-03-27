@@ -1,4 +1,4 @@
-package sep.util.security.encode;
+package sep.framework.text.encode;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
