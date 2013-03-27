@@ -93,7 +93,7 @@ public final class Encode {
 	}
 	
 	protected static String encodeNumberString(CharSequence value, char flag, int radix) {
-		StringBuilder builder = new StringBuilder(value.length() * 4);
+		StringBuilder builder = new StringBuilder((value.length() * 4) + 20);
 		for (int i = 0, len = value.length(); i < len; i++) {
 			builder.append('\\').append(flag).append(Integer.toString(value.charAt(i), radix));
 		}
@@ -110,9 +110,9 @@ public final class Encode {
 	 * @Ref http://www.2cto.com/kf/201110/109127.html
 	 */
 	public static String encodeShortUnicode(CharSequence value, boolean escapeSpace) {
-		StringBuffer buffer = new StringBuffer(value.length() * 6);
-		for (int i = 0, len = buffer.length(); i < len; i++) {
-			char c = value.charAt(i);
+		StringBuffer buffer = new StringBuffer((value.length() * 6) + 20);
+		for (int i = 0, len = buffer.length(), c; i < len; i++) {
+			c = value.charAt(i);
 			// Handle common case first, selecting largest block that
 			// avoids the specials below
 			if (c > 61 && c < 127) {
@@ -149,7 +149,7 @@ public final class Encode {
 				buffer.append('\\').append(c);
 				break;
 			default:
-				if (c < 0x0020 || c > 0x007e) {
+				if (c < 0x0020 || c > 0x007E) {
 					buffer.append('\\').append('u').append(Bytes.toHex(c));
 				} else {
 					buffer.append(c);
