@@ -14,14 +14,14 @@ import sep.util.io.serialization.SerializationUtil;
 public final class OtherUtil {
 	@SuppressWarnings("unchecked")
 	public static <T extends Serializable> T clone(final T object) {
-		try {
-			try (final ByteArrayOutputStream output = new ByteArrayOutputStream(1024)) {
-				SerializationUtil.serialization(output, object);
-				try (final InputStream input = new ByteArrayInputStream(output.toByteArray())) {
-					return (T) SerializationUtil.deserialization(input);
-				}
+		try (final ByteArrayOutputStream output = new ByteArrayOutputStream(1024)) {
+			SerializationUtil.serialization(output, object);
+			try (final InputStream input = new ByteArrayInputStream(output.toByteArray())) {
+				return (T) SerializationUtil.deserialization(input);
+			} catch (ClassNotFoundException e) {
+				return null;
 			}
-		} catch (ClassNotFoundException | IOException e) {
+		} catch (IOException e) {
 			return null;
 		}
 	} 
