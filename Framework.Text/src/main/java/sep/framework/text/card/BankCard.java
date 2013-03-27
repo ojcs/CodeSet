@@ -1,4 +1,6 @@
-package sep.framework.text;
+package sep.framework.text.card;
+
+import sep.framework.text.regexp.RegexCard;
 
 public final class BankCard {
 	private final short[] cardId;

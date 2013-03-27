@@ -1,10 +1,11 @@
-package sep.framework.text;
+package sep.framework.text.card;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.MatchResult;
 
+import sep.framework.text.regexp.RegexCard;
 import sep.util.other.Convert;
 import sep.util.other.Gender;
 

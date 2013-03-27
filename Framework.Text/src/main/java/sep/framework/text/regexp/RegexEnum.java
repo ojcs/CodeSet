@@ -1,4 +1,4 @@
-package sep.framework.text;
+package sep.framework.text.regexp;
 
 import java.util.regex.Pattern;
 
