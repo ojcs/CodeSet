@@ -7,7 +7,7 @@ import java.nio.charset.Charset;
 
 import sep.util.other.Bytes;
 
-public class Encode {
+public final class Encode {
 	public static String decodeHexString(CharSequence value) {
 		return decodeNumberString(value, 'x', 16);
 	}
@@ -181,5 +181,8 @@ public class Encode {
 			builder.append('&').append('#').append('x').append(Integer.toHexString(value.charAt(i)));
 		}
 		return builder.toString();
+	}
+	
+	private Encode() {
 	}
 }

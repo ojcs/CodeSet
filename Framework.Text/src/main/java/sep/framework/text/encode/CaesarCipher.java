@@ -38,4 +38,7 @@ public class CaesarCipher {
 		}
 		return String.valueOf(c);
 	}
+	
+	private CaesarCipher() {
+	}
 }
