@@ -91,5 +91,16 @@ public final class IP4Address {
 	public int toIPNumber() {
 		return Integer.parseInt(Bytes.toString(address.getAddress()), 16);
 	}
+	
+	/**
+	 * 验证IP是否属于某个IP段
+	 * @Ref http://www.oschina.net/code/snippet_586186_19315
+	 */
+	public boolean ipIsValid(IP4Address begin, IP4Address end) {
+		return endIsBigger(begin, this) && endIsBigger(this, end);
+	}
 
+	public boolean endIsBigger(IP4Address beginIP, IP4Address endIP) {
+		return beginIP.toIPNumber() <= endIP.toIPNumber();
+	}
 }
