@@ -64,7 +64,7 @@ public final class Text {
     	}
     }
 
-	public static boolean isPalindrome(CharSequence value) {
+	public static boolean isPalindrome(final CharSequence value) {
 		if (value.length() <= 1) {
 			return false;
 		}
@@ -73,7 +73,7 @@ public final class Text {
 		for (int i = 0; i < size; i++) {
 			deque.push(value.charAt(i));
 		}
-		for (int len = value.length(), i = size + len % 2; i < len; i++) {
+		for (int len = value.length(), i = size + (len % 2); i < len; i++) {
 			if (value.charAt(i) != deque.pop().charValue()) {
 				return false;
 			}
