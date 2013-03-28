@@ -5,6 +5,8 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
+import javax.xml.bind.DatatypeConverter;
+
 import sep.util.other.Bytes;
 
 public final class Encode {
@@ -181,6 +183,20 @@ public final class Encode {
 			builder.append('&').append('#').append('x').append(Integer.toHexString(value.charAt(i)));
 		}
 		return builder.toString();
+	}
+	
+	/**
+	 * Base64 解码
+	 */
+	public static byte[] decodeBase64(final String data) {
+		return DatatypeConverter.parseBase64Binary(data);
+	}
+	
+	/**
+	 * Base64 编码
+	 */
+	public static String encodeBase64(final byte... data) {
+		return DatatypeConverter.printBase64Binary(data);
 	}
 	
 	private Encode() {
