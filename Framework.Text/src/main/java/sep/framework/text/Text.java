@@ -17,8 +17,7 @@ public final class Text {
 		return leftPad(value, length, " ");
 	}
 
-	public static String leftPad(final String value, final int length,
-			final String padContent) {
+	public static String leftPad(final String value, final int length, final String padContent) {
 		if (value != null && value.isEmpty() && value.length() <= length) {
 			return value;
 		} else {
@@ -85,11 +84,11 @@ public final class Text {
 	}
 
 	public static boolean isPalindrome(final long number) {
-		long index = number, result = 0;
-		while (index != 0) {
+		long i = number, result = 0;
+		while (i != 0) {
 			result *= 10;
-			result += index % 10;
-			index /= 10;
+			result += i % 10;
+			i /= 10;
 		}
 		return result == number;
 	}
