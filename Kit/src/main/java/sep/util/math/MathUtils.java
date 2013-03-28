@@ -1,5 +1,7 @@
 package sep.util.math;
 
+import java.util.Random;
+
 public final class MathUtils {
 	public static long fibonacci(final int number) {
 		return number <= 1 ? 1 : fibonacci(number - 1) + fibonacci(number - 2);
@@ -23,6 +25,14 @@ public final class MathUtils {
 		final E temp = array[i];
 		array[i] = array[j];
 		array[j] = temp;
+	}
+	
+	public static int random(int min, int max) {
+		return new Random().nextInt(max - min) + min;
+	}
+	
+	public static int random(Random random, int min, int max) {
+		return random.nextInt(max - min) + min;
 	}
 	
 	private MathUtils() {
