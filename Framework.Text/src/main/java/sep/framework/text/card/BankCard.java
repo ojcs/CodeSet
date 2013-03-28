@@ -3,18 +3,18 @@ package sep.framework.text.card;
 import sep.framework.text.regexp.RegexCard;
 
 public final class BankCard {
-	private final short[] cardId;
+	private final short[] id;
+	private short checkCode;
 	
 	public BankCard(final short[] cardId) {
-		this.cardId = cardId;
+		this.id = cardId;
 	}
 	
-	public BankCard(final String cardId) {
-		if (cardId.matches(RegexCard.Bank.pattern())) {
-			final char[] oldCardId = cardId.toCharArray();
-			this.cardId = new short[oldCardId.length];
-			for (int i = 0; i < oldCardId.length; i++) {
-				this.cardId[i] = (short) Character.digit(oldCardId[i], 10);
+	public BankCard(final CharSequence cardId) {
+		if (RegexCard.Bank.matches(cardId)) {
+			id = new short[cardId.length()];
+			for (int i = 0; i < cardId.length(); i++) {
+				id[i] = (short) Character.digit(cardId.charAt(i), 10);
 			}
 		} else {
 			throw new IllegalArgumentException("cardId not is BankCardNumber");
@@ -22,37 +22,40 @@ public final class BankCard {
 	}
 
 	public boolean check() {
+		if (checkCode != 0) {
+			return id[id.length] == checkCode;
+		}
 		int sum = 0;
-		for (int i = cardId.length - 1, j = 0; i >= 0; i--, j++) {
-			int k = cardId[i];
+		for (int i = id.length - 1, j = 0; i >= 0; i--, j++) {
+			int k = id[i];
 			if (j % 2 == 0) {
 				k *= 2;
-				k = k / 10 + k % 10;
+				k /= 10;
+				k += k % 10;
 			}
 			sum += k;
 		}
-		final int checkCode = sum % 10;
-		return cardId[cardId.length] == checkCode;
+		return id[id.length] == (checkCode = (short) (sum % 10));
 	}
 	
-	public static boolean check(final String cardId) {
-		return new BankCard(cardId).check();
+	public static boolean check(final CharSequence id) {
+		return new BankCard(id).check();
 	}
 	
 	@Override
 	public int hashCode() {
-		return cardId.hashCode();
+		return id.hashCode();
 	}
 	
 	@Override
 	public String toString() {
-		return String.valueOf(cardId);
+		return String.valueOf(id);
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof BankCard) {
-			return cardId.equals(((BankCard) obj).cardId);
+			return id.equals(((BankCard) obj).id);
 		} else {
 			return false;
 		}
