@@ -77,7 +77,7 @@ public final class StreamConvert {
 			}
 		}
 	}
-	
+		
 	public static BufferedReader toBuffered(final Reader reader) {
 		if (reader == null) {
 			throw new NullPointerException("Reader is null!");

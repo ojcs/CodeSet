@@ -54,6 +54,16 @@ public final class CollectionUtil {
 		return toArray(newList);
 	}
 	
+	public static <E> List<E> removeRepeat(final List<E> list) {
+		List<E> newList = new ArrayList<>();
+		for (E element : list) {
+			if (!list.contains(element)) {
+				newList.add(element);
+			}
+		}
+		return newList;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static <E> E[] removeNull(final E[] array) {
 		final List<E> newList = new ArrayList<E>();

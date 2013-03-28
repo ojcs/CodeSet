@@ -1,5 +1,7 @@
 package sep.framework.text.regexp;
 
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +40,14 @@ public final class RegexUtil {
 
 	public static String replaceAll(final String input, final String regex, final String replacement) {
 		return Pattern.compile(regex).matcher(input).replaceAll(replacement);
+	}
+	
+	public static CharSequence replaceAll(final CharSequence input, final Map<String, String> map) {
+		CharSequence result = input;
+		for (Entry<String, String> entry : map.entrySet()) {
+			result = Pattern.compile(entry.getKey()).matcher(result).replaceAll(entry.getValue());
+		}
+		return result;
 	}
 
 	private RegexUtil() {

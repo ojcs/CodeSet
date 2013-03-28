@@ -35,6 +35,22 @@ public final class MathUtils {
 		return random.nextInt(max - min) + min;
 	}
 	
+	/**
+	 * 用(int) Math.sqrt(n)求出循环上限
+	 * isPrime()方法用来检测当前数是否为质数
+	 */
+	public static boolean isPrime(final int value) {
+		if (value <= 2) {
+			return true;
+		}
+		for (int i = 2, limit = (int) Math.sqrt(value); i <= limit; i++) {
+			if (value % i == 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	private MathUtils() {
 	}
 }
