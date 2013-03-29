@@ -21,7 +21,7 @@ public final class Text {
 		} else {
 			final String padChars = (padContent == null || padContent.isEmpty()) ? " "
 					: padContent;
-			final StringBuffer buffer = new StringBuffer(value);
+			final StringBuffer buffer = new StringBuffer(length);
 			buffer.append(value);
 			for (int i = 0; i < length; i++) {
 				buffer.append(padChars);
@@ -55,7 +55,8 @@ public final class Text {
 			return value;
 		} else {
 			final String padChars = (padContent == null || padContent.isEmpty()) ? " " : padContent;
-			final StringBuffer buffer = new StringBuffer(value);
+			final StringBuffer buffer = new StringBuffer(length);
+			buffer.append(value);
 			for (int i = 0; i < length; i++) {
 				buffer.append(padChars);
 			}
