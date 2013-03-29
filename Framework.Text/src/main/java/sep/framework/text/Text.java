@@ -1,8 +1,6 @@
 package sep.framework.text;
 
 import java.text.MessageFormat;
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 public final class Text {
 	public static String format(final String pattern, final Object... arguments) {
@@ -66,23 +64,21 @@ public final class Text {
 		}
 	}
 
+	/** 回文 */
 	public static boolean isPalindrome(final CharSequence value) {
-		if (value.length() <= 1) {
+		final int len = value.length();
+		if (len <= 1) {
 			return false;
 		}
-		final int size;
-		Deque<Character> deque = new ArrayDeque<>(size = (value.length() / 2));
-		for (int i = 0; i < size; i++) {
-			deque.push(value.charAt(i));
-		}
-		for (int len = value.length(), i = size + (len % 2); i < len; i++) {
-			if (value.charAt(i) != deque.pop().charValue()) {
+		for (int count = len / 2, begin = 0, end = len - 1; begin < count; begin++, end--) {
+			if (value.charAt(begin) != value.charAt(end)) {
 				return false;
 			}
 		}
 		return true;
 	}
-
+	
+	/** 回文 */
 	public static boolean isPalindrome(final long number) {
 		long i = number, result = 0;
 		while (i != 0) {
