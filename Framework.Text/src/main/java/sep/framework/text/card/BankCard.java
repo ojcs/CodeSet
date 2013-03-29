@@ -41,23 +41,4 @@ public final class BankCard {
 	public static boolean check(final CharSequence id) {
 		return new BankCard(id).check();
 	}
-	
-	@Override
-	public int hashCode() {
-		return id.hashCode();
-	}
-	
-	@Override
-	public String toString() {
-		return String.valueOf(id);
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof BankCard) {
-			return id.equals(((BankCard) obj).id);
-		} else {
-			return false;
-		}
-	}
 }
