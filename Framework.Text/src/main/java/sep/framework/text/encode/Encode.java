@@ -132,22 +132,11 @@ public final class Encode {
 				}
 				buffer.append(' ');
 				break;
-			case '\t':
-				buffer.append('\\').append('t');
-				break;
-			case '\n':
-				buffer.append('\\').append('n');
-				break;
-			case '\r':
-				buffer.append('\\').append('r');
-				break;
-			case '\f':
-				buffer.append('\\').append('f');
-				break;
-			case '=': // Fall through
-			case ':': // Fall through
-			case '#': // Fall through
-			case '!':
+			case '\t': buffer.append('\\').append('t'); break;
+			case '\n': buffer.append('\\').append('n'); break;
+			case '\r': buffer.append('\\').append('r'); break;
+			case '\f': buffer.append('\\').append('f'); break;
+			case '=': case ':': case '#': case '!':// Fall through
 				buffer.append('\\').append(c);
 				break;
 			default:
