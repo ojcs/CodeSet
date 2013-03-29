@@ -1,7 +1,6 @@
 package sep.util.net;
 
 import java.net.Inet4Address;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
 
@@ -44,28 +43,12 @@ public final class IP4Address {
 	}
 	
 	public IP4Address(int ip, final ByteOrder order) throws UnknownHostException {
-		if (order.equals(ByteOrder.BIG_ENDIAN)) {// 大端
-			this.address = (Inet4Address) InetAddress.getByName(
-				String.format(
-					"%s.%s.%s.%s",
-					(ip      ) & 0x000000FF,
-					(ip >> 8 ) & 0x000000FF,
-					(ip >> 16) & 0x000000FF,
-					(ip >> 24) & 0x000000FF
-				)
-			);
-		} else if (order.equals(ByteOrder.LITTLE_ENDIAN)) {// 小端
-			this.address = (Inet4Address) InetAddress.getByName(
-				String.format(
-					"%s.%s.%s.%s",
-					(ip >> 24) & 0x000000FF,
-					(ip >> 16) & 0x000000FF,
-					(ip >> 8 ) & 0x000000FF,
-					(ip      ) & 0x000000FF
-				)
-			);
+		boolean big = order.equals(ByteOrder.BIG_ENDIAN);
+		byte[] buffer = new byte[4];
+		for (int i = 0, offset = big ? 0 : 1; i < 4; i++, offset += big ? 8 : -8) {
+			buffer[i] = (byte) ((ip >> offset) & 0x000000FF);
 		}
-		throw new UnknownHostException();
+		this.address = (Inet4Address) Inet4Address.getByAddress(buffer);
 	}
 	
 	public Inet4Address getBroadcastAddress(Inet4Address subnetMask) throws UnknownHostException {
