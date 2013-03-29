@@ -188,55 +188,14 @@ public final class Encode {
 		return builder.toString();
 	}
 	
-	/**
-	 * Base64 解码
-	 */
 	public static byte[] decodeBase64(final String data) {
 		return DatatypeConverter.parseBase64Binary(data);
 	}
 	
-	/**
-	 * Base64 编码
-	 */
 	public static String encodeBase64(final byte... data) {
 		return DatatypeConverter.printBase64Binary(data);
 	}
-	
-	static String encodeBase58(final long value) {
-		final String base58 = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
-		if (value < base58.length()) {
-			return String.valueOf(base58.charAt((int) value));
-		}
-		long val = value;
-        final List<Long> reminderList = new ArrayList<Long>();
-        while(true) {
-			reminderList.add(val % base58.length());
-            if((val = val / base58.length()) < base58.length()) {
-                // for Flickr Url shortening, do not subtract by 1L:
-				reminderList.add(val - 1L);
-                break;
-            }
-        }
-        // Reverse the list:
-        Collections.reverse(reminderList);
-        final StringBuilder builder = new StringBuilder();
-		for (long l : reminderList) {
-			builder.append(base58.charAt((int) l));
-		}
-        return builder.toString();
-    }
-	
-	public static long decodeBase58(CharSequence value) {
-		final String base58 = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
-		long result = 0;
-		long multi = 1;
-		for (int i = value.length() - 1; i >= 0; i--) {
-			result += multi * base58.indexOf(value.charAt(i));
-			multi *= 58L;
-		}
-		return result; 
-	}
-	
+
 	private Encode() {
 	}
 }
