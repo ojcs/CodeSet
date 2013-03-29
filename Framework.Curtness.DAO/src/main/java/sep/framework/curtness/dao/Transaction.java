@@ -5,13 +5,9 @@ import java.sql.SQLException;
 import java.sql.Savepoint;
 
 public final class Transaction implements AutoCloseable {
-	public static void checkOpen(final Connection connection) throws IllegalArgumentException {
-		try {
-			if (hasOpen(connection)) {
-				throw new IllegalArgumentException("Connection has been opened Affairs");
-			}
-		} catch (SQLException e) {
-			throw new IllegalArgumentException(e);
+	public static void checkOpen(final Connection connection) throws SQLException {
+		if (hasOpen(connection)) {
+			throw new IllegalArgumentException("Connection has been opened Affairs");
 		}
 	}
 	
@@ -52,7 +48,6 @@ public final class Transaction implements AutoCloseable {
 	
 	public void commit() throws SQLException {
 		connection.commit();
-		openTransaction();
 	}
 	
 	public void execute(final Atom atom) throws SQLException {
@@ -114,8 +109,7 @@ public final class Transaction implements AutoCloseable {
 	}
 	
 	private void setTransaction(final boolean status) throws SQLException {
-		final boolean flag = !status;
-		connection.setAutoCommit(flag);
+		connection.setAutoCommit(!status);
 		if (status) {
 			setSavepoint();
 		}

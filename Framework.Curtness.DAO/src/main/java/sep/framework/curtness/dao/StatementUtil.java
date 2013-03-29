@@ -6,24 +6,23 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
-import java.util.Set;
 
 public final class StatementUtil {
 	/** Preparation SQL batch */
-	public static int[] batchUpdate(final PreparedStatement statement, final Set<Object[]> parametersList) throws SQLException {
-		for (final Object[] parameters : parametersList) {
-			bindParameters(statement, parameters);
+	public static int[] batchUpdate(final PreparedStatement statement, final Collection<Object[]> parameters, Transaction transaction) throws SQLException {
+		for (final Object[] params : parameters) {
+			bindParameters(statement, params);
 			statement.addBatch();
 		}
-		return executeBatch(statement);
+		return executeBatch(statement, transaction);
 	}
 
 	/** Static SQL batch */
-	public static int[] batchUpdate(final Statement statement, final Collection<String> sqlList) throws SQLException {
-		for (String sql : sqlList) {
+	public static int[] batchUpdate(final Statement statement, final Collection<String> sqls, Transaction transaction) throws SQLException {
+		for (String sql : sqls) {
 			statement.addBatch(sql);
 		}
-		return executeBatch(statement);
+		return executeBatch(statement, transaction);
 	}
 	
 	public static PreparedStatement bindParameters(final PreparedStatement statement, final Object... parameters) throws SQLException {
@@ -35,8 +34,7 @@ public final class StatementUtil {
 		return statement;
 	}
 	
-	public static int[] executeBatch(final Statement statement) throws SQLException {
-		final Transaction transaction = Session.beginTransaction(statement.getConnection());
+	public static int[] executeBatch(final Statement statement, Transaction transaction) throws SQLException {
 		try {
 			return statement.executeBatch();
 		} catch (SQLException e) {
@@ -57,14 +55,11 @@ public final class StatementUtil {
 	}
 	
 	public static Object scalar(final PreparedStatement statement, final Object... params) throws SQLException {
-		bindParameters(statement, params);
-		return scalar(statement);
+		return scalar(bindParameters(statement, params));
 	}
 	
 	public static Object scalar(final Statement statement) throws SQLException {
-		ResultSet set = null;
-
-		Object obj = null;
+		ResultSet set = null; Object obj = null;
 		try {
 			set = statement.getResultSet();
 			obj = set.getObject(1);

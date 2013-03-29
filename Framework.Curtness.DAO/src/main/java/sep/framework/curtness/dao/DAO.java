@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Wrapper;
-import java.util.Set;
+import java.util.Collection;
 
 public abstract class DAO {
 	public static void close(final Connection connection) throws SQLException {
@@ -46,12 +46,12 @@ public abstract class DAO {
 		}
 	}
 	
-	public int[] batchUpdate(final Set<String> sqlList) throws SQLException {
-		return openSession().batchUpdate(sqlList);
+	public int[] batchUpdate(final Collection<String> sqls) throws SQLException {
+		return openSession().batchUpdate(sqls);
 	}
 	
-	public int[] batchUpdate(final String sql, final Set<Object[]> parametersList) throws SQLException {
-		return openSession().batchUpdate(sql, parametersList);
+	public int[] update(final String sql, final Collection<Object[]> parameters) throws SQLException {
+		return openSession().batchUpdate(sql, parameters);
 	}
 	
 	public ResultSet function(final String command, final Object... params) throws SQLException {

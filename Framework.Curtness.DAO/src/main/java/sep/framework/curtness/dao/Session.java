@@ -5,15 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Wrapper;
 import java.util.Collection;
-import java.util.Set;
 
 public final class Session implements Wrapper, AutoCloseable {
-	public static int[] batchUpdate(final Connection connection, final Collection<String> sqlList) throws SQLException {
-		return StatementUtil.batchUpdate(connection.createStatement(), sqlList);
+	public static int[] batchUpdate(final Connection connection, final Collection<String> sqls) throws SQLException {
+		final Transaction tran = beginTransaction(connection);
+		return StatementUtil.batchUpdate(connection.createStatement(), sqls, tran);
 	}
 	
-	public static int[] batchUpdate(final Connection connection, final String sql, final Set<Object[]> parametersList) throws SQLException {
-		return StatementUtil.batchUpdate(connection.prepareStatement(sql), parametersList);
+	public static int[] batchUpdate(final Connection connection, final String sql, final Collection<Object[]> parameters) throws SQLException {
+		final Transaction tran = beginTransaction(connection);
+		return StatementUtil.batchUpdate(connection.prepareStatement(sql), parameters, tran);
 	}
 	
 	public static Transaction beginTransaction(final Connection connection) throws SQLException {
@@ -30,7 +31,7 @@ public final class Session implements Wrapper, AutoCloseable {
 	}
 	
 	public static Object scalar(final Connection connection, final String sql, final Object... params) throws SQLException { 
-		return StatementUtil.scalar(connection.prepareStatement(sql));
+		return StatementUtil.scalar(connection.prepareStatement(sql), params);
 	}
 	
 	public static int update(final Connection connection, final String sql, final Object... params) throws SQLException {
@@ -47,7 +48,7 @@ public final class Session implements Wrapper, AutoCloseable {
 		return batchUpdate(connection, sqlList);
 	}
 	
-	public int[] batchUpdate(final String sql, final Set<Object[]> parametersList) throws SQLException {
+	public int[] batchUpdate(final String sql, final Collection<Object[]> parametersList) throws SQLException {
 		return batchUpdate(connection, sql, parametersList);
 	}
 	
