@@ -81,13 +81,13 @@ public final class Text {
 	
 	/** 回文 */
 	public static boolean isPalindrome(final long number) {
-		long i = number, result = 0;
+		long i = number, s = 0;
 		while (i != 0) {
-			result *= 10;
-			result += i % 10;
+			s *= 10;
+			s += i % 10;
 			i /= 10;
 		}
-		return result == number;
+		return s == number;
 	}
 
 	private Text() {

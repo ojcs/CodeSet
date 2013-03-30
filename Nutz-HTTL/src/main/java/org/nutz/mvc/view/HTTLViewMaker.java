@@ -6,7 +6,7 @@ import org.nutz.mvc.ViewMaker;
 
 public final class HTTLViewMaker implements ViewMaker {
 	public View make(Ioc ioc, String type, String value) {
-		if ("httl".equalsIgnoreCase(type)) {
+		if ("HTTL".equals(type)) {
 			return new HTTLView(value, ".html");
 		}
 		return null;

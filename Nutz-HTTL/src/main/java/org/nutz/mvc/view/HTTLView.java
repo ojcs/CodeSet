@@ -43,7 +43,7 @@ public final class HTTLView extends AbstractPathView implements View {
 			path = Mvcs.getRequestPath(req);
 			path = path.endsWith("/") ? path + "index" : path;
 			return (path.startsWith("/") ? "" : "/") + Files.renameSuffix(path, suffix);
-		// 绝对路径 : 以 '/' 开头的路径不增加 '/WEB-INF'
+		// 绝对路径:以 '/' 开头的路径不增加 '/WEB-INF'
 		} else if (path.startsWith("/") && !path.toLowerCase().endsWith(suffix)) {
 			return path + suffix;
 		// 包名形式的路径
