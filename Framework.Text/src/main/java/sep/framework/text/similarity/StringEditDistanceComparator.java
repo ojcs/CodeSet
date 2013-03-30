@@ -1,6 +1,6 @@
 package sep.framework.text.similarity;
 
-import sep.util.math.MathUtils;
+import sep.util.Maths;
 
 /**
  * 字符串相似度比较
@@ -22,7 +22,7 @@ final class StringEditDistanceComparator implements StringSimilarity {
 			for (j = 1; j <= o2len; j++) {
 				cacheI = i - 1;
 				cacheJ = j - 1;
-				matrix[i][j] = (int) MathUtils.min(
+				matrix[i][j] = (int) Maths.min(
 					matrix[cacheI][j] + 1,
 					matrix[i][cacheJ] + 1,
 					matrix[cacheI][cacheJ] + ((o1.charAt(cacheI) == o2.charAt(cacheJ)) ? 0 : 1)
