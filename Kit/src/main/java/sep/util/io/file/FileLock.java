@@ -5,12 +5,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/**
- * 用于控制文件读取写入并发的锁
- */
+/** 用于控制文件读取写入并发的锁 */
 public final class FileLock {
 	private final File file;
 	private int lockerSleepUnitTime = 20;
@@ -28,37 +25,12 @@ public final class FileLock {
 		this.file = file.getAbsoluteFile();
 		lockItemMap.put(this.file, new ReentrantReadWriteLock());
 	}
-
-	public synchronized void setWrite(final Status status) {
-		switch (status) {
-		case Release:
-			releaseRead();
-			break;
-		case Lock:
-			lockRead();
-			break;
-		}
-	}
 	
-	public synchronized void setRead(final Status status) {
-		switch (status) {
-		case Release:
-			releaseWrite();
-			break;
-		case Lock:
-			lockWrite();
-			break;
-		}
-	}
-	
-	/**
-	 * 获取写入锁。将同时获取 写入和读取锁。
-	 */
+	/** 获取写入锁。将同时获取 写入和读取锁。 */
 	public synchronized void lockWrite() {
 		try {
 			final ReentrantReadWriteLock rwLock = lockItemMap.get(file);
-			final Lock lock = rwLock.writeLock();
-			while (!lock.tryLock() || !rwLock.isWriteLockedByCurrentThread()) {
+			while (!rwLock.writeLock().tryLock() || !rwLock.isWriteLockedByCurrentThread()) {
 				Thread.sleep(lockerSleepUnitTime);
 			}
 		} catch (InterruptedException ex) {
@@ -66,13 +38,10 @@ public final class FileLock {
 		}
 	}
 
-	/**
-	 * 等待写入锁释放 此读取锁联动与写入锁，并不能在单纯调用其的情况下锁定文件读取。
-	 */
+	/** 等待写入锁释放 此读取锁联动与写入锁，并不能在单纯调用其的情况下锁定文件读取。 */
 	public synchronized void lockRead() {
 		try {
-			final Lock lock = lockItemMap.get(file).readLock();
-			while (!lock.tryLock()) {
+			while (!lockItemMap.get(file).readLock().tryLock()) {
 				Thread.sleep(lockerSleepUnitTime);
 			}
 		} catch (InterruptedException ex) {
@@ -80,16 +49,12 @@ public final class FileLock {
 		}
 	}
 
-	/**
-	 * 清理读锁
-	 */
+	/** 释放读锁 */
 	public synchronized void releaseRead() {
 		lockItemMap.get(file).readLock().unlock();
 	}
 
-	/**
-	 * 清理写锁
-	 */
+	/** 释放写锁 */
 	public synchronized void releaseWrite() {
 		lockItemMap.get(file).writeLock().unlock();
 	}
@@ -100,16 +65,5 @@ public final class FileLock {
 	
 	public synchronized void setLockerSleepUnitTime(final int lockerSleepUnitTime) {
 		this.lockerSleepUnitTime = lockerSleepUnitTime;
-	}
-
-	public static enum Status {
-		/**
-		 * 清理锁
-		 */
-		Release,
-		/**
-		 * 上锁
-		 */
-		Lock
 	}
 }

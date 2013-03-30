@@ -18,9 +18,7 @@ import sep.util.other.Convert;
 import sep.util.other.Convert.Callback;
 
 public final class FileUtil {
-	/**
-	 * 复制文件
-	 */
+	/** 复制文件 */
 	public static void copy(final Path sourceFile, final Path targetFile)
 			throws IOException {
 		try (final InputStream sourceStream = new FileInputStream(sourceFile.toFile())) {
@@ -59,6 +57,21 @@ public final class FileUtil {
 				return Paths.get(old.trim());
 			}
 		})).listIterator();
+	}
+	
+	public static boolean deletes(final Path path) {
+		return deletes(path.toFile());
+	}
+
+	public static boolean deletes(final File file) {
+		if (file.isDirectory()) {
+			for (final File down : file.listFiles()) {
+				if (!deletes(down)) {
+					return false;
+				}
+			}
+		}
+		return file.delete();
 	}
 
 	private FileUtil() {
