@@ -29,7 +29,6 @@ final class StringEditDistanceComparator implements StringSimilarity {
 				);
 			}
 		}
-		
 		return matrix[o1len][o2len];
 	}
 	
