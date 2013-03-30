@@ -100,8 +100,20 @@ public final class Maths {
 	public static double min(final double one, final double two, final double three) {
 		return (two < one) ? two : ((three < two) ? three : two);
 	}
+	
+	public static float min(final float one, final float two, final float three) {
+		return (two < one) ? two : ((three < two) ? three : two);
+	}
 
 	public static long min(final long one, final long two, final long three) {
+		return (two < one) ? two : ((three < two) ? three : two);
+	}
+	
+	public static int min(final int one, final int two, final int three) {
+		return (two < one) ? two : ((three < two) ? three : two);
+	}
+	
+	public static short min(final short one, final short two, final short three) {
 		return (two < one) ? two : ((three < two) ? three : two);
 	}
 
@@ -127,49 +139,7 @@ public final class Maths {
 	public static double sec(final double value) {
 		return 1 / cos(value);
 	}
-	
-	public static void swap(boolean[] array, int i, int j) {
-		boolean temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(char[] array, int i, int j) {
-		char temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(double[] array, int i, int j) {
-		double temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static <E> void swap(E[] array, int i, int j) {
-		final E temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(float[] array, int i, int j) {
-		float temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(int[] array, int i, int j) {
-		int temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(short[] array, int i, int j) {
-		short temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
+
 	/** 正矢函数 */
 	public static double vercosin(final double value) {
 		return 1 + cos(value);
@@ -180,8 +150,14 @@ public final class Maths {
 		return 1 - cos(value);
 	}
 	
-	public static long fibonacci(final int number) {
-		return number <= 1 ? 1 : fibonacci(number - 1) + fibonacci(number - 2);
+	public static long fibonacci(final int n) {
+		int n1 = 1, n2 = 1;
+		for (int i = 1, s = 1; i < n; i++) {
+			s = n1 + n2;
+			n1 = n2;
+			n2 = s;
+		}
+		return n1;
 	}
 	
 	/**

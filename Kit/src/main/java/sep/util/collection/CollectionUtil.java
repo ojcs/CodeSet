@@ -26,6 +26,56 @@ public final class CollectionUtil {
 		}
 	}
 	
+	public static double max(double[] values) {
+		double result = values[0];
+		for (double value : values) {
+			if (value > result) {
+				result = value;
+			}
+		}
+		return result;
+	}
+	
+	public static float max(float[] values) {
+		float result = values[0];
+		for (float value : values) {
+			if (value > result) {
+				result = value;
+			}
+		}
+		return result;
+	}
+	
+	public static int max(int[] values) {
+		int result = values[0];
+		for (int value : values) {
+			if (value > result) {
+				result = value;
+			}
+		}
+		return result;
+	}
+	
+	public static long max(long[] values) {
+		long result = values[0];
+		for (long value : values) {
+			if (value > result) {
+				result = value;
+			}
+		}
+		return result;
+	}
+	
+	public static short max(short[] values) {
+		short result = values[0];
+		for (short value : values) {
+			if (value > result) {
+				result = value;
+			}
+		}
+		return result;
+	}
+	
 	@SafeVarargs
 	public static <E> List<E> merge(final Collection<? extends E>... collections) {
 		if (collections == null || collections.length == 0) {
@@ -53,15 +103,55 @@ public final class CollectionUtil {
 		}
 		return toArray(newList);
 	}
-	
-	public static <E> List<E> removeRepeat(final List<E> list) {
-		List<E> newList = new ArrayList<>();
-		for (E element : list) {
-			if (!list.contains(element)) {
-				newList.add(element);
+
+	public static double min(double[] values) {
+		double result = values[0];
+		for (double value : values) {
+			if (value < result) {
+				result = value;
 			}
 		}
-		return newList;
+		return result;
+	}
+
+	public static float min(float[] values) {
+		float result = values[0];
+		for (float value : values) {
+			if (value < result) {
+				result = value;
+			}
+		}
+		return result;
+	}
+	
+	public static int min(int[] values) {
+		int result = values[0];
+		for (int value : values) {
+			if (value < result) {
+				result = value;
+			}
+		}
+		return result;
+	}
+	
+	public static long min(long[] values) {
+		long result = values[0];
+		for (long value : values) {
+			if (value < result) {
+				result = value;
+			}
+		}
+		return result;
+	}
+	
+	public static short min(short[] values) {
+		short result = values[0];
+		for (short value : values) {
+			if (value < result) {
+				result = value;
+			}
+		}
+		return result;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -109,7 +199,17 @@ public final class CollectionUtil {
 	public static <E> List<E> removeNull(final Iterator<? extends E> iterator) {
 		return removeNull(Fetch.of(iterator));
 	}
-
+	
+	public static <E> List<E> removeRepeat(final List<E> list) {
+		List<E> newList = new ArrayList<>();
+		for (E element : list) {
+			if (!list.contains(element)) {
+				newList.add(element);
+			}
+		}
+		return newList;
+	}
+	
 	public static <E> E[] reverse(final E[] array) {
 		final E[] result = array.clone();
 		for (int i = 0, len = array.length, base = len - 1; i < len; i++) {
@@ -117,11 +217,54 @@ public final class CollectionUtil {
 		}
 		return result;
 	}
-
-	public static <E> E[] toArray(final Collection<? extends E> collection) {
-		E[] array = null;
-		return collection.toArray(array);
+	
+	public static void swap(boolean[] array, int i, int j) {
+		boolean temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
 	}
+	
+	public static void swap(char[] array, int i, int j) {
+		char temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	
+	public static void swap(double[] array, int i, int j) {
+		double temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	
+	public static <E> void swap(E[] array, int i, int j) {
+		final E temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	
+	public static void swap(float[] array, int i, int j) {
+		float temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	
+	public static void swap(int[] array, int i, int j) {
+		int temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	
+	public static void swap(short[] array, int i, int j) {
+		short temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <E> E[] toArray(final Collection<? extends E> collection) {
+		return collection.toArray((E[]) new Object[collection.size()]);
+	}
+	
 	
 	public static <E> E[] toArray(final Iterable<? extends E> iterable) {
 		return toArray(toList(iterable));
