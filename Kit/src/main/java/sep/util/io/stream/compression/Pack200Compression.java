@@ -16,11 +16,6 @@ public final class Pack200Compression extends
 		Pack200.newPacker().pack(input, output);
 	}
 
-	public void decompression(final JarFile input, final JarOutputStream output)
-			throws IOException {
-		Pack200.newUnpacker().unpack(new File(input.getName()), output);
-	}
-
 	@Override
 	public void compression(JarInputStream input, OutputStream output)
 			throws IOException {
@@ -31,5 +26,10 @@ public final class Pack200Compression extends
 	public void decompression(InputStream input, JarOutputStream output)
 			throws IOException {
 		Pack200.newUnpacker().unpack(input, output);
+	}
+
+	public void decompression(final JarFile input, final JarOutputStream output)
+			throws IOException {
+		Pack200.newUnpacker().unpack(new File(input.getName()), output);
 	}
 }
