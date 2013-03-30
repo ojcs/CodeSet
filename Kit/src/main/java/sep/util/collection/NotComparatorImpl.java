@@ -2,9 +2,7 @@ package sep.util.collection;
 
 import java.util.Comparator;
 
-/**
- * 不比较比较器实现
- */
+/** 不比较比较器实现 */
 public class NotComparatorImpl<T> implements Comparator<T> {
 	private static final Comparator<Object> comparator = new NotComparatorImpl<Object>();
 	

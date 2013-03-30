@@ -265,7 +265,6 @@ public final class CollectionUtil {
 		return collection.toArray((E[]) new Object[collection.size()]);
 	}
 	
-	
 	public static <E> E[] toArray(final Iterable<? extends E> iterable) {
 		return toArray(toList(iterable));
 	}

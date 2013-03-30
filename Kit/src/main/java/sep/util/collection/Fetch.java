@@ -3,9 +3,11 @@ package sep.util.collection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 public final class Fetch<E> implements Iterable<E>, Iterator<E>, Enumeration<E> {
 	public static <E> Iterable<E> of(final Enumeration<E> enumeration) {
@@ -94,11 +96,19 @@ public final class Fetch<E> implements Iterable<E>, Iterator<E>, Enumeration<E> 
 	}
 
 	public List<E> toList() {
-		final List<E> list = new ArrayList<E>();
+		final List<E> list = new ArrayList<>();
 		for (E element : this) {
 			list.add(element);
 		}
 		return list;
+	}
+	
+	public Set<E> toSet() {
+		final Set<E> set = new HashSet<>();
+		for (E element : this) {
+			set.add(element);
+		}
+		return set;
 	}
 
 	@Override
