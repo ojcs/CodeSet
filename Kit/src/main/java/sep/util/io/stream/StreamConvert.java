@@ -28,7 +28,7 @@ public final class StreamConvert {
 		} else {
 			final byte[] buffer = new byte[bufferSize];
 			int offset;
-			while ((offset = inputStream.read(buffer, 0, bufferSize)) != -1) { // NOPMD
+			while ((offset = inputStream.read(buffer, 0, bufferSize)) != -1) { 
 				outputStream.write(buffer, 0, offset);
 			}
 			if (isClose) {
@@ -44,7 +44,7 @@ public final class StreamConvert {
 		} else {
 			final char[] buffer = new char[bufferSize];
 			int offset;
-			while ((offset = inputStream.read(buffer, 0, bufferSize)) != -1) { // NOPMD
+			while ((offset = inputStream.read(buffer, 0, bufferSize)) != -1) { 
 				outputStream.write(buffer, 0, offset);
 			}
 			if (isClose) {

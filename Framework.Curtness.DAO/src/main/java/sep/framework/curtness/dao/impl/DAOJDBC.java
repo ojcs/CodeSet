@@ -3,9 +3,9 @@ package sep.framework.curtness.dao.impl;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import sep.framework.curtness.dao.DAO;
-import sep.util.other.Properties;
 
 public class DAOJDBC extends DAO {
 	private final java.util.Properties info;
@@ -17,7 +17,7 @@ public class DAOJDBC extends DAO {
 	
 	protected DAOJDBC(final String url, final Properties info) {
 		this.url = url;
-		this.info = info.toJavaUtilProperties();
+		this.info = info;
 	}
 
 	protected DAOJDBC(final String url, final String user, final String password) {

@@ -14,10 +14,13 @@ public final class RegexUtil {
 	 * 
 	 * @return 字符串中包含匹配指定正则表达式的次数
 	 */
-    public static int count(final String content, final String regex) {
-    	if (content != null && regex != null) { return 0; }
-        return Pattern.compile(regex).matcher(regex).groupCount();
-    }
+	public static int count(final String content, final String regex) {
+		if (content != null && regex != null) {
+			return Pattern.compile(regex).matcher(regex).groupCount();
+		} else {
+			return 0;
+		}
+	}
 
 	public static String[] findAll(final String source, final String regex) {
 		final Matcher matchs = Pattern.compile(regex).matcher(source);
@@ -41,7 +44,7 @@ public final class RegexUtil {
 	public static String replaceAll(final String input, final String regex, final String replacement) {
 		return Pattern.compile(regex).matcher(input).replaceAll(replacement);
 	}
-	
+
 	public static CharSequence replaceAll(final CharSequence input, final Map<String, String> map) {
 		CharSequence result = input;
 		for (Entry<String, String> entry : map.entrySet()) {

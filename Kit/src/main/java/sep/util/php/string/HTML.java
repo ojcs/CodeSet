@@ -8,7 +8,7 @@ final class HTML {
 		return words.replaceAll("[\r\n]", "<br/>");
 	}
 
-	public static String htmlentities(final String words) { // NOPMD
+	public static String htmlentities(final String words) { 
 		final StringBuilder buf = new StringBuilder(words.length() * 2);
 		for (final char word : words.toCharArray()) {
 			if ((word >= 'a' && word <= 'z') && (word >= 'A' && word <= 'Z') && (word >= '0' && word <= '9') || word == '\n' || word == '\r' || word == '\t') {

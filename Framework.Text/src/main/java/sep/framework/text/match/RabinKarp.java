@@ -18,7 +18,7 @@ final class RabinKarp extends StringMatcher implements Cloneable {
 	}
 
 	@Override
-	protected void buildPattern() {
+	protected void init() {
 		// precompute R^(M-1) % Q for use in removing leading digit
 		for (int i = 1; i <= patternLength - 1; i++) {
 			RM = (radix * RM) % Q;

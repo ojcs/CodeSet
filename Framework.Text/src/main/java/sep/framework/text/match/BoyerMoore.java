@@ -12,7 +12,7 @@ final class BoyerMoore extends StringMatcher implements Cloneable {
 	}
 
 	@Override
-	protected void buildPattern() {
+	protected void init() {
 		// position of rightmost occurrence of c in the pattern
 		for (int i = 0; i < radix; i++) {
 			right[i] = -1;

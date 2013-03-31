@@ -12,7 +12,7 @@ final class KnuthMorrisPratt extends StringMatcher implements Cloneable {
 	}
 
 	@Override
-	protected void buildPattern() {
+	protected void init() {
 		dfa = new int[radix][patternLength];
 		dfa[pattern.charAt(0)][0] = 1;
 		for (int X = 0, j = 1; j < patternLength; j++) {

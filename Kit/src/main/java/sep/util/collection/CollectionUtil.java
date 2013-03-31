@@ -273,8 +273,9 @@ public final class CollectionUtil {
 		return toArray(toList(iterator));
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <E> E[] toArray(final Object... array) {
-		return CollectionUtil.<E> toArray(toList(array));
+		return CollectionUtil.<E> toArray((Collection<E>) toList(array));
 	}
 	
 	public static <E> List<E> toList(final Collection<? extends E> collection) {

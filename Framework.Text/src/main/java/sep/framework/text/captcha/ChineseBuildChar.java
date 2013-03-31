@@ -3,7 +3,7 @@ package sep.framework.text.captcha;
 import sep.util.Maths;
 
 public final class ChineseBuildChar implements BuildChar {
-	private static char[] captcha = new char[4];
+	private char[] captcha = new char[4];
 	
 	@Override
 	public char[] build(int length) {

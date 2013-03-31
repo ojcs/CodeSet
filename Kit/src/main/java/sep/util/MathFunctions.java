@@ -1,39 +1,39 @@
 package sep.util;
 
-import static java.lang.Math.acos;
-import static java.lang.Math.asin;
-import static java.lang.Math.atan;
-import static java.lang.Math.cos;
-import static java.lang.Math.log;
-import static java.lang.Math.sin;
+import static java.lang.StrictMath.acos;
+import static java.lang.StrictMath.asin;
+import static java.lang.StrictMath.atan;
+import static java.lang.StrictMath.cos;
+import static java.lang.StrictMath.log;
+import static java.lang.StrictMath.sin;
 
 public class MathFunctions {
-	/** 反三角[反余弦] */
+	/** 反三角[余弦] */
 	public static double arccos(final double value) {
 		return acos(value);
 	}
 
-	/** 反三角[反余切] */
+	/** 反三角[余切] */
 	public static double arccot(final double value) {
 		return arctan(1 / value);
 	}
 
-	/** 反三角[反余割] */
+	/** 反三角[余割] */
 	public static double arccsc(final double value) {
 		return arcsin(1 / value);
 	}
 
-	/** 反三角[反正割] */
+	/** 反三角[正割] */
 	public static double arcsec(final double value) {
 		return arccos(1 / value);
 	}
 
-	/** 反三角[反正弦] */
+	/** 反三角[正弦] */
 	public static double arcsin(final double value) {
 		return asin(value);
 	}
 
-	/** 反三角[反正切] */
+	/** 反三角[正切] */
 	public static double arctan(final double value) {
 		return atan(value);
 	}
@@ -94,16 +94,17 @@ public class MathFunctions {
 	}
 
 	/**
-	 * last为底real的对数。
+	 * 对数
+	 * {@value last}为底{@value real}的对数。
 	 * 
-	 * @param last 底数。
-	 * @param real 真数。
-	 * @return 对数值。
+	 * @param last 底数
+	 * @param real 真数
 	 */
 	public static double logN(final double last, final double real) {
 		return log(real) / log(last);
 	}
 
+	/** 三角[正割] */
 	public static double sec(final double value) {
 		return 1 / cos(value);
 	}

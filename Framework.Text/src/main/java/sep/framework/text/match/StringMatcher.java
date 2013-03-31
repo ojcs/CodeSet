@@ -13,10 +13,10 @@ public abstract class StringMatcher {
 		this.pattern = pattern;
 		this.patternLength = pattern.length();
 		this.radix = radix;
-		buildPattern();
+		init();
 	}
 	
-	protected abstract void buildPattern();
+	protected abstract void init();
 	
 	@Override
 	public abstract StringMatcher clone();

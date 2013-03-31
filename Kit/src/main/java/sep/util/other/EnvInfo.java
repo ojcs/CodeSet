@@ -23,7 +23,7 @@ public final class EnvInfo {
 	}
 
 	public static String get(final String key, final String defaultValue) {
-		return get(key, defaultValue);
+		return System.getProperty(key, defaultValue);
 	}
 
 	/**

@@ -88,10 +88,10 @@ public final class Print {
 			for (Enum<?> element : enums) {
 				outln("\"%s\",\"%s\"%n", element.ordinal(), element.name());
 			}
+			outln("}");
+			outln("Current Enum Name:" + enumObject.name());
+			outln("End");
 		}
-		outln("}");
-		outln("Current Enum Name:" + enumObject.name());
-		outln("End");
 	}
 	
 	public static void print(final Enumeration<?> enumeration) {
@@ -127,8 +127,9 @@ public final class Print {
 	}
 	
 	public static void print(final Object object) {
-		assert object == null;
-		if (object instanceof CharSequence) {
+		if (object == null) {
+			throw new IllegalArgumentException();
+		} else if (object instanceof CharSequence) {
 			print((CharSequence) object);
 		} else if (object instanceof Iterable) {
 			print((Iterable<?>) object);

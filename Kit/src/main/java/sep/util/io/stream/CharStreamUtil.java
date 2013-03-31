@@ -40,25 +40,25 @@ public final class CharStreamUtil {
 	 *  EF BB BF       = UTF-8,
 	 *  FE FF          = UTF-16, big-endian
 	 *  FF FE          = UTF-16, little-endian
-	 *  Win2k Notepad:
+	 *  Win2k NotePad:
 	 *  Unicode format = UTF-16LE
 	 */
-	public static Charset charset(Charset defaultCharset, final byte... bom) {
+	public static Charset charset(Charset defaultCharset, final byte[] bom) {
 		switch (bom[0]) {
-		case (byte) 0x00:
-			if (bom[1] == 0x00 && bom[2] == 0xFE && bom[3] == 0xFF) {
+		case 000:
+			if (bom[1] == (byte) 000 && bom[2] == (byte) 254 && bom[3] == (byte) 255) {
 				return Charset.forName("UTF-32BE");
 			}
-		case (byte) 0xFF:
-			if (bom[1] == 0xFE && bom[2] == 0xFE && bom[3] == 0xFF) {
+		case (byte) 255:
+			if (bom[1] == (byte) 254 && bom[2] == (byte) 254 && bom[3] == (byte) 255) {
 				return Charset.forName("UTF-32LE");
-			} else if (bom[1] == 0xFE) {
+			} else if (bom[1] == (byte) 254) {
 				return Charset.forName("UTF-16LE");
 			}
-		case (byte) 0xEF:
-			if (bom[1] == 0xBB && bom[2] == 0xBF) {
+		case (byte) 239:
+			if (bom[1] == (byte) 187 && bom[2] == (byte) 191) {
 				return Charset.forName("UTF-8");
-			} else if (bom[1] == 0xFF) {
+			} else if (bom[1] == (byte) 255) {
 				return Charset.forName("UTF-16BE");
 			}
 		default:
