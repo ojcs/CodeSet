@@ -4,7 +4,7 @@ import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.nio.ByteOrder;
 
-import sep.util.other.Bytes;
+import sep.util.other.Convert;
 
 public final class IP4Address {
 	public static int computeMaskFromNetworkPrefix(int prefix) {
@@ -72,7 +72,7 @@ public final class IP4Address {
 	}
 
 	public int toIPNumber() {
-		return Integer.parseInt(Bytes.toString(address.getAddress()), 16);
+		return Integer.parseInt(Convert.toHexString(address.getAddress()), 16);
 	}
 	
 	/**

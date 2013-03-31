@@ -71,8 +71,8 @@ public final class Text {
 		if (len <= 1) {
 			return false;
 		}
-		for (int count = len / 2, begin = 0, end = len - 1; begin < count; begin++, end--) {
-			if (value.charAt(begin) != value.charAt(end)) {
+		for (int count = len / 2, i = 0, j = len - 1; i < count; i++, j--) {
+			if (value.charAt(i) != value.charAt(j)) {
 				return false;
 			}
 		}

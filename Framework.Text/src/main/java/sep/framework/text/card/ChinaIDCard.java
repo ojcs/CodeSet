@@ -3,6 +3,7 @@ package sep.framework.text.card;
 import static sep.framework.text.regexp.RegexCard.ChinaID15;
 import static sep.framework.text.regexp.RegexCard.ChinaID18;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
@@ -17,7 +18,7 @@ public final class ChinaIDCard {
 	private int seq;
 	private Gender gender;
 	
-	public ChinaIDCard(final CharSequence id) {
+	public ChinaIDCard(final CharSequence id) throws ParseException {
 		Pattern pattern;
 		birthday = 57751891200000L;
 		switch (id.length()) {

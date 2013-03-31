@@ -7,13 +7,17 @@ import java.nio.charset.Charset;
 
 import javax.xml.bind.DatatypeConverter;
 
-import sep.util.other.Bytes;
+import sep.util.other.Convert;
 
 public final class Encode {
+	public static byte[] decodeBase64(final String data) {
+		return DatatypeConverter.parseBase64Binary(data);
+	}
+	
 	public static String decodeHexString(CharSequence value) {
 		return decodeNumberString(value, 'x', 16);
 	}
-	
+
 	protected static String decodeNumberString(CharSequence value, char flag, int radix) {
 		StringBuilder builder = new StringBuilder((value.length() / 4) + 20);
 		for (int i = 0, len = value.length(), c; i < len; i++) {
@@ -25,11 +29,11 @@ public final class Encode {
 		}
 		return builder.toString();
 	}
-
+	
 	public static String decodeOctalString(CharSequence value) {
 		return decodeNumberString(value, 'o', 8);
 	}
-	
+
 	/**
 	 * Converts encoded \\uXXXX to Unicode chars
 	 * and changes special saved chars to their original forms
@@ -67,7 +71,7 @@ public final class Encode {
 		}
 		return builder.toString();
 	}
-
+	
 	public static String decodeURL(String url, Charset charset) {
 		try {
 			return URLDecoder.decode(url, charset.displayName());
@@ -90,6 +94,10 @@ public final class Encode {
 		return builder.toString();
 	}
 	
+	public static String encodeBase64(final byte... data) {
+		return DatatypeConverter.printBase64Binary(data);
+	}
+	
 	public static String encodeHexString(CharSequence value) {
 		return encodeNumberString(value, 'x', 16);
 	}
@@ -97,11 +105,11 @@ public final class Encode {
 	protected static String encodeNumberString(CharSequence value, char flag, int radix) {
 		StringBuilder builder = new StringBuilder((value.length() * 4) + 20);
 		for (int i = 0, len = value.length(); i < len; i++) {
-			builder.append('\\').append(flag).append(Integer.toString(value.charAt(i), radix));
+			builder.append('\\').append(flag).append(Convert.toString(value.charAt(i), radix));
 		}
 		return builder.toString();
 	}
-	
+
 	public static String encodeOctalString(CharSequence value) {
 		return encodeNumberString(value, 'o', 8);
 	}
@@ -141,7 +149,7 @@ public final class Encode {
 				break;
 			default:
 				if (c < 0x0020 || c > 0x007E) {
-					buffer.append('\\').append('u').append(Bytes.toHex(c));
+					buffer.append('\\').append('u').append(Convert.toHexString(c));
 				} else {
 					buffer.append(c);
 				}
@@ -149,7 +157,7 @@ public final class Encode {
 		}
 		return buffer.toString();
 	}
-
+	
 	public static String encodeURL(String url, Charset charset) {
 		try {
 			return URLEncoder.encode(url, charset.displayName());
@@ -169,17 +177,9 @@ public final class Encode {
 	public static String encodeXMLEntityHex(CharSequence value) {
 		StringBuilder builder = new StringBuilder((value.length() * 5) + 20);
 		for (int i = 0, len = value.length(); i < len; i++) {
-			builder.append('&').append('#').append('x').append(Integer.toHexString(value.charAt(i)));
+			builder.append('&').append('#').append('x').append(Convert.toHexString(value.charAt(i)));
 		}
 		return builder.toString();
-	}
-	
-	public static byte[] decodeBase64(final String data) {
-		return DatatypeConverter.parseBase64Binary(data);
-	}
-	
-	public static String encodeBase64(final byte... data) {
-		return DatatypeConverter.printBase64Binary(data);
 	}
 
 	private Encode() {
