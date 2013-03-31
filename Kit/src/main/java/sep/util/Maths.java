@@ -135,8 +135,8 @@ public final class Maths {
 	}
 
 	/**
-	 * 对number进行四舍五入操作。
-	 * @param num 要进行舍入操作的数。
+	 * 四舍五入
+	 * @param number 要进行舍入操作的数。
 	 * @param bit 要保留小数的精确位数。
 	 * @return 舍入后的结果。
 	 */
