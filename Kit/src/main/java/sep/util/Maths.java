@@ -5,14 +5,12 @@ import static java.lang.Math.pow;
 import java.util.Random;
 
 public final class Maths {
-	public static long fibonacci(final int n) {
-		int n1 = 1, n2 = 1;
-		for (int i = 1, s = 1; i < n; i++) {
-			s = n1 + n2;
-			n1 = n2;
-			n2 = s;
+	public static long fibonacci(final long size) {
+		long count = 0, first = 1, second = 1;
+		while (count++ < size) {
+			second = (first = second) + second;
 		}
-		return n1;
+		return first;
 	}
 
 	/** 质数 */
