@@ -1,6 +1,8 @@
 package sep.framework.text;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Text {
 	public static String format(final String pattern, final Object... arguments) {
@@ -88,6 +90,30 @@ public final class Text {
 			i /= 10;
 		}
 		return s == number;
+	}
+	
+	public static String[] split(final String value, final int offset, final char seperator) {
+		List<String> list = new ArrayList<>();
+		for (int i = offset, len = value.length(), flag = i; i < len; i++) {
+			if (value.charAt(i) == seperator) {
+				list.add(value.substring(flag, i));
+				flag = i;
+			}
+		}
+		return list.toArray(new String[list.size()]);
+	}
+	
+	public static String[] split(final String value, final int offset, final CharSequence seperators) {
+		int sepLen = seperators.length();
+		char seperator0 = seperators.charAt(0);
+		List<String> list = new ArrayList<>();
+		for (int i = offset, len = value.length(), flag = i; i < len; i++) {
+			if (value.charAt(i) == seperator0 && value.substring(i + 1, sepLen + 1).equals(seperators)) {
+				list.add(value.substring(flag, i));
+				flag = i;
+			}
+		}
+		return list.toArray(new String[list.size()]);
 	}
 
 	private Text() {
