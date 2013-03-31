@@ -66,4 +66,8 @@ public final class FileLock {
 	public synchronized void setLockerSleepUnitTime(final int lockerSleepUnitTime) {
 		this.lockerSleepUnitTime = lockerSleepUnitTime;
 	}
+
+	public File currentFile() {
+		return file;
+	}
 }
