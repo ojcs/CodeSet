@@ -6,6 +6,8 @@ import java.io.Reader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,23 +30,26 @@ public final class Print {
 		System.out.printf(object.toString() + "%n", objects);
 	}
 	
+	public static void print(final Number[][] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				System.out.print(matrix[i][j]);
+				if (j < matrix[i].length - 1) {
+					System.out.print('\t');
+				}
+			}
+			System.out.println();
+		}
+	}
+	
 	public static void print(final Calendar calendar) {
 		print(calendar.getTime());
 	}
-
+	
 	public static void print(final CharSequence sequence) {
 		if (sequence != null && sequence.length() > 0) {
 			outln(sequence.getClass().getName() + " CharLength:" + sequence.length());
 			outln(sequence.toString());
-		}
-	}
-	
-	public static void print(final Reader reader) throws IOException {
-		if (reader != null) {
-			BufferedReader read = StreamConvert.toBuffered(reader);
-			while (read.ready()) {
-				System.out.println(read.readLine());	
-			}
 		}
 	}
 	
@@ -79,6 +84,18 @@ public final class Print {
 		outln(TimeFormat.DateTime_24h.format(date));
 	}
 	
+	public static void print(final double[][] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				System.out.print(matrix[i][j]);
+				if (j < matrix[i].length - 1) {
+					System.out.print('\t');
+				}
+			}
+			System.out.println();
+		}
+	}
+	
 	public static void print(final Enum<?> enumObject) {
 		if (enumObject != null) {
 			outln("Begin Print %s Iterator Enum All", enumObject.getClass().getName());
@@ -93,9 +110,33 @@ public final class Print {
 			outln("End");
 		}
 	}
-	
+
 	public static void print(final Enumeration<?> enumeration) {
 		print(Fetch.of(enumeration));
+	}
+	
+	public static void print(final float[][] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				System.out.print(matrix[i][j]);
+				if (j < matrix[i].length - 1) {
+					System.out.print('\t');
+				}
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void print(final int[][] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				System.out.print(matrix[i][j]);
+				if (j < matrix[i].length - 1) {
+					System.out.print('\t');
+				}
+			}
+			System.out.println();
+		}
 	}
 	
 	public static void print(final Iterable<?> iterable) {
@@ -109,11 +150,23 @@ public final class Print {
 			outln("End");
 		}
 	}
-
+	
 	public static void print(final Iterator<?> iterator) {
 		print(Fetch.of(iterator));
 	}
-
+	
+	public static void print(final long[][] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				System.out.print(matrix[i][j]);
+				if (j < matrix[i].length - 1) {
+					System.out.print('\t');
+				}
+			}
+			System.out.println();
+		}
+	}
+	
 	public static void print(final Map<?, ?> map) {
 		if (!map.isEmpty()) {
 			System.out.printf("Begin Print %s Iterator Map Collection%n", map.getClass().getName());
@@ -125,7 +178,7 @@ public final class Print {
 			System.out.println("End");
 		}
 	}
-	
+
 	public static void print(final Object object) {
 		if (object == null) {
 			throw new IllegalArgumentException();
@@ -156,6 +209,48 @@ public final class Print {
 		System.out.printf("{\"hashCode\":\"%s,\"identityHashCode\":\"%s\"}%n", Convert.toString(object.hashCode(), 16), Convert.toString(System.identityHashCode(object), 16));
 		System.out.printf("ToString:" + object.toString());
 	}
+
+	public static void print(final Reader reader) throws IOException {
+		if (reader != null) {
+			BufferedReader read = StreamConvert.toBuffered(reader);
+			while (read.ready()) {
+				System.out.println(read.readLine());	
+			}
+		}
+	}
+	
+	public static void print(final short[][] matrix) {
+		for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				System.out.print(matrix[i][j]);
+				if (j < matrix[i].length - 1) {
+					System.out.print('\t');
+				}
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void prints(final int[][] net) {
+		System.out.printf("Rows:%s\tCalls:%s%n", net.length, net[0].length);
+		for (int i = 0; i < net.length; i++) {
+			System.out.print(net[i][0] + " ");
+			for (int j = 0; j < net[i].length; j++) {
+				System.out.print(net[i][j] + " ");
+			}
+			System.out.println();
+		}
+	}
+	
+	public static void prints(final long[][] net) {
+		for (int i = 0; i < net.length; i++) {
+			System.out.print(i + " ");
+			for (int j = 0; j < net[i].length; j++) {
+				System.out.print(j + " ");
+			}
+			System.out.println();
+		}
+	}
 	
 	public static void prints(final Object objects) {
 		if (objects != null) {
@@ -179,27 +274,6 @@ public final class Print {
 			} else if (objects instanceof boolean[]) {
 				outln(Arrays.toString((boolean[]) objects));
 			}
-		}
-	}
-	
-	public static void prints(final int[][] net) {
-		System.out.printf("Rows:%s\tCalls:%s%n", net.length, net[0].length);
-		for (int i = 0; i < net.length; i++) {
-			System.out.print(net[i][0] + " ");
-			for (int j = 0; j < net[i].length; j++) {
-				System.out.print(net[i][j] + " ");
-			}
-			System.out.println();
-		}
-	}
-	
-	public static void prints(final long[][] net) {
-		for (int i = 0; i < net.length; i++) {
-			System.out.print(i + " ");
-			for (int j = 0; j < net[i].length; j++) {
-				System.out.print(j + " ");
-			}
-			System.out.println();
 		}
 	}
 	
