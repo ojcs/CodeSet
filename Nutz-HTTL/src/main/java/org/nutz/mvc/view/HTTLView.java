@@ -27,7 +27,7 @@ public final class HTTLView extends AbstractPathView implements View {
 	protected void buildContext(final HttpServletRequest req, final ServletResponse resp, final Object obj) {
 		final Context context = Context.getContext();
 		Enumeration<String> attrNames = req.getAttributeNames();
-		for (String name = null; (name = attrNames.nextElement()) != null;) {
+		for (String name; (name = attrNames.nextElement()) != null;) {
 			context.put(name, req.getAttribute(name));
 		}
 		context.put("obj", obj);
