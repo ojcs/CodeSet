@@ -59,18 +59,18 @@ public final class FileUtil {
 		})).listIterator();
 	}
 	
-	public static boolean deletes(final Path path) throws IOException {
+	public static boolean deleteDirectory(final Path path) throws IOException {
 		if (Files.isDirectory(path))
 			for (Path down : Files.newDirectoryStream(path))
-				if (!deletes(down))
+				if (!deleteDirectory(down))
 					return false;
 		return Files.deleteIfExists(path);
 	}
 
-	public static boolean deletes(final File file) {
+	public static boolean deleteDirectory(final File file) {
 		if (file.isDirectory())
 			for (final File down : file.listFiles())
-				if (!deletes(down))
+				if (!deleteDirectory(down))
 					return false;
 		return file.delete();
 	}
