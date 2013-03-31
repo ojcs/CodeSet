@@ -1,4 +1,4 @@
-package sep.util.other;
+package sep.util.time;
 
 import java.util.HashMap;
 import java.util.Map;
