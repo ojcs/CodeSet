@@ -5,13 +5,12 @@ import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
 
-import sep.util.io.file.FileUtil;
+import sep.util.io.file.PathSet;
 
 public final class EnvInfo {
 	public static void clear(final String key) {
@@ -43,8 +42,10 @@ public final class EnvInfo {
 	/**
 	 * 类路径
 	 */
-	public static ListIterator<Path> getJavaClassPath() {
-		return FileUtil.listPaths(get("java.class.path"));
+	public static PathSet getJavaClassPath() {
+		PathSet paths = new PathSet();
+		paths.addAll(get("java.class.path"));
+		return paths;
 	}
 
 	/**
@@ -64,8 +65,10 @@ public final class EnvInfo {
 	/**
 	 * 一个或多个扩展目录的路径
 	 */
-	public static ListIterator<Path> getJavaExtDirs() {
-		return FileUtil.listPaths(get("java.ext.dirs"));
+	public static PathSet getJavaExtDirs() {
+		PathSet paths = new PathSet();
+		paths.addAll(get("java.ext.dirs"));
+		return paths;
 	}
 
 	/**
@@ -92,8 +95,10 @@ public final class EnvInfo {
 	/**
 	 * 加载库时搜索的路径列表
 	 */
-	public static ListIterator<Path> getJavaLibraryPath() {
-		return FileUtil.listPaths(get("java.library.path"));
+	public static PathSet getJavaLibraryPath() {
+		PathSet paths = new PathSet();
+		paths.addAll(get("java.library.path"));
+		return paths;
 	}
 
 	/**
