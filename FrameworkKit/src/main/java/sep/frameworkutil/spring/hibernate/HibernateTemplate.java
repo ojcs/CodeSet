@@ -82,7 +82,7 @@ public class HibernateTemplate extends org.springframework.orm.hibernate3.Hibern
 
 	/** 查询全部 */
 	@SuppressWarnings("unchecked")
-	public <T> List<T> findAll(Class<?> clazz) {
+	public <T> List<T> findAll(Class<T> clazz) {
 		return find("from " + clazz.getName());
 	}
 
@@ -108,7 +108,7 @@ public class HibernateTemplate extends org.springframework.orm.hibernate3.Hibern
 	 * @param order 排序类型
 	 * @param propertyName 要排序的属性名
 	 */
-	public <T> List<T> paging(final Class<?> entity, final int index, final int size, final OrderType order, final String... propertyName) {
+	public <T> List<T> paging(final Class<T> entity, final int index, final int size, final OrderType order, final String... propertyName) {
 		return executeFindEx(new HibernateCallback<Object>() {
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
 				Criteria criteria = session.createCriteria(entity);
@@ -130,7 +130,7 @@ public class HibernateTemplate extends org.springframework.orm.hibernate3.Hibern
 	 * @param params 字段列表
 	 * @param values 值列表
 	 */
-	public <T> List<T> queryByProperty(final Class<?> clazz, final Map<String, Object> params) {
+	public <T> List<T> queryByProperty(final Class<T> clazz, final Map<String, Object> params) {
 		return executeFindEx(new HibernateCallback<Object>() {
 			@Override
 			public Object doInHibernate(Session session)
@@ -188,7 +188,7 @@ public class HibernateTemplate extends org.springframework.orm.hibernate3.Hibern
 	 * @param size 每页显示的大小
 	 * @param order 排序
 	 */
-	public <T> List<T> queryByPropertyPaging(final Class<?> clazz, final Map<String, Object> params, final int index, final int size, final OrderType order, final String... field) {
+	public <T> List<T> queryByPropertyPaging(final Class<T> clazz, final Map<String, Object> params, final int index, final int size, final OrderType order, final String... field) {
 		return executeFindEx(new HibernateCallback<Object>() {
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
 				Criteria criteria = session.createCriteria(clazz);
@@ -215,7 +215,7 @@ public class HibernateTemplate extends org.springframework.orm.hibernate3.Hibern
 	 * @param value 值
 	 * @param matchMode 匹配模式:ANYWHERE->任意位置、END->结束、START->开始、EXACT->精确匹配
 	 */
-	public <T> List<T> queryLike(final Class<?> clazz, final String field, final String value, final MatchMode matchMode) {
+	public <T> List<T> queryLike(final Class<T> clazz, final String field, final String value, final MatchMode matchMode) {
 		return executeFindEx(new HibernateCallback<Object>() {
 			public Object doInHibernate(Session session) throws HibernateException, SQLException {
 				return session.createCriteria(clazz).add(Property.forName(field).like(value, matchMode)).list();
