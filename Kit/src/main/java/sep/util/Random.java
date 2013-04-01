@@ -8,7 +8,7 @@ import sep.util.collection.CollectionUtil;
 public class Random extends java.util.Random {
 	private static final long serialVersionUID = 1L;
 	private boolean randomSeed = false;
-	
+
 	public Random() {
 		super();
 	}
@@ -16,7 +16,7 @@ public class Random extends java.util.Random {
 	public Random(boolean randomSeed) {
 		this.randomSeed = randomSeed;
 	}
-	
+
 	public Random(long seed, boolean randomSeed) {
 		super(seed);
 		this.randomSeed = randomSeed;
@@ -57,7 +57,7 @@ public class Random extends java.util.Random {
 	public short choice(short... array) {
 		return array[nextInt(0, array.length)];
 	}
-	
+
 	@Override
 	protected int next(int bits) {
 		if (randomSeed) {
@@ -69,7 +69,7 @@ public class Random extends java.util.Random {
 	public int nextInt(int min, int max) {
 		return nextInt(max - min) + min;
 	}
-	
+
 	public boolean[] sample(int length, boolean... array) {
 		boolean[] result = new boolean[length];
 		for (int i = 0, len = array.length; i < length; i++) {
@@ -77,7 +77,7 @@ public class Random extends java.util.Random {
 		}
 		return result;
 	}
-	
+
 	public char[] sample(int length, char... array) {
 		char[] result = new char[length];
 		for (int i = 0, len = array.length; i < length; i++) {
@@ -101,7 +101,7 @@ public class Random extends java.util.Random {
 		}
 		return result;
 	}
-	
+
 	public <E> E[] sample(int length, E[] array) {
 		@SuppressWarnings("unchecked")
 		E[] result = (E[]) new Object[length];
@@ -205,11 +205,11 @@ public class Random extends java.util.Random {
 			CollectionUtil.swap(array, i - 1, nextInt(i));
 		}
 	}
-	
+
 	public void setRandomSeed(boolean randomSeed) {
 		this.randomSeed = randomSeed;
 	}
-	
+
 	public boolean isRandomSeed() {
 		return randomSeed;
 	}
