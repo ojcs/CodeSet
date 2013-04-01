@@ -31,8 +31,8 @@ public class OracleChineseOrder extends Order {
 	}
 
 	/** 只考虑按一个字段排序的情况 */
-	public String toSqlString(Criteria criteria, CriteriaQuery criteriaQuery) throws HibernateException {
-		final String column = criteriaQuery.getColumnsUsingProjection(criteria, propertyName)[0];
+	public String toSqlString(Criteria criteria, CriteriaQuery query) throws HibernateException {
+		final String column = query.getColumnsUsingProjection(criteria, propertyName)[0];
 		return String.format(" nlssort(%s,'NLS_SORT=SCHINESE_PINYIN_M') %s", column, orderType.name());
 	}
 }
