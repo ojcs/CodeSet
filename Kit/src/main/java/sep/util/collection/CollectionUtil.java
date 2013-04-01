@@ -254,6 +254,12 @@ public final class CollectionUtil {
 		array[j] = temp;
 	}
 	
+	public static void swap(long[] array, int i, int j) {
+		long temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	
 	public static void swap(short[] array, int i, int j) {
 		short temp = array[i];
 		array[i] = array[j];

@@ -2,8 +2,6 @@ package sep.util;
 
 import static java.lang.Math.pow;
 
-import java.util.Random;
-
 public final class Maths {
 	public static long fibonacci(final long size) {
 		long count = 0, first = 1, second = 1;
@@ -124,14 +122,6 @@ public final class Maths {
 			}
 		}
 		return result;
-	}
-	
-	public static int random(int min, int max) {
-		return new Random().nextInt(max - min) + min;
-	}
-	
-	public static int random(Random random, int min, int max) {
-		return random.nextInt(max - min) + min;
 	}
 
 	/**
