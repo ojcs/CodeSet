@@ -22,7 +22,7 @@ public class HibernateHelper implements AutoCloseable {
 	
 	protected final Configuration configure;
 
-	private final SessionFactory factory;
+	protected final SessionFactory factory;
 
 	protected HibernateHelper(Configuration configure, ServiceRegistry registry) {
 		this.factory = (this.configure = configure).buildSessionFactory(registry);
