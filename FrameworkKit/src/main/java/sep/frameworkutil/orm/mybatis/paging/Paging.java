@@ -19,19 +19,19 @@ import java.util.List;
 public class Paging<T> extends ArrayList<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	/**当前页*/
+	/** 当前页 */
 	private int currentPage = 0;
-	
-	/**当前记录起始索引*/
-	private int currentResult = 0; 
-	
-	/**存放结果集*/
-	private List<T> result = new ArrayList<T>(); 
-	
-	/**每页显示几条*/
-	private int size = 20; 
 
-	/**总条数*/
+	/** 当前记录起始索引 */
+	private int currentResult = 0;
+
+	/** 存放结果集 */
+	private List<T> result = new ArrayList<T>();
+
+	/** 每页显示几条 */
+	private int size = 20;
+
+	/** 总条数 */
 	private int total = 0;
 
 	public int getCurrentPage() {
