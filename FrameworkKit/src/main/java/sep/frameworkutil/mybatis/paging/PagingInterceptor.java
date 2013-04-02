@@ -94,8 +94,9 @@ public class PagingInterceptor implements Interceptor {
 	}
 
 	public Object intercept(Invocation ivk) throws Throwable {
-		if (ivk.getTarget() instanceof RoutingStatementHandler) {
-			RoutingStatementHandler statementHandler = (RoutingStatementHandler) ivk.getTarget();
+		Object target = ivk.getTarget();
+		if (target instanceof RoutingStatementHandler) {
+			RoutingStatementHandler statementHandler = (RoutingStatementHandler) target;
 			BaseStatementHandler handler = (BaseStatementHandler) ReflectHelper.getValueByFieldName(statementHandler, "delegate");
 			MappedStatement ms = (MappedStatement) ReflectHelper.getValueByFieldName(handler, "mappedStatement");
 
@@ -137,7 +138,7 @@ public class PagingInterceptor implements Interceptor {
 	}
 
 	/** 为Count语句设置参数. */
-	private void setParameters(PreparedStatement ps, MappedStatement ms, BoundSql bs, Object parameterObject) throws SQLException {
+	private void setParameters(PreparedStatement ps, MappedStatement ms, BoundSql bs, Object parameter) throws SQLException {
 		ErrorContext.instance().activity("setting parameters").object(ms.getParameterMap().getId());
 		List<ParameterMapping> mappings = bs.getParameterMappings();
 		if (mappings == null) {
@@ -145,17 +146,17 @@ public class PagingInterceptor implements Interceptor {
 		}
 		Configuration configuration = ms.getConfiguration();
 		TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
-		MetaObject metaObject = parameterObject == null ? null : configuration.newMetaObject(parameterObject);
+		MetaObject metaObject = parameter == null ? null : configuration.newMetaObject(parameter);
 		for (int i = 0; i < mappings.size(); i++) {
 			ParameterMapping parameterMapping = mappings.get(i);
 			if (parameterMapping.getMode() != ParameterMode.OUT) {
 				Object value;
 				String propertyName = parameterMapping.getProperty();
 				PropertyTokenizer prop = new PropertyTokenizer(propertyName);
-				if (parameterObject == null) {
+				if (parameter == null) {
 					value = null;
-				} else if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
-					value = parameterObject;
+				} else if (typeHandlerRegistry.hasTypeHandler(parameter.getClass())) {
+					value = parameter;
 				} else if (bs.hasAdditionalParameter(propertyName)) {
 					value = bs.getAdditionalParameter(propertyName);
 				} else if (propertyName.startsWith(ForEachSqlNode.ITEM_PREFIX) && bs.hasAdditionalParameter(prop.getName())) {
@@ -176,7 +177,7 @@ public class PagingInterceptor implements Interceptor {
 		}
 	}
 
-	public void setProperties(Properties p) {
-		dialect = p.getProperty("dialect");
+	public void setProperties(Properties properties) {
+		dialect = properties.getProperty("dialect");
 	}
 }
