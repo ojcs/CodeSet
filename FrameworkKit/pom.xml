@@ -20,5 +20,10 @@
 			<artifactId>spring-orm</artifactId>
 			<version>3.2.2.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.2.1</version>
+		</dependency>
 	</dependencies>
 </project>
