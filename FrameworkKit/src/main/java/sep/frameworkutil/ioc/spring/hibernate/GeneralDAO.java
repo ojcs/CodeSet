@@ -1,4 +1,4 @@
-package sep.frameworkutil.spring.hibernate;
+package sep.frameworkutil.ioc.spring.hibernate;
 
 import java.io.Serializable;
 import java.sql.Connection;

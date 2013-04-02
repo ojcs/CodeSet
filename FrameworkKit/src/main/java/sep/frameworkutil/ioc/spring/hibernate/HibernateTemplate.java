@@ -1,4 +1,4 @@
-package sep.frameworkutil.spring.hibernate;
+package sep.frameworkutil.ioc.spring.hibernate;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,7 +16,7 @@ import org.hibernate.criterion.Property;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-import sep.frameworkutil.hibernate.order.OrderType;
+import sep.frameworkutil.orm.hibernate.order.OrderType;
 
 public class HibernateTemplate extends org.springframework.orm.hibernate3.HibernateTemplate {
 	public HibernateTemplate() {

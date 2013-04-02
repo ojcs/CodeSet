@@ -1,4 +1,4 @@
-package sep.frameworkutil.mybatis.paging;
+package sep.frameworkutil.orm.mybatis.paging;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

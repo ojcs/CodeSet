@@ -1,4 +1,4 @@
-package sep.frameworkutil.mybatis.paging;
+package sep.frameworkutil.orm.mybatis.paging;
 
 import java.lang.reflect.Field;
 

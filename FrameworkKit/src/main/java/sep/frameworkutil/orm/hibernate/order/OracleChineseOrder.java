@@ -1,4 +1,4 @@
-package sep.frameworkutil.hibernate.order;
+package sep.frameworkutil.orm.hibernate.order;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
