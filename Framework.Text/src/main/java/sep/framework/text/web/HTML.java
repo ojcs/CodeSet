@@ -10,8 +10,8 @@ public class HTML {
 	 * 压缩
 	 * @Ref http://www.oschina.net/code/snippet_258733_18236
 	 */
-	public static String compress(final CharSequence value) {
-		Map<String, String> map = new HashMap<>();
+	public static String compress(final CharSequence input) {
+		Map<String, String> map = new HashMap<>(9);
 		map.put("\r\n", "");// 清除换行符
 		map.put("\n", "");// 清除换行符
 		map.put("\t", "");// 清除制表符
@@ -21,6 +21,6 @@ public class HTML {
 		map.put("/\" /", "\"");
 		map.put("/ \"/", "\"");
 		map.put("'/\\*[^*]*\\*/'", "");
-		return RegexUtil.replaceAll(value, map).toString();
+		return RegexUtil.replaceAll(input, RegexUtil.replaceAllCompile(map)).toString();
 	}
 }

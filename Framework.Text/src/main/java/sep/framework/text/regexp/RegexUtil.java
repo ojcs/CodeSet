@@ -1,5 +1,6 @@
 package sep.framework.text.regexp;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
@@ -41,14 +42,22 @@ public final class RegexUtil {
 		return matcher.find() ? matcher.group() : "";
 	}
 
-	public static String replaceAll(final String input, final String regex, final String replacement) {
+	public static String replaceAll(final CharSequence input, final String regex, final String replacement) {
 		return Pattern.compile(regex).matcher(input).replaceAll(replacement);
 	}
 
-	public static CharSequence replaceAll(final CharSequence input, final Map<String, String> map) {
-		CharSequence result = input;
+	public static Map<Pattern, String> replaceAllCompile(final Map<String, String> map) {
+		Map<Pattern, String> compile = new HashMap<>(map.size());
 		for (Entry<String, String> entry : map.entrySet()) {
-			result = Pattern.compile(entry.getKey()).matcher(result).replaceAll(entry.getValue());
+			compile.put(Pattern.compile(entry.getKey()), entry.getValue());
+		}
+		return compile;
+	}
+	
+	public static CharSequence replaceAll(final CharSequence input, final Map<Pattern, String> map) {
+		CharSequence result = input;
+		for (Entry<Pattern, String> entry : map.entrySet()) {
+			result = entry.getKey().matcher(result).replaceAll(entry.getValue());
 		}
 		return result;
 	}

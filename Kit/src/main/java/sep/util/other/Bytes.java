@@ -82,8 +82,8 @@ public class Bytes {
 		}
 	}
 
-	public Bytes(final String hexadecimalString) {
-		this(toByteArray(hexadecimalString));
+	public Bytes(final String hexadecimal) {
+		this(toByteArray(hexadecimal));
 	}
 
 	public byte byteAt(final int index) {
@@ -106,6 +106,7 @@ public class Bytes {
 		return buffer;
 	}
 	
+	/** Hex String */
 	@Override
 	public String toString() {
 		return toHexString(buffer);
