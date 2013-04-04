@@ -115,21 +115,6 @@ public final class Text {
 		}
 		return list.toArray(new String[list.size()]);
 	}
-
-	public static boolean or(char reference, char... values) {
-		for (char c : values) {
-			if (c == reference) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public static int indexOf(CharSequence input, int offset, char value) {
-		int i = offset, len = input.length();
-		while (++i <= len && input.charAt(i) != value);
-		return i;
-	}
 	
 	private Text() {
 	}
