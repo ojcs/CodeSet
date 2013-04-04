@@ -8,7 +8,7 @@ public final class Wildcard {
 			switch (current = pattern.charAt(p)) {
 			case '?' : continue;
 			case '\\': p++; continue;
-			case '*':
+			case '*' :
 				if (length == 1 || p == length - 1 || p == length) { continue; }
 				next = pattern.charAt(++p);
 				i = Chars.indexOf(input, i, next);
