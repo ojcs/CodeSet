@@ -1,19 +1,8 @@
 package sep.framework.text;
 
 public final class Wildcard {
-	private final int length;
-	private final CharSequence pattern;
-
-	public Wildcard(final CharSequence pattern) {
-		this.pattern = pattern;
-		this.length = pattern.length();
-	}
-	
-	public final CharSequence getPattern() {
-		return pattern;
-	}
-	
-	public boolean matches(final CharSequence input) {
+	public static boolean matches(final CharSequence pattern, final CharSequence input) {
+		final int length = pattern.length();
 		char current, next;
 		for (int p = 0, i = 0; p < length; p++, i++) {
 			switch (current = pattern.charAt(p)) {
@@ -30,5 +19,19 @@ public final class Wildcard {
 			}
 		}
 		return true;
+	}
+
+	private final CharSequence pattern;
+	
+	public Wildcard(final CharSequence pattern) {
+		this.pattern = pattern;
+	}
+	
+	public final CharSequence getPattern() {
+		return pattern;
+	}
+	
+	public boolean matches(final CharSequence input) {
+		return matches(pattern, input);
 	}
 }
