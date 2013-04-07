@@ -8,22 +8,19 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
 
-public class PublicKeyCipher extends ReciprocalCipher {
+public class PublicKeyCipher {
 	private final PublicKey publicKey;
 	private final PrivateKey privateKey;
 	private final String signatureAlgorithm;
 	
-	public PublicKeyCipher(final String keyAlgorithm, final String signatureAlgorithm, final PublicKey publicKey, final PrivateKey privateKey) throws GeneralSecurityException {
-		super(keyAlgorithm);
+	public PublicKeyCipher(final String signatureAlgorithm, final PublicKey publicKey, final PrivateKey privateKey) throws GeneralSecurityException {
 		this.signatureAlgorithm = signatureAlgorithm;
 		this.publicKey = publicKey;
 		this.privateKey = privateKey;
 	}
 	
-	/**
-	 * 用私钥对信息生成数字签名
-	 */
-	public byte[] sign(final byte[] data) throws GeneralSecurityException {
+	/** 用私钥对信息生成数字签名 */
+	public byte[] sign(final byte... data) throws GeneralSecurityException {
 		Signature signature = Signature.getInstance(signatureAlgorithm);
 		signature.initSign(privateKey);
 		signature.update(data);
@@ -37,9 +34,7 @@ public class PublicKeyCipher extends ReciprocalCipher {
 		return signature.sign();
 	}
 	
-	/**
-	 * 校验数字签名
-	 */
+	/** 校验数字签名 */
     public boolean verify(byte[] data, byte[] sign) throws GeneralSecurityException {
 		Signature signature = Signature.getInstance(signatureAlgorithm);
 		signature.initVerify(publicKey);
@@ -47,7 +42,7 @@ public class PublicKeyCipher extends ReciprocalCipher {
 		return signature.verify(sign);
     }
     
-    public boolean verify(final InputStream stream, byte[] sign) throws IOException, GeneralSecurityException {
+    public boolean verify(final InputStream stream, byte... sign) throws IOException, GeneralSecurityException {
 		Signature signature = Signature.getInstance(signatureAlgorithm);
 		signature.initVerify(publicKey);
 		signatureStream(signature, stream);

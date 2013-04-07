@@ -28,59 +28,11 @@ public class ReciprocalCipher {
 		this.cipher = Cipher.getInstance(algorithm, provider);
 	}
 	
-	public final void decrypt(final Key key) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-		cipher.init(Cipher.DECRYPT_MODE, key);
-	}
-	
-	public final void decrypt(final Key key, final AlgorithmParameters algorithmParameters) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		cipher.init(Cipher.DECRYPT_MODE, key, algorithmParameters);
-	}
-	
-	public final void decrypt(final Key key, final AlgorithmParameterSpec algorithmParameters) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		cipher.init(Cipher.DECRYPT_MODE, key, algorithmParameters);
-	}
-	
-	public final void decrypt(final Key key, final SecureRandom random) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		cipher.init(Cipher.DECRYPT_MODE, key, random);
-	}
-	
-	public final void decrypt(final Key key, final AlgorithmParameters parameters, final SecureRandom random) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		cipher.init(Cipher.DECRYPT_MODE, key, parameters, random);
-	}
-	
-	public final void decrypt(final Key key, final AlgorithmParameterSpec parameterSpec, final SecureRandom random) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		cipher.init(Cipher.DECRYPT_MODE, key, parameterSpec, random);
-	}
-
-	public final void encrypt(final Key key) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException{
-		cipher.init(Cipher.ENCRYPT_MODE, key);
-	}
-	
-	public final void encrypt(final Key key, final AlgorithmParameters algorithmParameters) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		cipher.init(Cipher.ENCRYPT_MODE, key, algorithmParameters);
-	}
-	
-	public final void encrypt(final Key key, final AlgorithmParameterSpec algorithmParameters) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		cipher.init(Cipher.ENCRYPT_MODE, key, algorithmParameters);
-	}
-	
-	public final void encrypt(final Key key, final SecureRandom random) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		cipher.init(Cipher.ENCRYPT_MODE, key, random);
-	}
-	
-	public final void encrypt(final Key key, final AlgorithmParameters parameters, final SecureRandom random) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		cipher.init(Cipher.ENCRYPT_MODE, key, parameters, random);
-	}
-	
-	public final void encrypt(final Key key, final AlgorithmParameterSpec parameterSpec, final SecureRandom random) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
-		cipher.init(Cipher.ENCRYPT_MODE, key, parameterSpec, random);
-	}
-	
-	public final byte[] cipherBytes(final byte[] data) throws IllegalBlockSizeException, BadPaddingException {
+	public final byte[] cipher(final byte... data) throws IllegalBlockSizeException, BadPaddingException {
 		return cipher.doFinal(data);
 	}
 	
-	public final byte[] cipherStream(final InputStream stream) throws IOException, IllegalBlockSizeException, BadPaddingException {
+	public final byte[] cipher(final InputStream stream) throws IOException, IllegalBlockSizeException, BadPaddingException {
 		byte[] buffer = new byte[8192];
 		int offset = 0;
 		try (InputStream input = stream) {
@@ -91,11 +43,35 @@ public class ReciprocalCipher {
 		return cipher.doFinal();
 	}
 	
+	public final Key genKey(final byte... rawKey) throws InvalidKeySpecException, NoSuchAlgorithmException {
+		return KeyUtil.genKey(getAlgorithm(), rawKey);
+	}
+	
 	public final String getAlgorithm() {
 		return cipher.getAlgorithm();
 	}
 	
-	public final Key genKey(final byte[] rawKey) throws InvalidKeySpecException, NoSuchAlgorithmException {
-		return KeyUtil.genKey(getAlgorithm(), rawKey);
+	public final void init(final CipherMode mode, final Key key) throws InvalidKeyException {
+		cipher.init(mode.getFlag(), key);
+	}
+	
+	public final void init(final CipherMode mode, final Key key, final AlgorithmParameters algorithmParameters) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+		cipher.init(mode.getFlag(), key, algorithmParameters);
+	}
+
+	public final void init(final CipherMode mode, final Key key, final AlgorithmParameters parameters, final SecureRandom random) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+		cipher.init(mode.getFlag(), key, parameters, random);
+	}
+	
+	public final void init(final CipherMode mode, final Key key, final AlgorithmParameterSpec algorithmParameters) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+		cipher.init(mode.getFlag(), key, algorithmParameters);
+	}
+	
+	public final void init(final CipherMode mode, final Key key, final AlgorithmParameterSpec parameterSpec, final SecureRandom random) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+		cipher.init(mode.getFlag(), key, parameterSpec, random);
+	}
+	
+	public final void init(final CipherMode mode, final Key key, final SecureRandom random) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+		cipher.init(mode.getFlag(), key, random);
 	}
 }
