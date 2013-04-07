@@ -1,27 +1,30 @@
 package sep.util.security.signature;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
+import java.security.GeneralSecurityException;
+import java.security.Key;
+import java.security.SecureRandom;
+import java.security.spec.KeySpec;
 
-import javax.crypto.KeyAgreement;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.SecretKeySpec;
 
-public class KeyUtil {
-	public static final SecretKey genKey(final String algorithm, final byte[] rawKey) throws InvalidKeySpecException, NoSuchAlgorithmException  {
+public final class KeyUtil {
+	public static SecretKey genKey(final String algorithm, final byte... rawKey) throws GeneralSecurityException {
 		return new SecretKeySpec(rawKey, algorithm);
 	}
-	
-	public static final SecretKey genKey(final String algorithm, final String secertAlgorithm, final PublicKey publicKey, final PrivateKey privatekey) throws InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, IllegalStateException  {
-		KeyAgreement agreement = KeyAgreement.getInstance(algorithm);
-		agreement.init(privatekey);
-		agreement.doPhase(publicKey, true);
-		return agreement.generateSecret(secertAlgorithm);
+
+	public static Key genKey(final String algorithm, KeySpec spec) throws GeneralSecurityException {
+		return SecretKeyFactory.getInstance(algorithm).generateSecret(spec);
 	}
 	
+	public static byte[] initKey(final String algorithm, byte... seed) throws GeneralSecurityException {
+		KeyGenerator gen = KeyGenerator.getInstance(algorithm);
+		gen.init((seed != null) ? new SecureRandom(seed) : new SecureRandom());
+		return gen.generateKey().getEncoded();
+	}
+
 	private KeyUtil() {
 	}
 }
