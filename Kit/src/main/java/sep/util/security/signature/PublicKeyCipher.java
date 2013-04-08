@@ -2,7 +2,11 @@ package sep.util.security.signature;
 
 import java.security.GeneralSecurityException;
 import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SecureRandom;
 import java.security.Signature;
+import java.security.cert.Certificate;
 
 /**
  * @see Signature
@@ -19,29 +23,41 @@ public class PublicKeyCipher {
 		this.keyPair = keyPair;
 	}
 
-	public final Signature buildSign() throws GeneralSecurityException {
+	public final Signature buildSign(PrivateKey key) throws GeneralSecurityException {
 		Signature signature = Signature.getInstance(algorithm);
-		signature.initSign(keyPair.getPrivate());
+		signature.initSign(key);
+		return signature;
+	}
+	
+	public final Signature buildSign(PrivateKey key, SecureRandom random) throws GeneralSecurityException {
+		Signature signature = Signature.getInstance(algorithm);
+		signature.initSign(key, random);
 		return signature;
 	}
 
-	public final Signature buildVerify() throws GeneralSecurityException {
+	public final Signature buildVerify(Certificate certificate) throws GeneralSecurityException {
 		Signature signature = Signature.getInstance(algorithm);
-		signature.initVerify(keyPair.getPublic());
+		signature.initVerify(certificate);
+		return signature;
+	}
+	
+	public final Signature buildVerify(PublicKey key) throws GeneralSecurityException {
+		Signature signature = Signature.getInstance(algorithm);
+		signature.initVerify(key);
 		return signature;
 	}
 
-	/** 生成签名 */
-	public byte[] sign(final byte... data) throws GeneralSecurityException {
-		Signature signature = buildSign();
+	/** 生成 */
+	public byte[] sign(final byte[] data) throws GeneralSecurityException {
+		Signature signature = buildSign(keyPair.getPrivate());
 		signature.update(data);
 		return signature.sign();
 	}
 	
-	/** 校验签名 */
+	/** 校验 */
 	public boolean verify(byte[] data, byte[] sign)
 			throws GeneralSecurityException {
-		Signature signature = buildVerify();
+		Signature signature = buildVerify(keyPair.getPublic());
 		signature.update(data);
 		return signature.verify(sign);
 	}
