@@ -4,12 +4,17 @@ import java.security.GeneralSecurityException;
 import java.security.KeyPair;
 import java.security.Signature;
 
+/**
+ * @see Signature
+ */
 public class PublicKeyCipher {
 	protected final String algorithm;
 	protected final KeyPair keyPair;
 
-	public PublicKeyCipher(String algorithm, KeyPair keyPair)
-			throws GeneralSecurityException {
+	/**
+	 * @param algorithm SHA1withDSA | SHA1withRSA | SHA256withRSA
+	 */
+	public PublicKeyCipher(String algorithm, KeyPair keyPair) {
 		this.algorithm = algorithm;
 		this.keyPair = keyPair;
 	}
@@ -28,8 +33,7 @@ public class PublicKeyCipher {
 
 	/** 生成签名 */
 	public byte[] sign(final byte... data) throws GeneralSecurityException {
-		Signature signature = Signature.getInstance(algorithm);
-		signature.initSign(keyPair.getPrivate());
+		Signature signature = buildSign();
 		signature.update(data);
 		return signature.sign();
 	}

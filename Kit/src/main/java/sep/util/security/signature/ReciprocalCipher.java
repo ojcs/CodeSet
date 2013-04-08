@@ -7,6 +7,11 @@ import java.security.Provider;
 
 import javax.crypto.Cipher;
 
+/**
+ * <a href="http://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html">Java™ Cryptography Architecture
+ Standard Algorithm Name Documentation</a>
+ * @see Cipher
+ */
 public class ReciprocalCipher {
 	protected final Key key;
 	protected final Provider provider;
@@ -52,15 +57,15 @@ public class ReciprocalCipher {
 		return cipher.doFinal(input.array());
 	}
 
-	public final String getAlgorithm() {
-		return transformation;
-	}
-	
 	protected final Cipher getCipher() throws GeneralSecurityException {
 		if (provider == null) {
 			return Cipher.getInstance(transformation);
 		} else {
 			return Cipher.getInstance(transformation, provider);
 		}
+	}
+	
+	public final String getTransformation() {
+		return transformation;
 	}
 }

@@ -18,15 +18,57 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public final class KeyUtil {
+	public static SecretKey key(String algorithm, AlgorithmParameterSpec spec) throws GeneralSecurityException {
+		KeyGenerator generator = KeyGenerator.getInstance(algorithm);
+		generator.init(spec);
+		return generator.generateKey();
+	}
+	
+	public static SecretKey key(String algorithm, AlgorithmParameterSpec spec, SecureRandom random) throws GeneralSecurityException {
+		KeyGenerator generator = KeyGenerator.getInstance(algorithm);
+		generator.init(spec, random);
+		return generator.generateKey();
+	}
+	
+	public static SecretKey key(String algorithm, int keysize) throws GeneralSecurityException {
+		KeyGenerator generator = KeyGenerator.getInstance(algorithm);
+		generator.init(keysize);
+		return generator.generateKey();
+	}
+
+	public static SecretKey key(String algorithm, int keysize, SecureRandom random) throws GeneralSecurityException {
+		KeyGenerator generator = KeyGenerator.getInstance(algorithm);
+		generator.init(keysize, random);
+		return generator.generateKey();
+	}
+	
+	public static SecretKey key(String algorithm, SecureRandom random) throws GeneralSecurityException {
+		KeyGenerator generator = KeyGenerator.getInstance(algorithm);
+		generator.init(random);
+		return generator.generateKey();
+	}
+	
 	public static KeyPair keyPair(String algorithm, AlgorithmParameterSpec spec) throws GeneralSecurityException {
 		KeyPairGenerator generator = KeyPairGenerator.getInstance(algorithm);
 		generator.initialize(spec);
 		return generator.generateKeyPair();
 	}
-
+	
+	public static KeyPair keyPair(String algorithm, AlgorithmParameterSpec spec, SecureRandom random) throws GeneralSecurityException {
+		KeyPairGenerator generator = KeyPairGenerator.getInstance(algorithm);
+		generator.initialize(spec, random);
+		return generator.generateKeyPair();
+	}
+	
 	public static KeyPair keyPair(String algorithm, int keysize) throws GeneralSecurityException {
 		KeyPairGenerator generator = KeyPairGenerator.getInstance(algorithm);
 		generator.initialize(keysize);
+		return generator.generateKeyPair();
+	}
+	
+	public static KeyPair keyPair(String algorithm, int keysize, SecureRandom random) throws GeneralSecurityException {
+		KeyPairGenerator generator = KeyPairGenerator.getInstance(algorithm);
+		generator.initialize(keysize, random);
 		return generator.generateKeyPair();
 	}
 	
@@ -42,12 +84,6 @@ public final class KeyUtil {
 		return pbe(algorithm, password.toString().toCharArray());
 	}
 	
-	public static SecretKey secret(String algorithm, byte... seed) throws GeneralSecurityException {
-		KeyGenerator gen = KeyGenerator.getInstance(algorithm);
-		gen.init((seed != null) ? new SecureRandom(seed) : new SecureRandom());
-		return gen.generateKey();
-	}
-	
 	public static SecretKey secret(String algorithm, KeySpec spec) throws GeneralSecurityException {
 		return SecretKeyFactory.getInstance(algorithm).generateSecret(spec);
 	}
@@ -61,6 +97,8 @@ public final class KeyUtil {
 	}
 	
 	/**
+	 * PublicSpec  X509
+	 * PrivateSpec PKCS8
 	 * @Ref http://snowolf.iteye.com/blog/382422
 	 */
 	public static SecretKey secretDH(String algorithm, String secretAlgorithm, KeyPair keyPair) throws GeneralSecurityException {
