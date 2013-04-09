@@ -7,7 +7,7 @@ import java.nio.charset.Charset;
 
 import javax.xml.bind.DatatypeConverter;
 
-import sep.util.other.Convert;
+import sep.framework.text.Text;
 
 public final class Encode {
 	public static byte[] decodeBase64(final String data) {
@@ -105,7 +105,7 @@ public final class Encode {
 	protected static String encodeNumberString(CharSequence value, char flag, int radix) {
 		StringBuilder builder = new StringBuilder((value.length() * 4) + 20);
 		for (int i = 0, len = value.length(); i < len; i++) {
-			builder.append('\\').append(flag).append(Convert.toString(value.charAt(i), radix));
+			builder.append('\\').append(flag).append(Text.toString(value.charAt(i), radix));
 		}
 		return builder.toString();
 	}
@@ -149,7 +149,7 @@ public final class Encode {
 				break;
 			default:
 				if (c < 0x0020 || c > 0x007E) {
-					buffer.append('\\').append('u').append(Convert.toHexString(c));
+					buffer.append('\\').append('u').append(Text.toHexString(c));
 				} else {
 					buffer.append(c);
 				}
@@ -177,7 +177,7 @@ public final class Encode {
 	public static String encodeXMLEntityHex(CharSequence value) {
 		StringBuilder builder = new StringBuilder((value.length() * 5) + 20);
 		for (int i = 0, len = value.length(); i < len; i++) {
-			builder.append('&').append('#').append('x').append(Convert.toHexString(value.charAt(i)));
+			builder.append('&').append('#').append('x').append(Text.toHexString(value.charAt(i)));
 		}
 		return builder.toString();
 	}

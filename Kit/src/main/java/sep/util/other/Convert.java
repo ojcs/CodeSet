@@ -1,15 +1,11 @@
 package sep.util.other;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.xml.bind.DatatypeConverter;
 
 import sep.util.collection.CollectionUtil;
 
@@ -47,82 +43,6 @@ public final class Convert {
 		return new DecimalFormat(pattern).parse(number);
 	}
 	
-	public static String toBinaryString(final int value) {
-		return Integer.toBinaryString(value);
-	}
-	
-	public static String toBinaryString(final long value) {
-		return Long.toBinaryString(value);
-	}
-	
-	public static String toHexString(final byte... values) {
-		return DatatypeConverter.printHexBinary(values);
-	}
-	
-	public static String toHexString(final double value) {
-		return Double.toHexString(value);
-	}
-	
-	public static String toHexString(final float value) {
-		return Float.toHexString(value);
-	}
-	
-	public static String toHexString(final int value) {
-		return Integer.toHexString(value);
-	}
-	
-	public static String toHexString(final long value) {
-		return Long.toHexString(value);
-	}
-	
-	public static String toOctalString(final int value) {
-		return Integer.toOctalString(value);
-	}
-	
-	public static String toOctalString(final long value) {
-		return Long.toOctalString(value);
-	}
-	
-	public static String toString(final BigDecimal value) {
-		return value.toString();
-	}
-	
-	public static String toString(final BigInteger value) {
-		return value.toString();
-	}
-	
-	public static String toString(final BigInteger value, final int radix) {
-		return value.toString(radix);
-	}
-	
-	public static String toString(final double value) {
-		return Double.toString(value);
-	}
-	
-	public static String toString(final float value) {
-		return Float.toString(value);
-	}
-	
-	public static String toString(final int value) {
-		return Integer.toString(value);
-	}
-	
-	public static String toString(final int value, final int radix) {
-		return Integer.toString(value, radix);
-	}
-	
-	public static String toString(final long value) {
-		return Long.toString(value);
-	}
-	
-	public static String toString(final long value, final int radix) {
-		return Long.toString(value, radix);
-	}
-	
-	public static String toString(final short value) {
-		return Short.toString(value);
-	}
-
 	private Convert() {
 	}
 }
