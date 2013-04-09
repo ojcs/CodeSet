@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
 
-import sep.util.io.file.PathSet;
-
 public final class EnvInfo {
 	public static void clear(final String key) {
 		System.clearProperty(key);
@@ -42,10 +40,8 @@ public final class EnvInfo {
 	/**
 	 * 类路径
 	 */
-	public static PathSet getJavaClassPath() {
-		PathSet paths = new PathSet();
-		paths.addAll(get("java.class.path"));
-		return paths;
+	public static String[] getJavaClassPath() {
+		return get("java.class.path").split(getPathSeparator());
 	}
 
 	/**
@@ -65,10 +61,8 @@ public final class EnvInfo {
 	/**
 	 * 一个或多个扩展目录的路径
 	 */
-	public static PathSet getJavaExtDirs() {
-		PathSet paths = new PathSet();
-		paths.addAll(get("java.ext.dirs"));
-		return paths;
+	public static String[] getJavaExtDirs() {
+		return get("java.ext.dirs").split(getPathSeparator());
 	}
 
 	/**
@@ -95,10 +89,8 @@ public final class EnvInfo {
 	/**
 	 * 加载库时搜索的路径列表
 	 */
-	public static PathSet getJavaLibraryPath() {
-		PathSet paths = new PathSet();
-		paths.addAll(get("java.library.path"));
-		return paths;
+	public static String[] getJavaLibraryPath() {
+		return get("java.library.path").split(getPathSeparator());
 	}
 
 	/**
@@ -224,7 +216,7 @@ public final class EnvInfo {
 	 * 路径分隔符(在Unix系统中是":")
 	 */
 	public static String getPathSeparator() {
-		return get("path.separator", File.separator);
+		return get("path.separator", File.pathSeparator);
 	}
 
 	/**

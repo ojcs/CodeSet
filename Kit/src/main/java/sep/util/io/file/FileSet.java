@@ -29,13 +29,6 @@ public class FileSet extends HashSet<File> {
 	public FileSet(int initialCapacity, float loadFactor) {
 		super(initialCapacity, loadFactor);
 	}
-
-	public FileSet(PathSet files) {
-		super();
-		for (Path path : files) {
-			add(path.toFile());
-		}
-	}
 	
 	public boolean add(Path path) {
 		return super.add(path.toFile());
@@ -84,9 +77,5 @@ public class FileSet extends HashSet<File> {
 	@Override
 	public File[] toArray() {
 		return super.toArray(new File[size()]);
-	}
-	
-	public PathSet toPathSet() {
-		return new PathSet(this);
 	}
 }

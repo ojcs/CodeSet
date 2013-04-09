@@ -3,7 +3,7 @@ package sep.util;
 import java.util.Collections;
 import java.util.List;
 
-import sep.util.collection.CollectionUtil;
+import sep.util.collection.ArrayUtil;
 
 public class Random extends java.util.Random {
 	private static final long serialVersionUID = 1L;
@@ -56,6 +56,10 @@ public class Random extends java.util.Random {
 
 	public short choice(short... array) {
 		return array[nextInt(0, array.length)];
+	}
+
+	public boolean isRandomSeed() {
+		return randomSeed;
 	}
 
 	@Override
@@ -152,39 +156,43 @@ public class Random extends java.util.Random {
 		return result;
 	}
 
+	public void setRandomSeed(boolean randomSeed) {
+		this.randomSeed = randomSeed;
+	}
+
 	public void shuffle(boolean... array) {
 		for (int i = array.length; i > 1; i--) {
-			CollectionUtil.swap(array, i - 1, nextInt(i));
+			ArrayUtil.swap(array, i - 1, nextInt(i));
 		}
 	}
 
 	public void shuffle(char... array) {
 		for (int i = array.length; i > 1; i--) {
-			CollectionUtil.swap(array, i - 1, nextInt(i));
+			ArrayUtil.swap(array, i - 1, nextInt(i));
 		}
 	}
 
 	public void shuffle(double... array) {
 		for (int i = array.length; i > 1; i--) {
-			CollectionUtil.swap(array, i - 1, nextInt(i));
+			ArrayUtil.swap(array, i - 1, nextInt(i));
 		}
 	}
 
 	public <E> void shuffle(E[] array) {
 		for (int i = array.length; i > 1; i--) {
-			CollectionUtil.swap(array, i - 1, nextInt(i));
+			ArrayUtil.swap(array, i - 1, nextInt(i));
 		}
 	}
 
 	public void shuffle(float... array) {
 		for (int i = array.length; i > 1; i--) {
-			CollectionUtil.swap(array, i - 1, nextInt(i));
+			ArrayUtil.swap(array, i - 1, nextInt(i));
 		}
 	}
 
 	public void shuffle(int... array) {
 		for (int i = array.length; i > 1; i--) {
-			CollectionUtil.swap(array, i - 1, nextInt(i));
+			ArrayUtil.swap(array, i - 1, nextInt(i));
 		}
 	}
 
@@ -196,21 +204,13 @@ public class Random extends java.util.Random {
 
 	public void shuffle(long... array) {
 		for (int i = array.length; i > 1; i--) {
-			CollectionUtil.swap(array, i - 1, nextInt(i));
+			ArrayUtil.swap(array, i - 1, nextInt(i));
 		}
 	}
 
 	public void shuffle(short... array) {
 		for (int i = array.length; i > 1; i--) {
-			CollectionUtil.swap(array, i - 1, nextInt(i));
+			ArrayUtil.swap(array, i - 1, nextInt(i));
 		}
-	}
-
-	public void setRandomSeed(boolean randomSeed) {
-		this.randomSeed = randomSeed;
-	}
-
-	public boolean isRandomSeed() {
-		return randomSeed;
 	}
 }

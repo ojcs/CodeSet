@@ -26,56 +26,6 @@ public final class CollectionUtil {
 		}
 	}
 	
-	public static double max(double[] values) {
-		double result = values[0];
-		for (double value : values) {
-			if (value > result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-	
-	public static float max(float[] values) {
-		float result = values[0];
-		for (float value : values) {
-			if (value > result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-	
-	public static int max(int[] values) {
-		int result = values[0];
-		for (int value : values) {
-			if (value > result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-	
-	public static long max(long[] values) {
-		long result = values[0];
-		for (long value : values) {
-			if (value > result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-	
-	public static short max(short[] values) {
-		short result = values[0];
-		for (short value : values) {
-			if (value > result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-	
 	@SafeVarargs
 	public static <E> List<E> merge(final Collection<? extends E>... collections) {
 		if (collections == null || collections.length == 0) {
@@ -98,75 +48,10 @@ public final class CollectionUtil {
 			return arrays[0];
 		}
 		List<E> newList = new ArrayList<E>();
-		for (E[] collection : removeNull(arrays)) {
-			newList.addAll(CollectionUtil.<E>toList(collection));
+		for (E[] collection : ArrayUtil.removeNull(arrays)) {
+			newList.addAll(CollectionUtil.<E> toList(collection));
 		}
 		return toArray(newList);
-	}
-
-	public static double min(double[] values) {
-		double result = values[0];
-		for (double value : values) {
-			if (value < result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-
-	public static float min(float[] values) {
-		float result = values[0];
-		for (float value : values) {
-			if (value < result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-	
-	public static int min(int[] values) {
-		int result = values[0];
-		for (int value : values) {
-			if (value < result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-	
-	public static long min(long[] values) {
-		long result = values[0];
-		for (long value : values) {
-			if (value < result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-	
-	public static short min(short[] values) {
-		short result = values[0];
-		for (short value : values) {
-			if (value < result) {
-				result = value;
-			}
-		}
-		return result;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static <E> E[] removeNull(final E[] array) {
-		final List<E> newList = new ArrayList<E>();
-		if (array == null || array.length != 0) {
-			return (E[]) new Object[0];
-		}
-		
-		for (final E object : array) {
-			if (object != null) {
-				newList.add(object);
-			}
-		}
-		return newList.toArray(array);
 	}
 	
 	public static <E> List<E> removeNull(final Iterable<? extends E> iterable) {
@@ -210,68 +95,6 @@ public final class CollectionUtil {
 		return newList;
 	}
 	
-	public static <E> E[] reverse(final E[] array) {
-		final E[] result = array.clone();
-		for (int i = 0, len = array.length, base = len - 1; i < len; i++) {
-			result[i] = array[base - i];
-		}
-		return result;
-	}
-	
-	public static void swap(boolean[] array, int i, int j) {
-		boolean temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(byte[] array, int i, int j) {
-		byte temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(char[] array, int i, int j) {
-		char temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(double[] array, int i, int j) {
-		double temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static <E> void swap(E[] array, int i, int j) {
-		final E temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(float[] array, int i, int j) {
-		float temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(int[] array, int i, int j) {
-		int temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(long[] array, int i, int j) {
-		long temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
-	public static void swap(short[] array, int i, int j) {
-		short temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public static <E> E[] toArray(final Collection<? extends E> collection) {
 		return collection.toArray((E[]) new Object[collection.size()]);
@@ -285,9 +108,8 @@ public final class CollectionUtil {
 		return toArray(toList(iterator));
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static <E> E[] toArray(final Object... array) {
-		return CollectionUtil.<E> toArray((Collection<E>) toList(array));
+		return CollectionUtil.<E> toArray(CollectionUtil.<E> toList(array));
 	}
 	
 	public static <E> List<E> toList(final Collection<? extends E> collection) {
@@ -304,14 +126,14 @@ public final class CollectionUtil {
 	
 	@SuppressWarnings("unchecked")
 	public static <E> List<E> toList(final Object... array) {
-		final Object[] objects = removeNull(array);
+		final Object[] objects = ArrayUtil.removeNull(array);
 		List<E> list = new ArrayList<E>(objects.length);
 		for (Object element : objects) {
 			list.add((E) element);
 		}
 		return list;
 	}
-	
+
 	private CollectionUtil() {
 	}
 }
