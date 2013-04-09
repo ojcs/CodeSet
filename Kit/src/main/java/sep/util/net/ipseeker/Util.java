@@ -22,7 +22,7 @@ class Util {
 			return -1;
 		}
 	}
-	
+
 	static int compare(byte[] ip, byte[] begin) {
 		for (int i = 0, r; i < 4; i++) {
 			if ((r = compare(ip[i], begin[i])) != 0) {
@@ -31,13 +31,13 @@ class Util {
 		}
 		return 0;
 	}
-	
+
 	static int readInt3(ByteBuffer buffer) {
-        return buffer.getInt() & 0x00FFFFFF;
-    }
-	
+		return buffer.getInt() & 0x00FFFFFF;
+	}
+
 	static int readInt3(ByteBuffer buffer, int offset) {
 		buffer.position(offset);
-        return readInt3(buffer);
-    }
+		return readInt3(buffer);
+	}
 }

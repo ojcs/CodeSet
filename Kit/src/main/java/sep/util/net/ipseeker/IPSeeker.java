@@ -112,10 +112,10 @@ public class IPSeeker {
 					j = m;
 				}
 			} else {
-				return Util.readInt3(buffer, m + 4);
+				return readInt3(buffer, m + 4);
 			}
 		}
-		r = compare(address, readIP(m = Util.readInt3(buffer, m + 4)));
+		r = compare(address, readIP(m = readInt3(buffer, m + 4)));
 		if (r <= 0) {
 			return m;
 		} else {
