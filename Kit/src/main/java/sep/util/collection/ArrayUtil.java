@@ -1,9 +1,15 @@
 package sep.util.collection;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public final class ArrayUtil {
+	@SuppressWarnings("unchecked")
+	public static <T> T[] newArray(final Class<? extends T> type, final int length) {
+		return (T[]) Array.newInstance(type, length);
+	}
+	
 	public static byte max(final byte... values) {
 		byte max = values[0];
 		for (int i = 1; i < values.length; i++) {
