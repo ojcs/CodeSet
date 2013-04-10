@@ -17,10 +17,11 @@ class Helper {
 	}
 	
 	static int compare(byte[] ip, byte[] begin) {
-		for (int i = 0; i < 4; i++) {
-			if ((ip[i] & 0xFF) > (begin[i] & 0xFF)) {
+		for (int i = 0, x, y; i < 4; i++) {
+			x = ip[i]; y = begin[i];
+			if ((x & 0xFF) > (y & 0xFF)) {
 				return 1;
-			} else if ((ip[i] ^ begin[i]) == 0) {
+			} else if ((x ^ y) == 0) {
 				continue;
 			} else {
 				return -1;
@@ -65,26 +66,35 @@ class Helper {
 	/** 定位IP的绝对偏移 */
 	int locateOffset(final byte[] address) {
 		switch (compare(address, readIP(seeker.ipBegin))) {
-		case -1: return -1;
-		case  0: return seeker.ipBegin;
+		case -1:
+			return -1;
+		case 0:
+			return seeker.ipBegin;
 		}
-		int m = 0;
-		for (int i = seeker.ipBegin, j = seeker.ipEnd; i < j;) {
-			switch (compare(address, readIP(m = calcMiddleOffset(i, j)))) {
-			case 1: i = m; break;
+		int middleOffset = 0;
+		for (int begin = seeker.ipBegin, end = seeker.ipEnd; begin < end;) {
+			switch (compare(address, readIP(middleOffset = calcMiddleOffset(begin, end)))) {
+			case 1:
+				begin = middleOffset;
+				break;
 			case -1:
-				if (m == j) {
-					m = (j -= RecordLength);
+				if (middleOffset == end) {
+					middleOffset = (end -= RecordLength);
 				} else {
-					j = m;
+					end = middleOffset;
 				}
 				break;
-			case 0: return readInt3(m + 4);
+			case 0:
+				return readInt3(middleOffset + 4);
 			}
 		}
-		switch (compare(address, readIP(m = readInt3(m + 4)))) {
-		case -1: case 0: return m;
-		default: return -1;
+		middleOffset = readInt3(middleOffset + 4);
+		switch (compare(address, readIP(middleOffset))) {
+		case -1:
+		case 0:
+			return middleOffset;
+		default:
+			return -1;
 		}
 	}
 	
@@ -106,7 +116,7 @@ class Helper {
 
 	int readInt3(int offset) {
 		buffer.position(offset);
-		return readInt3();
+		return buffer.getInt() & 0x00FFFFFF;
 	}
 
 	byte[] readIP(int offset) {
