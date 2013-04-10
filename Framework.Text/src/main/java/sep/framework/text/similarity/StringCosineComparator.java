@@ -8,31 +8,21 @@ final class StringCosineComparator implements StringSimilarity {
 	private int sqdoc1 = 0;
 	private int sqdoc2 = 0;
 	
+	private void handler(Map<Character, int[]> map, CharSequence string, int[] initFlag, int flag) {
+		char ch;
+		for (int i = 0, len = string.length(); i < len; i++) {
+			if (map.containsKey(ch = string.charAt(i))) {
+				map.get(ch)[flag]++;
+			} else {
+				map.put(ch, initFlag);
+			}
+		}
+	}
+	
 	public int compare(final CharSequence o1, final CharSequence o2) {
-		Map<Character, int[]> map = new HashMap<Character, int[]>();
-		
-		for (int i = 0; i < o1.length(); i++) {
-			final char ch = o1.charAt(i);
-			
-			int[] flag = map.get(ch);
-			if (flag != null && flag.length == 2) {
-				flag[0]++;
-			} else {
-				map.put(ch, new int[] { 1, 0 });
-			}
-		}
-
-		for (int i = 0; i < o2.length(); i++) {
-			final char ch = o2.charAt(i);
-			
-			int[] flag = map.get(ch);
-			if(flag != null && flag.length == 2){
-				flag[1]++;
-			} else {
-				map.put(ch, new int[] { 0, 1 });
-			}
-		}
-		
+		Map<Character, int[]> map = new HashMap<>();
+		handler(map, o1, new int[] { 1, 0 }, 0);
+		handler(map, o2, new int[] { 0, 1 }, 1);
 		int denominator = 0; 
 		for (int[] flag : map.values()) {
 			denominator += flag[0] * flag[1];
