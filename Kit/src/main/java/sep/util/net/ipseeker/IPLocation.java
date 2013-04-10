@@ -1,19 +1,15 @@
 package sep.util.net.ipseeker;
 
 public final class IPLocation {
-	static final IPLocation Unknown = new IPLocation("未知国家", "未知地区");
+	public static final IPLocation Unknown = new IPLocation("未知国家", "未知地区");
 
 	private final String area;
 	private final String country;
 
-	IPLocation(String country, String area) {
-		if ((country != null && !country.isEmpty()) && (area != null && !area.isEmpty())) {
-			this.country = country;
-			// 如果为局域网，纯真IP地址库的地区会显示CZ88.NET,这里把它去掉
-			this.area = area.equals("CZ88.NET") ? "局域网" : area;
-		} else {
-			throw new NullPointerException();
-		}
+	private IPLocation(String country, String area) {
+		this.country = country;
+		// 如果为局域网，纯真IP地址库的地区会显示CZ88.NET,这里把它去掉
+		this.area = area.equals("CZ88.NET") ? "局域网" : area;
 	}
 
 	public String getArea() {
