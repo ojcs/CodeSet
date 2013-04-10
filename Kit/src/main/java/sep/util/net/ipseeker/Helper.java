@@ -15,6 +15,7 @@ class Helper {
 		final int records = ((end - begin) / RecordLength) >> 1;
 		return begin + ((records == 0) ? 1 : records) * RecordLength;
 	}
+	
 	static int compare(byte[] ip, byte[] begin) {
 		for (int i = 0; i < 4; i++) {
 			if ((ip[i] & 0xFF) > (begin[i] & 0xFF)) {
@@ -51,9 +52,7 @@ class Helper {
 				country = readString(readInt3());
 				buffer.position(offset + 4);
 				break;
-			default:
-				country = readString(offset);
-				break;
+			default: country = readString(offset); break;
 			}
 			return IPLocation.of(country, readArea(buffer.position()));
 		case RedirectMode2:
