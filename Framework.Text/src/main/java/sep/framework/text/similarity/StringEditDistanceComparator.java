@@ -4,6 +4,13 @@ import sep.util.collection.ArrayUtil;
 
 /** 编辑距离 */
 final class StringEditDistanceComparator implements StringSimilarity {
+	private static int[][] initMatrix(int o1len, int o2len) {
+		int[][] matrix = new int[o1len + 1][o2len + 1];
+		for (int i = 0; i < o1len; i++, matrix[i][0] = i);
+		for (int i = 0; i < o2len; i++, matrix[0][i] = i);
+		return matrix;
+	}
+	
 	@Override
 	public int compare(final CharSequence o1, final CharSequence o2) {
 		final int o1len = o1.length(), o2len = o2.length();
@@ -11,11 +18,8 @@ final class StringEditDistanceComparator implements StringSimilarity {
 			return o1len == 0 ? o2len : o1len;
 		}
 		
-		int[][] matrix = new int[o1len + 1][o2len + 1];
-		// init matrix
-		for (int i = 0; i < o1len; i++, matrix[i][0] = i);
-		for (int i = 0; i < o2len; i++, matrix[0][i] = i);
-		
+		int[][] matrix = initMatrix(o1len, o2len);
+
 		for (int i = 0, j = 0; i <= o1len; i++) {
 			for (; j <= o2len; j++) {
 				matrix[i + 1][j + 1] = (int) ArrayUtil.min(
@@ -25,6 +29,7 @@ final class StringEditDistanceComparator implements StringSimilarity {
 				);
 			}
 		}
+		
 		return matrix[o1len][o2len];
 	}
 	
