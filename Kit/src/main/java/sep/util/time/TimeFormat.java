@@ -19,7 +19,9 @@ public enum TimeFormat {
 	TimeLong_24h("HH:mm:ss"),
 	
 	TimeShort_12h("hh:mm"),
-	TimeShort_24h("HH:mm");
+	TimeShort_24h("HH:mm"),
+	
+	RSS("E, d MMM yyyy H:mm:ss GMT");
 	
 	public static String format(final DateFormat format, final Date date) {
 		return format.format(date);
@@ -55,36 +57,36 @@ public enum TimeFormat {
 		return parse(new SimpleDateFormat(pattern), source);
 	}
 
-	private final DateFormat format;
+	private final ThreadLocal<DateFormat> format = new ThreadLocal<>();
 
 	private TimeFormat(final String pattern) {
-		this.format = new SimpleDateFormat(pattern);
+		format.set(new SimpleDateFormat(pattern));
 	}
 	
 	public String format(final Date date) {
-		return format(format, date);
+		return format(format.get(), date);
 	}
 
 	public String format(final Date date, final TimeZone zone) {
-		return format(format, date, zone);
+		return format(format.get(), date, zone);
 	}
 
 	public String formatCST(final Date date) {
-		return format(format, date, TimeZone.getTimeZone("CST"));
+		return format(format.get(), date, TimeZone.getTimeZone("CST"));
 	}
 	
 	public String formatGMT(final Date date) {
-		return format(format, date, TimeZone.getTimeZone("GMT"));
+		return format(format.get(), date, TimeZone.getTimeZone("GMT"));
 	}
 	public String formatUTC(final Date date) {
-		return format(format, date, TimeZone.getTimeZone("UTC"));
+		return format(format.get(), date, TimeZone.getTimeZone("UTC"));
 	}
 
 	public DateFormat cloneFormat() {
-		return (DateFormat) format.clone();
+		return (DateFormat) format.get().clone();
 	}
 
 	public Date parse(final String source) throws ParseException {
-		return parse(format, source);
+		return parse(format.get(), source);
 	}
 }
