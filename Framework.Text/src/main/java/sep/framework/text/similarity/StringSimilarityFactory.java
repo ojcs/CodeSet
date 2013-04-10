@@ -2,7 +2,7 @@ package sep.framework.text.similarity;
 
 public enum StringSimilarityFactory {
 	/** 二元语法 */
-	Bigram(new StringBigramComparator()),
+	Bigram(new StringBigramsComparator()),
 	/** 余弦定理 */
 	Cosine(new StringCosineComparator()),
 	/** 编辑距离 */
