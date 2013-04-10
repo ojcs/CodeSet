@@ -19,7 +19,7 @@ public final class IPLocation {
 
 	private IPLocation(String country, String area) {
 		this.country = country;
-		// 如果为局域网，纯真IP地址库的地区会显示CZ88.NET,这里把它去掉
+		// 如果为局域网,纯真IP地址库的地区会显示CZ88.NET,这里把它去掉
 		this.area = area.equals("CZ88.NET") ? "局域网" : area;
 	}
 	
@@ -64,6 +64,6 @@ public final class IPLocation {
 
 	@Override
 	public String toString() {
-		return area + '-' + country;
+		return new StringBuilder().append(area).append(' ').append(country).toString();
 	}
 }

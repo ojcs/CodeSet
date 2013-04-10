@@ -7,19 +7,12 @@ import sep.util.collection.ArrayUtil;
 
 public class Random extends java.util.Random {
 	private static final long serialVersionUID = 1L;
-	private boolean randomSeed = false;
 
 	public Random() {
-		super();
 	}
-
-	public Random(boolean randomSeed) {
-		this.randomSeed = randomSeed;
-	}
-
-	public Random(long seed, boolean randomSeed) {
+	
+	public Random(long seed) {
 		super(seed);
-		this.randomSeed = randomSeed;
 	}
 
 	public boolean choice(boolean... array) {
@@ -58,15 +51,8 @@ public class Random extends java.util.Random {
 		return array[nextInt(0, array.length)];
 	}
 
-	public boolean isRandomSeed() {
-		return randomSeed;
-	}
-
 	@Override
 	protected int next(int bits) {
-		if (randomSeed) {
-			setSeed(nextLong());
-		}
 		return super.next(bits);
 	}
 
@@ -154,10 +140,6 @@ public class Random extends java.util.Random {
 			result[i] = array[nextInt(0, len)];
 		}
 		return result;
-	}
-
-	public void setRandomSeed(boolean randomSeed) {
-		this.randomSeed = randomSeed;
 	}
 
 	public void shuffle(boolean... array) {

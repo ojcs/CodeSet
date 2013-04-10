@@ -7,7 +7,7 @@ public final class ChineseBuildChar implements BuildChar {
 	
 	@Override
 	public char[] build(int length) {
-		Random random = new Random(true);
+		Random random = new Random();
 		if (captcha.length != length) {
 			captcha = new char[length];
 		}

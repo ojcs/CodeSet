@@ -53,7 +53,9 @@ class Helper {
 				country = readString(readInt3());
 				buffer.position(offset + 4);
 				break;
-			default: country = readString(offset); break;
+			default:
+				country = readString(offset);
+				break;
 			}
 			return IPLocation.of(country, readArea(buffer.position()));
 		case RedirectMode2:
@@ -65,14 +67,14 @@ class Helper {
 
 	/** 定位IP的绝对偏移 */
 	int locateOffset(final byte[] address) {
-		switch (compare(address, readIP(seeker.ipBegin))) {
+		switch (compare(address, readIP(seeker.offsetBegin))) {
 		case -1:
 			return -1;
 		case 0:
-			return seeker.ipBegin;
+			return seeker.offsetBegin;
 		}
 		int middleOffset = 0;
-		for (int begin = seeker.ipBegin, end = seeker.ipEnd; begin < end;) {
+		for (int begin = seeker.offsetBegin, end = seeker.offsetEnd; begin < end;) {
 			switch (compare(address, readIP(middleOffset = calcMiddleOffset(begin, end)))) {
 			case 1:
 				begin = middleOffset;
