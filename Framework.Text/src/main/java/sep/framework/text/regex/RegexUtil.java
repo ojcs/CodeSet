@@ -1,4 +1,4 @@
-package sep.framework.text.regexp;
+package sep.framework.text.regex;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,18 +26,18 @@ public final class RegexUtil {
 	public static String[] findAll(final String source, final String regex) {
 		final Matcher matchs = Pattern.compile(regex).matcher(source);
 		final String[] result = new String[matchs.groupCount()];
-		for (int i = 0; i < result.length; i++) {
-			result[i] = matchs.group(i + 1);
+		for (int i = 0; i < result.length;) {
+			result[i] = matchs.group(i++);
 		}
 		return result;
 	}
 
 	public static String findAndReplace(final String source, final String regex, final String replacement) {
-		final Matcher matcher = Pattern.compile(regex).matcher(source);
-		return matcher.find() ? source.replace(matcher.group(), replacement) : source;
+		final String result = find(source, regex);
+		return result.isEmpty() ? source : source.replace(result, replacement);
 	}
 
-	public static String findFirst(final String source, final String regex) {
+	public static String find(final String source, final String regex) {
 		final Matcher matcher = Pattern.compile(regex).matcher(source);
 		return matcher.find() ? matcher.group() : "";
 	}
@@ -54,8 +54,8 @@ public final class RegexUtil {
 		return compile;
 	}
 	
-	public static CharSequence replaceAll(final CharSequence input, final Map<Pattern, String> map) {
-		CharSequence result = input;
+	public static String replaceAll(final CharSequence input, final Map<Pattern, String> map) {
+		String result = input.toString();
 		for (Entry<Pattern, String> entry : map.entrySet()) {
 			result = entry.getKey().matcher(result).replaceAll(entry.getValue());
 		}

@@ -5,7 +5,7 @@ import java.text.ParsePosition;
 import java.util.HashMap;
 import java.util.Map;
 
-import sep.framework.text.regexp.RegexUtil;
+import sep.framework.text.regex.RegexUtil;
 
 /**
  * 人民币大写转换

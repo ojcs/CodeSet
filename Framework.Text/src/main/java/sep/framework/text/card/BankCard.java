@@ -1,6 +1,8 @@
 package sep.framework.text.card;
 
-import sep.framework.text.regexp.RegexCard;
+import java.util.regex.Pattern;
+
+import sep.framework.text.regex.Card;
 
 public final class BankCard {
 	private final short[] id;
@@ -11,7 +13,7 @@ public final class BankCard {
 	}
 	
 	public BankCard(final CharSequence cardId) {
-		if (RegexCard.Bank.matches(cardId)) {
+		if (Pattern.matches(Card.Bank.regex, cardId)) {
 			id = new short[cardId.length()];
 			for (int i = 0; i < cardId.length(); i++) {
 				id[i] = (short) Character.digit(cardId.charAt(i), 10);

@@ -1,8 +1,7 @@
-package sep.framework.text.regexp;
+package sep.framework.text.regex;
 
-import java.util.regex.Pattern;
 
-public enum RegexChinaMobile implements RegexEnum {
+public enum ChinaMobile {
 	/**
 	 * 手机号码
 	 * 
@@ -85,29 +84,9 @@ public enum RegexChinaMobile implements RegexEnum {
 	 * 中国联通 上网卡
 	 */
 	UnicomNetworkCard("145\\d{8}");
-	private final String regex;
+	public final String regex;
 
-	private RegexChinaMobile(final String regex) {
+	private ChinaMobile(final String regex) {
 		this.regex = regex;
-	}
-
-	@Override
-	public Pattern compile() {
-		return Pattern.compile(regex);
-	}
-
-	@Override
-	public Pattern compile(final int flags) {
-		return Pattern.compile(regex, flags);
-	}
-
-	@Override
-	public String pattern() {
-		return regex;
-	}
-
-	@Override
-	public boolean matches(final CharSequence input) {
-		return Pattern.matches(regex, input);
 	}
 }

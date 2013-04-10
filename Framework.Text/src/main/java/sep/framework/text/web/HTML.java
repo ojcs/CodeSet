@@ -3,7 +3,7 @@ package sep.framework.text.web;
 import java.util.HashMap;
 import java.util.Map;
 
-import sep.framework.text.regexp.RegexUtil;
+import sep.framework.text.regex.RegexUtil;
 
 public class HTML {
 	/**
