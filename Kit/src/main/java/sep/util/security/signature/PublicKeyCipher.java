@@ -8,16 +8,11 @@ import java.security.SecureRandom;
 import java.security.Signature;
 import java.security.cert.Certificate;
 
-/**
- * @see Signature
- */
+/** @see Signature */
 public class PublicKeyCipher {
 	protected final String algorithm;
 	protected final KeyPair keyPair;
 
-	/**
-	 * @param algorithm SHA1withDSA | SHA1withRSA | SHA256withRSA
-	 */
 	public PublicKeyCipher(String algorithm, KeyPair keyPair) {
 		this.algorithm = algorithm;
 		this.keyPair = keyPair;
@@ -55,8 +50,7 @@ public class PublicKeyCipher {
 	}
 	
 	/** 校验 */
-	public boolean verify(byte[] data, byte[] sign)
-			throws GeneralSecurityException {
+	public boolean verify(byte[] data, byte[] sign) throws GeneralSecurityException {
 		Signature signature = buildVerify(keyPair.getPublic());
 		signature.update(data);
 		return signature.verify(sign);
