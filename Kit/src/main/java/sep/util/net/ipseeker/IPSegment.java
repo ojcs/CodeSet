@@ -44,9 +44,17 @@ public final class IPSegment {
 	public byte[] getBegin() {
 		return begin;
 	}
+	
+	public String getBeginString() {
+		return IP4Util.toString(begin[0], begin[1], begin[2], begin[3]);
+	}
 
 	public byte[] getEnd() {
 		return end;
+	}
+	
+	public String getEndString() {
+		return IP4Util.toString(end[0], end[1], end[2], end[3]);
 	}
 
 	public IPLocation getLocation() {
@@ -65,11 +73,6 @@ public final class IPSegment {
 	
 	@Override
 	public String toString() {
-		return String.format(
-			"%s(%s-%s)",
-			location,
-			IP4Util.toString(begin[0], begin[1], begin[2], begin[3]),
-			IP4Util.toString(  end[0],   end[1],   end[2],   end[3])
-		);
+		return String.format("%s(%s-%s)", location, getBeginString(), getEndString());
 	}
 }
