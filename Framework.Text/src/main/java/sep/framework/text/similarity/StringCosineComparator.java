@@ -3,10 +3,7 @@ package sep.framework.text.similarity;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 字符串相似度比较
- * impl:余弦定理算法
- */
+/** 余弦定理 */
 final class StringCosineComparator implements StringSimilarity {
 	private int sqdoc1 = 0;
 	private int sqdoc2 = 0;

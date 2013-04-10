@@ -1,7 +1,8 @@
 package sep.framework.text.similarity;
 
-public class StringBigramComparator implements StringSimilarity {
-	private int bigram1size, bigram2size;
+/** 二元语法 */
+final class StringBigramComparator implements StringSimilarity {
+	private int bigram1Size, bigram2Size;
 	
 	@Override
 	public int compare(CharSequence o1, CharSequence o2) {
@@ -15,22 +16,22 @@ public class StringBigramComparator implements StringSimilarity {
 				}
 			}
 		}
-		this.bigram1size = bigram1.length;
-		this.bigram2size = bigram2.length;
+		this.bigram1Size = bigram1.length;
+		this.bigram2Size = bigram2.length;
 	    return matches;
 	}
 	
-	public char[][] bigram(final CharSequence input) {
+	private static char[][] bigram(final CharSequence input) {
 		char[][] chars = new char[input.length()][2];
-		for (int i = 0; i < chars.length - 1; i++) {
+		for (int i = 0, len = input.length() - 1; i < len; i++) {
 			chars[i][0] = input.charAt(i);
-			chars[i][0] = input.charAt(i + 1);
+			chars[i][1] = input.charAt(i + 1);
 		}
 		return chars;
 	}
 
 	@Override
 	public double similarity(CharSequence o1, CharSequence o2) {
-		return (double) compare(o1, o2) / (bigram1size + bigram2size);
+		return (double) compare(o1, o2) / (bigram1Size + bigram2Size);
 	}
 }
