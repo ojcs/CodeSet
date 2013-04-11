@@ -1,7 +1,6 @@
 package sep.util.io.file;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -10,55 +9,34 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-import sep.util.collection.Fetch;
-import sep.util.other.Convert;
-import sep.util.other.Convert.Callback;
+import sep.util.collection.ArrayUtil;
 
 public final class FileUtil {
+	public static Path classpath(String name) {
+		try {
+			final URL url = Class.class.getResource(name);
+			return (url != null) ? Paths.get(url.toURI()) : null;
+		} catch (URISyntaxException e) {
+			return null;
+		}
+	}
+
 	/** 复制文件 */
 	public static void copy(final Path sourceFile, final Path targetFile)
 			throws IOException {
-		try (final InputStream sourceStream = new FileInputStream(sourceFile.toFile())) {
+		try (final InputStream sourceStream = Files.newInputStream(sourceFile)) {
 			Files.copy(sourceStream, targetFile);
 		}
 	}
-
-	public static ListIterator<File> listFiles(final Iterator<Path> iterator) {
-		List<File> files = new ArrayList<File>();
-		for (Path path : new Fetch<Path>(iterator)) {
-			files.add(path.toFile());
-		}
-		return files.listIterator();
-	}
 	
-	public static ListIterator<Path> listPaths(final File... fileList) {
-		return listPaths(Arrays.asList(fileList).listIterator());
-	}
-	
-	public static ListIterator<Path> listPaths(final Iterator<File> iterator) {
-		List<Path> paths = new ArrayList<Path>();
-		for (File file : new Fetch<File>(iterator)) {
-			paths.add(file.toPath());
-		}
-		return paths.listIterator();
-	}
-	
-	public static ListIterator<Path> listPaths(final String paths) {
-		return listPaths(paths.split(File.pathSeparator));
-	}
-	
-	public static ListIterator<Path> listPaths(final String... pathList) {
-		return Arrays.asList(Convert.as(pathList, new Callback<String, Path>() {
-			@Override
-			public Path as(final String old) {
-				return Paths.get(old.trim());
-			}
-		})).listIterator();
+	public static boolean deleteDirectory(final File file) {
+		if (file.isDirectory())
+			for (final File down : file.listFiles())
+				if (!deleteDirectory(down))
+					return false;
+		return file.delete();
 	}
 	
 	public static boolean deleteDirectory(final Path path) throws IOException {
@@ -68,22 +46,28 @@ public final class FileUtil {
 					return false;
 		return Files.deleteIfExists(path);
 	}
+	
+	public static Path[] listPaths(final File... files) {
+		List<Path> paths = new ArrayList<Path>(files.length);
+		for (File file : files) {
+			if (file == null) {
+				continue;
+			}
+			paths.add(file.toPath());
+		}
+		return paths.toArray(new Path[paths.size()]);
+	}
 
-	public static boolean deleteDirectory(final File file) {
-		if (file.isDirectory())
-			for (final File down : file.listFiles())
-				if (!deleteDirectory(down))
-					return false;
-		return file.delete();
+	public static Path[] listPaths(final String paths) {
+		return listPaths(paths.split(File.pathSeparator));
 	}
 	
-	public static Path classpath(String name) {
-		try {
-			final URL url = Class.class.getResource(name);
-			return (url != null) ? Paths.get(url.toURI()) : null;
-		} catch (URISyntaxException e) {
-			return null;
+	public static Path[] listPaths(final String... paths) {
+		List<Path> list = new ArrayList<>();
+		for (String path : ArrayUtil.removeNull(paths)) {
+			list.add(Paths.get(path));
 		}
+		return list.toArray(new Path[list.size()]);
 	}
 
 	private FileUtil() {
