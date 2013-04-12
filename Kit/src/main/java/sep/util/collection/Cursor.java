@@ -1,7 +1,6 @@
 package sep.util.collection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,42 +8,46 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
-public final class Fetch<E> implements Iterable<E>, Iterator<E>, Enumeration<E> {
-	public static <E> Iterable<E> of(final Enumeration<E> enumeration) {
-		return new Fetch<E>(enumeration);
+public final class Cursor<E> implements Iterable<E>, Iterator<E>, Enumeration<E> {
+	public final static class EnumerationIterator<E> implements Iterator<E> {
+		private final Enumeration<E> enumeration;
+
+		public EnumerationIterator(final Enumeration<E> enumeration) {
+			this.enumeration = enumeration;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return enumeration.hasMoreElements();
+		}
+
+		@Override
+		public E next() {
+			return enumeration.nextElement();
+		}
+
+		@Deprecated
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException("The the Iterator<E> agent Enumeration<E>");
+		}
 	}
-	
-	public static <E> Iterable<E> of(final Iterator<E> iterator) {
-		return new Fetch<E>(iterator);
-	}
-	
+
 	protected final Iterator<E> iterator;
 
-	public Fetch(final Enumeration<E> enumeration) {
-		this(new Iterator<E>() {
-			@Override
-			public boolean hasNext() {
-				return enumeration.hasMoreElements();
-			}
-
-			@Override
-			public E next() {
-				return enumeration.nextElement();
-			}
-
-			@Override
-			@Deprecated
-			public void remove() {
-				throw new UnsupportedOperationException("The the Iterator<E> agent Enumeration<E>");
-			}
-		});
-	}
-	
-	public Fetch(final Iterable<E> iterable) {
+	public Cursor(final Cursor<E> iterable) {
 		this(iterable.iterator());
 	}
-	
-	public Fetch(final Iterator<E> iterator) {
+
+	public Cursor(final Enumeration<E> enumeration) {
+		this(new EnumerationIterator<>(enumeration));
+	}
+
+	public Cursor(final Iterable<E> iterable) {
+		this(iterable.iterator());
+	}
+
+	public Cursor(final Iterator<E> iterator) {
 		this.iterator = iterator;
 	}
 
@@ -72,7 +75,8 @@ public final class Fetch<E> implements Iterable<E>, Iterator<E>, Enumeration<E> 
 		if (iterator instanceof ListIterator) {
 			return (ListIterator<E>) iterator;
 		} else {
-			throw new UnsupportedOperationException("This Iterator<E> not is ListIterator<E> Type");
+			throw new UnsupportedOperationException(
+					"This Iterator<E> not is ListIterator<E> Type");
 		}
 	}
 
@@ -92,7 +96,7 @@ public final class Fetch<E> implements Iterable<E>, Iterator<E>, Enumeration<E> 
 	}
 
 	public E[] toArray() {
-		return CollectionUtil.toArray(toList());
+		return CollectionUtil.asArray(toList());
 	}
 
 	public List<E> toList() {
@@ -102,7 +106,7 @@ public final class Fetch<E> implements Iterable<E>, Iterator<E>, Enumeration<E> 
 		}
 		return list;
 	}
-	
+
 	public Set<E> toSet() {
 		final Set<E> set = new HashSet<>();
 		for (E element : this) {
@@ -113,6 +117,6 @@ public final class Fetch<E> implements Iterable<E>, Iterator<E>, Enumeration<E> 
 
 	@Override
 	public String toString() {
-		return Arrays.toString(toArray());
+		return toList().toString();
 	}
 }
