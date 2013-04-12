@@ -2,6 +2,8 @@ package sep.util.collection;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 
 public final class ArrayUtil {
@@ -13,7 +15,7 @@ public final class ArrayUtil {
 		}
 		return false;
 	}
-
+	
 	public static boolean contains(final double[] elements, double value) {
 		for (double element : elements) {
 			if (element == value) {
@@ -69,6 +71,47 @@ public final class ArrayUtil {
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <T> T[] createInstance(final Class<? extends T> type, final int length) {
+		return (T[]) Array.newInstance(type, length);
+	}
+
+	public static <E> Enumeration<E> enumeration(final E[] objects) {
+		return new Enumeration<E>() {
+			private int hash = 0;
+			private int index = -1;
+			private final int length = objects.length;
+			
+			@SuppressWarnings("unchecked")
+			@Override
+			public boolean equals(Object obj) {
+				if (this == obj)
+					return true;
+				if (obj == null || getClass() != obj.getClass())
+					return false;
+				return Arrays.equals(objects, (E[]) obj);
+			}
+
+			@Override
+			public int hashCode() {
+				if (hash == 0) {
+					hash = Arrays.hashCode(objects);
+				}
+				return hash;
+			}
+			
+			@Override
+			public boolean hasMoreElements() {
+				return index > length;
+			}
+			
+			@Override
+			public E nextElement() {
+				return objects[++index];
+			}
+		};
+	}
+	
 	public static int indexOf(final byte[] elements, byte value) {
 		for (int i = 0; i < elements.length; i++) {
 			if (elements[i] == value) {
@@ -196,7 +239,7 @@ public final class ArrayUtil {
 		}
 		return -1;
 	}
-	
+
 	public static byte max(final byte... values) {
 		byte max = values[0];
 		for (int i = 1; i < values.length; i++) {
@@ -315,12 +358,6 @@ public final class ArrayUtil {
 			}
 		}
 		return min;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static <T> T[] newArray(final Class<? extends T> type,
-			final int length) {
-		return (T[]) Array.newInstance(type, length);
 	}
 
 	@SuppressWarnings("unchecked")
