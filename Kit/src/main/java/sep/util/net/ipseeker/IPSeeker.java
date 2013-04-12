@@ -28,12 +28,12 @@ public class IPSeeker {
 		}
 	}
 	
-	public IPLocation getLocation(final byte... address) {
-		if (address != null && address.length == 4) {
-			return h.getLocation(h.locateOffset(address));
-		} else {
-			throw new IllegalArgumentException();
-		}
+	public IPLocation getLocation(final byte ip1, final byte ip2, final byte ip3, final byte ip4) {
+		return getLocation(new byte[] { ip1, ip2, ip3, ip4 });
+	}
+	
+	protected final IPLocation getLocation(final byte[] ip) {
+		return h.getLocation(h.locateOffset(ip));
 	}
 	
 	public IPLocation getLocation(final Inet4Address address) {

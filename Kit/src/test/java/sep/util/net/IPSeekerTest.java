@@ -10,13 +10,13 @@ import org.junit.Test;
 import sep.util.io.file.FileUtil;
 import sep.util.net.ipseeker.IPLocation;
 import sep.util.net.ipseeker.IPSeeker;
-import sep.util.net.ipseeker.IPSeekerCache;
+import sep.util.net.ipseeker.IPSeekerSimpleCache;
 
 public class IPSeekerTest {
 	private final IPSeeker seeker;
 	
 	public IPSeekerTest() throws IOException {
-		seeker = new IPSeekerCache(FileUtil.classpath("/QQWry.DAT"));
+		seeker = new IPSeekerSimpleCache(FileUtil.classpath("/QQWry.DAT"));
 	}
 	
 	@Test
