@@ -12,6 +12,10 @@ public final class Text {
 	public static String format(final String pattern, final Object... arguments) {
 		return MessageFormat.format(pattern, arguments);
 	}
+	
+	public static <T extends CharSequence> T handlerEmpty(T value, T defaultValue) {
+		return (value == null || value.length() == 0) ? defaultValue : value;
+	}
 
 	/** 回文 */
 	public static boolean isPalindrome(final CharSequence value) {
@@ -38,6 +42,20 @@ public final class Text {
 		return s == number;
 	}
 
+	public static String leftPad(final CharSequence value, final int length, final CharSequence padContent) {
+		if (value != null && value.length() == 0) {
+			return value.toString();
+		} else {
+			final CharSequence content = handlerEmpty(padContent, "");
+			final StringBuffer buffer = new StringBuffer(length * content.length());
+			buffer.append(value);
+			for (int i = 0; i < length; i++) {
+				buffer.append(content);
+			}
+			return buffer.toString();
+		}
+	}
+
 	public static String leftPad(final long value, final short length) {
 		return String.format("%0" + length + "d", value);
 	}
@@ -45,22 +63,7 @@ public final class Text {
 	public static String leftPad(final String value, final int length) {
 		return leftPad(value, length, " ");
 	}
-
-	public static String leftPad(final String value, final int length, final String padContent) {
-		if (value != null && value.isEmpty() && value.length() <= length) {
-			return value;
-		} else {
-			final String padChars = (padContent == null || padContent.isEmpty()) ? " "
-					: padContent;
-			final StringBuffer buffer = new StringBuffer(length);
-			buffer.append(value);
-			for (int i = 0; i < length; i++) {
-				buffer.append(padChars);
-			}
-			return buffer.toString();
-		}
-	}
-
+	
 	/**
 	 * 将字符串的第一个字母改为大写
 	 * 
