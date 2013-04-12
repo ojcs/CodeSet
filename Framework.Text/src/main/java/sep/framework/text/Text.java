@@ -22,7 +22,20 @@ public final class Text {
 		while (++i <= length && input.charAt(i) != value);
 		return i;
 	}
+	
+	public static int indexOf(CharSequence input, int offset, CharSequence value) {
+		int i = offset, length = input.length();
+		while (++i <= length && input.charAt(i) != value.charAt(0));
+		if (input.subSequence(i, i + value.length()).equals(value)) {
+			return i;
+		}
+		return -1;
+	}
 
+	public static char[] toCharArray(CharSequence value) {
+		return value.toString().toCharArray();
+	}
+	
 	/** 回文 */
 	public static boolean isPalindrome(final CharSequence value) {
 		final int len = value.length();
