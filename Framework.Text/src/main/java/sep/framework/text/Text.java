@@ -17,6 +17,12 @@ public final class Text {
 		return (value == null || value.length() == 0) ? defaultValue : value;
 	}
 
+	public static int indexOf(CharSequence input, int offset, char value) {
+		int i = offset, length = input.length();
+		while (++i <= length && input.charAt(i) != value);
+		return i;
+	}
+
 	/** 回文 */
 	public static boolean isPalindrome(final CharSequence value) {
 		final int len = value.length();
@@ -59,11 +65,11 @@ public final class Text {
 	public static String leftPad(final long value, final short length) {
 		return String.format("%0" + length + "d", value);
 	}
-
+	
 	public static String leftPad(final String value, final int length) {
 		return leftPad(value, length, " ");
 	}
-	
+
 	/**
 	 * 将字符串的第一个字母改为大写
 	 * 
@@ -79,7 +85,7 @@ public final class Text {
 		chars[0] = Character.toLowerCase(chars[0]);
 		return String.valueOf(chars);
 	}
-
+	
 	public static String rightPad(final String value, final int length) {
 		return rightPad(value, length, " ");
 	}

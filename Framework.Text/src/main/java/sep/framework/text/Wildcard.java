@@ -11,7 +11,7 @@ public final class Wildcard {
 			case '*' :
 				if (length == 1 || p == length - 1 || p == length) { continue; }
 				next = pattern.charAt(++p);
-				i = Chars.indexOf(input, i, next);
+				i = Text.indexOf(input, i, next);
 				continue;
 			default:
 				if (input.charAt(i) == current) { continue; }
