@@ -16,14 +16,16 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 
-public final class CertificateCipherBuilder {
-	public static Certificate buildCertificate(Path path, String type) throws CertificateException, IOException {
+public final class CertificateBuilder {
+	public static Certificate buildCertificate(Path path, String type)
+			throws CertificateException, IOException {
 		try (InputStream in = Files.newInputStream(path)) {
 			return CertificateFactory.getInstance(type).generateCertificate(in);
 		}
 	}
 
-	public static KeyStore buildKeyStore(Path path, String type, char[] password) throws GeneralSecurityException, IOException {
+	public static KeyStore buildKeyStore(Path path, String type, char[] password)
+			throws GeneralSecurityException, IOException {
 		KeyStore store;
 		try (InputStream stream = Files.newInputStream(path)) {
 			store = KeyStore.getInstance(type);
@@ -46,12 +48,10 @@ public final class CertificateCipherBuilder {
 	}
 
 	private final String algorithm;
-
 	private PrivateKey privateKey;
-
 	private PublicKey publicKey;
 
-	public CertificateCipherBuilder(String algorithm) {
+	public CertificateBuilder(String algorithm) {
 		this.algorithm = algorithm;
 	}
 
