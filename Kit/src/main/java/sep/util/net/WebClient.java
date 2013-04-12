@@ -2,10 +2,7 @@ package sep.util.net;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,6 +10,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -41,7 +40,7 @@ public final class WebClient {
 		return submitRequest(makeRequest(address, "POST", null, data, null));
 	}
 
-	public static InputStream POST(final URL address, final Map<String, String> data, final Map<String, File> dataFile) throws IOException {
+	public static InputStream POST(final URL address, final Map<String, String> data, final Map<String, Path> dataFile) throws IOException {
 		try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
 			final String dataSep = "-----------------------------7da2e536604c8";
 			try (final OutputStream outputStream = new DataOutputStream(stream)) {
@@ -54,13 +53,13 @@ public final class WebClient {
 					}
 				}
 				if (dataFile != null && !dataFile.isEmpty()) {
-					for (Entry<String, File> entry : dataFile.entrySet()) {
+					for (Entry<String, Path> entry : dataFile.entrySet()) {
 						outputStream.write(new StringBuilder(dataHeader)
-						.append("Content-Disposition:form-data;name=\"file").append(entry.getKey()).append("\";filename=\"").append(entry.getValue().getName()).append("\"\r\n")
+						.append("Content-Disposition:form-data;name=\"file").append(entry.getKey()).append("\";filename=\"").append(entry.getValue().getFileName()).append("\"\r\n")
 						.append("Content-Type:application/octet-stream\r\n\r\n").toString().getBytes());
 						
 						StreamConvert.convert(
-							new DataInputStream(new FileInputStream(entry.getValue())),
+							Files.newInputStream(entry.getValue()),
 							outputStream,
 							true,
 							StreamUtil.BUFFER_SIZE
@@ -72,8 +71,8 @@ public final class WebClient {
 			}
 			
 			final Map<String, String> headers = new HashMap<>();
-			headers.put("connection", "Keep-Alive");
-			headers.put("Charsert", "UTF-8");
+			headers.put("Connection", "keep-alive");
+			headers.put("Charset", "UTF-8");
 			headers.put("Content-Type", "multipart/form-data;boundary=" + dataSep); 
 			return submitRequest(makeRequest(address, "POST", headers, stream.toByteArray()));
 		}
