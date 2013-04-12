@@ -11,8 +11,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import sep.util.collection.ArrayUtil;
-
 public final class FileUtil {
 	public static Path classpath(String name) {
 		try {
@@ -64,7 +62,10 @@ public final class FileUtil {
 	
 	public static Path[] listPaths(final String... paths) {
 		List<Path> list = new ArrayList<>();
-		for (String path : ArrayUtil.removeNull(paths)) {
+		for (String path : paths) {
+			if (path == null) {
+				continue;
+			}
 			list.add(Paths.get(path));
 		}
 		return list.toArray(new Path[list.size()]);
