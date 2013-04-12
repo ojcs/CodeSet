@@ -1,7 +1,5 @@
 package sep.util;
 
-import static java.lang.Math.pow;
-
 import java.math.BigInteger;
 
 public final class Maths {
@@ -33,13 +31,13 @@ public final class Maths {
 	 * @return 舍入后的结果。
 	 */
 	public static double round(final double number, final int bit) {
-		double temp = pow(10, bit);
-		return java.lang.Math.round(number * temp) / temp;
+		double temp = StrictMath.pow(10, bit);
+		return StrictMath.round(number * temp) / temp;
 	}
 	
 	/** 任意进制转换 */
-	public static String convertRadix(long value, final int radix) {
-		return BigInteger.valueOf(value).toString(radix);
+	public static String radix(String value, final int radix) {
+		return new BigInteger(value).toString(radix);
 	}
 
 	private Maths() {
