@@ -117,6 +117,15 @@ public final class Cursor<E> implements Iterable<E>, Iterator<E>, Enumeration<E>
 
 	@Override
 	public String toString() {
-		return toList().toString();
+		Iterator<E> iterator = iterator();
+		if (!iterator.hasNext()) {
+			return "[]";
+		}
+		StringBuilder builder = new StringBuilder();
+		builder.append('[');
+		while (iterator.hasNext()) {
+			builder.append(iterator.next()).append(',').append(' ');
+		}
+		return builder.deleteCharAt(builder.length()).append(']').toString();
 	}
 }
