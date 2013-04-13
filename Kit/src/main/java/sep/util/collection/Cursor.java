@@ -93,6 +93,23 @@ public final class Cursor<E> implements Iterable<E>, Iterator<E>, Enumeration<E>
 	public void remove() {
 		iterator.remove();
 	}
+	
+	public void removeAll() {
+		while (iterator.hasNext()) {
+			iterator.remove();
+		}
+	}
+	
+	public void removeNull() {
+		if (iterator instanceof EnumerationIterator) {
+			return;
+		}
+		while (iterator.hasNext()) {
+			if (iterator.next() == null) {
+				iterator.remove();
+			}
+		}
+	}
 
 	public E[] toArray() {
 		return CollectionUtil.asArray(toList());
