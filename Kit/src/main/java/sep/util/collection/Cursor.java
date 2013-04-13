@@ -75,8 +75,7 @@ public final class Cursor<E> implements Iterable<E>, Iterator<E>, Enumeration<E>
 		if (iterator instanceof ListIterator) {
 			return (ListIterator<E>) iterator;
 		} else {
-			throw new UnsupportedOperationException(
-					"This Iterator<E> not is ListIterator<E> Type");
+			throw new UnsupportedOperationException();
 		}
 	}
 
