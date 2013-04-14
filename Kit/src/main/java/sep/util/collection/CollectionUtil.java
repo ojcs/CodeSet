@@ -21,15 +21,11 @@ public final class CollectionUtil {
 	}
 	
 	public static <E> List<E> asList(@SuppressWarnings("unchecked") final E... array) {
-		List<E> list = new ArrayList<E>(array.length);
+		List<E> list = new ArrayList<>(array.length);
 		for (E element : array) {
 			list.add(element);
 		}
 		return list;
-	}
-	
-	public static <E> List<E> asList(final Iterable<? extends E> iterable) {
-		return asList(iterable.iterator());
 	}
 	
 	public static <E> List<E> asList(final Iterator<? extends E> iterator) {
