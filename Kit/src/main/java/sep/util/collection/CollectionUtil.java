@@ -73,7 +73,7 @@ public final class CollectionUtil {
 	}
 	
 	public static <E> String toString(Iterator<E> iterator) {
-		if (!iterator.hasNext()) {
+		if (iterator == null || !iterator.hasNext()) {
 			return "[]";
 		}
 		StringBuilder builder = new StringBuilder();
