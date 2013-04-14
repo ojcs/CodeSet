@@ -8,40 +8,40 @@ import java.security.Provider;
 import sep.util.security.Update;
 
 public final class HashMessageDigest implements Update<byte[]> {
-	private final MessageDigest mac;
+	private final MessageDigest digest;
 	
 	public HashMessageDigest(String algorithm)
 			throws GeneralSecurityException {
-		mac = MessageDigest.getInstance(algorithm);
+		digest = MessageDigest.getInstance(algorithm);
 	}
 	
 	public HashMessageDigest(String algorithm, Provider provider)
 			throws GeneralSecurityException {
-		mac = MessageDigest.getInstance(algorithm, provider);
+		digest = MessageDigest.getInstance(algorithm, provider);
 	}
 	
 	@Override
 	public byte[] doFinal() {
-		return mac.digest();
+		return digest.digest();
 	}
 
 	@Override
 	public void update(byte input) {
-		mac.update(input);
+		digest.update(input);
 	}
 
 	@Override
 	public void update(byte[] input) {
-		mac.update(input);
+		digest.update(input);
 	}
 
 	@Override
 	public void update(byte[] input, int offset, int len) {
-		mac.update(input, offset, len);
+		digest.update(input, offset, len);
 	}
 
 	@Override
 	public void update(ByteBuffer input) {
-		mac.update(input);
+		digest.update(input);
 	}
 }
