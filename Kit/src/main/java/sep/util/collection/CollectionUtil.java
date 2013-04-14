@@ -69,6 +69,18 @@ public final class CollectionUtil {
 			}
 		}
 	}
+	
+	public static <E> String toString(Iterator<E> iterator) {
+		if (!iterator.hasNext()) {
+			return "[]";
+		}
+		StringBuilder builder = new StringBuilder();
+		builder.append('[');
+		while (iterator.hasNext()) {
+			builder.append(iterator.next()).append(',').append(' ');
+		}
+		return builder.deleteCharAt(builder.length()).append(']').toString();
+	}
 
 	private CollectionUtil() {
 	}
