@@ -2,9 +2,8 @@ package sep.util.reflect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import java.util.Arrays;
 
-import sep.util.collection.NotComparatorImpl;
+import sep.util.collection.ArrayUtil;
 
 public class AnnotationUtil {
 	public static boolean has(final AnnotatedElement element, final Class<? extends Annotation> annotatationClass) {
@@ -16,8 +15,8 @@ public class AnnotationUtil {
 	}
 	
 	public static boolean hasSuppressWarnings(final AnnotatedElement element, final String value) {
-		return has(element, SuppressWarnings.class)
-		&& Arrays.binarySearch(get(element, SuppressWarnings.class).value(), value, NotComparatorImpl.get()) != -1;
+		final String[] values = get(element, SuppressWarnings.class).value();
+		return has(element, SuppressWarnings.class) && ArrayUtil.contains(values, value);
 	}
 	
 	public static boolean hasOverride(final AnnotatedElement element) {
