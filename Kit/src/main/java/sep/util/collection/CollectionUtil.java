@@ -40,6 +40,12 @@ public final class CollectionUtil {
 		System.arraycopy(source, sourcePos, target, targetPos, length);
 	}
 	
+	public static void removeAll(final Iterator<?> iterator) {
+		while (iterator.hasNext()) {
+			iterator.remove();
+		}
+	}
+	
 	public static void removeEmpty(final Iterator<? extends CharSequence> iterator) {
 		CharSequence cache;
 		while (iterator.hasNext()) {
