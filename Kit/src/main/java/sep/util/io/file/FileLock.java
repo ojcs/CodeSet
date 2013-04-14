@@ -12,7 +12,7 @@ public final class FileLock {
 	private final File file;
 	private int lockerSleepUnitTime = 20;
 
-	private static final Map<File, ReentrantReadWriteLock> lockItemMap = new ConcurrentHashMap<File, ReentrantReadWriteLock>();
+	private static final Map<File, ReentrantReadWriteLock> lockItemMap = new ConcurrentHashMap<>();
 	
 	public FileLock(final Path path) throws IOException  {
 		this(path.toFile());
@@ -29,11 +29,11 @@ public final class FileLock {
 	/** 获取写入锁。将同时获取 写入和读取锁。 */
 	public synchronized void lockWrite() {
 		try {
-			final ReentrantReadWriteLock rwLock = lockItemMap.get(file);
-			while (!rwLock.writeLock().tryLock() || !rwLock.isWriteLockedByCurrentThread()) {
+			final ReentrantReadWriteLock lock = lockItemMap.get(file);
+			while (!lock.writeLock().tryLock() || !lock.isWriteLockedByCurrentThread()) {
 				Thread.sleep(lockerSleepUnitTime);
 			}
-		} catch (InterruptedException ex) {
+		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
 	}
@@ -44,7 +44,7 @@ public final class FileLock {
 			while (!lockItemMap.get(file).readLock().tryLock()) {
 				Thread.sleep(lockerSleepUnitTime);
 			}
-		} catch (InterruptedException ex) {
+		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
 	}
@@ -63,11 +63,11 @@ public final class FileLock {
 		return lockerSleepUnitTime;
 	}
 	
-	public synchronized void setLockerSleepUnitTime(final int lockerSleepUnitTime) {
-		this.lockerSleepUnitTime = lockerSleepUnitTime;
+	public synchronized void setLockerSleepUnitTime(final int time) {
+		this.lockerSleepUnitTime = time;
 	}
 
-	public File currentFile() {
+	public final File getFile() {
 		return file;
 	}
 }
