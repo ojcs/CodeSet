@@ -101,9 +101,6 @@ public final class Cursor<E> implements Iterable<E>, Iterator<E>, Enumeration<E>
 	}
 	
 	public void removeNull() {
-		if (iterator instanceof EnumerationIterator) {
-			return;
-		}
 		while (iterator.hasNext()) {
 			if (iterator.next() == null) {
 				iterator.remove();
