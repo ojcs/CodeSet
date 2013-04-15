@@ -2,9 +2,10 @@ package sep.util.io.file;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,14 +19,6 @@ public final class FileUtil {
 			return (url != null) ? Paths.get(url.toURI()) : null;
 		} catch (URISyntaxException e) {
 			return null;
-		}
-	}
-
-	/** 复制文件 */
-	public static void copy(final Path sourceFile, final Path targetFile)
-			throws IOException {
-		try (final InputStream sourceStream = Files.newInputStream(sourceFile)) {
-			Files.copy(sourceStream, targetFile);
 		}
 	}
 	
@@ -69,6 +62,12 @@ public final class FileUtil {
 			list.add(Paths.get(path));
 		}
 		return list.toArray(new Path[list.size()]);
+	}
+	
+	public static ByteBuffer load(Path path, ByteOrder order) throws IOException {
+		ByteBuffer buffer = ByteBuffer.wrap(Files.readAllBytes(path));
+		buffer.order(order);
+		return buffer;
 	}
 
 	private FileUtil() {
