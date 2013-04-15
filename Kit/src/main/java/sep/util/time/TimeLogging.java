@@ -27,7 +27,9 @@ public class TimeLogging {
 		if (map.containsKey(name)) {
 			return map.get(name);
 		} else {
-			return map.put(name, new TimePair());
+			TimePair pair = new TimePair();
+			map.put(name, new TimePair());
+			return pair;
 		}
 	}
 	

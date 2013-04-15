@@ -18,7 +18,9 @@ public class IPSeekerSimpleCache extends IPSeeker {
 		if (cache.containsKey(ip)) {
 			return cache.get(ip);
 		} else {
-			return cache.put(ip, super.getLocation(ip));
+			IPLocation location = super.getLocation(ip);
+			cache.put(ip, location);
+			return location;
 		}
 	}
 }
