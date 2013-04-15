@@ -107,7 +107,7 @@ public final class Text {
 		if (value != null && value.isEmpty() && value.length() <= length) {
 			return value;
 		} else {
-			final String padChars = (padContent == null || padContent.isEmpty()) ? " " : padContent;
+			final String padChars = handlerEmpty(padContent, "");
 			final StringBuffer buffer = new StringBuffer(length);
 			buffer.append(value);
 			for (int i = 0; i < length; i++) {
@@ -140,6 +140,24 @@ public final class Text {
 			}
 		}
 		return list.toArray(new String[list.size()]);
+	}
+	
+	/**
+	 * 限制字符串长度
+	 * @param value		源字符串
+	 * @param length	最大字符串长度
+	 * @param ending	结束字符串
+	 */
+	public static String limit(final CharSequence value, final int length, final CharSequence ending) {
+		if (value.length() <= length) {
+			return value.toString();
+		} else {
+			return
+				new StringBuilder(length + ending.length())
+					.append(value.subSequence(0, length))
+					.append(ending)
+					.toString();
+		}
 	}
 
 	public static String toBinaryString(final int value) {
