@@ -8,6 +8,8 @@ import java.nio.ByteOrder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import sep.util.io.file.FileUtil;
+
 public class IPSeeker {
 	final ByteBuffer buffer;
 	final Helper h;
@@ -15,8 +17,7 @@ public class IPSeeker {
 
 	public IPSeeker(Path path) throws IOException {
 		if (Files.exists(path)) {
-			buffer = ByteBuffer.wrap(Files.readAllBytes(path));
-			buffer.order(ByteOrder.LITTLE_ENDIAN);
+			buffer = FileUtil.load(path, ByteOrder.LITTLE_ENDIAN);
 			offsetBegin = buffer.getInt(0);
 			offsetEnd   = buffer.getInt(4);
 			if (offsetBegin == -1 || offsetEnd == -1) {
