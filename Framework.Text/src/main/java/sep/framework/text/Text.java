@@ -19,7 +19,7 @@ public final class Text {
 
 	public static int indexOf(CharSequence input, int offset, char value) {
 		int i = offset, length = input.length();
-		while (++i <= length && input.charAt(i) != value);
+		while (++i < length && input.charAt(i) != value);
 		return i;
 	}
 	
