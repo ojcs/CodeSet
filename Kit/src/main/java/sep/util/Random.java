@@ -1,9 +1,11 @@
 package sep.util;
 
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 
 import sep.util.collection.ArrayUtil;
+import sep.util.collection.CollectionUtil;
 
 public class Random extends java.util.Random {
 	private static final long serialVersionUID = 1L;
@@ -15,6 +17,10 @@ public class Random extends java.util.Random {
 		super(seed);
 	}
 
+	public <E extends Enum<E>> E choice(Class<E> clazz) {
+		return choice(CollectionUtil.asArray(EnumSet.allOf(clazz)));
+	}
+	
 	public boolean choice(boolean... array) {
 		return array[nextInt(0, array.length)];
 	}
