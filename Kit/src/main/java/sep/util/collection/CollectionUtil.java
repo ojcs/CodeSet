@@ -118,7 +118,7 @@ public final class CollectionUtil {
 		while (iterator.hasNext()) {
 			builder.append(iterator.next()).append(',').append(' ');
 		}
-		return builder.deleteCharAt(builder.length()).append(']').toString();
+		return builder.append(']').toString();
 	}
 	
 	private CollectionUtil() {
