@@ -44,8 +44,7 @@ public final class CollectionUtil {
 	public static <T extends Comparable<? super T>> T max(Iterator<? extends T> iterator) {
 		T next, candidate  = iterator.next();
 		while (iterator.hasNext()) {
-            next = iterator.next();
-            if (next.compareTo(candidate) > 0) {
+            if ((next = iterator.next()).compareTo(candidate) > 0) {
                 candidate = next;
             }
         }
@@ -55,8 +54,7 @@ public final class CollectionUtil {
 	public static <T> T max(Iterator<? extends T> iterator, Comparator<T> comparator) {
 		T next, candidate = iterator.next();
 		while (iterator.hasNext()) {
-			next = iterator.next();
-			if (comparator.compare(next, candidate) > 0) {
+			if (comparator.compare(next = iterator.next(), candidate) > 0) {
 				candidate = next;
 			}
 		}
@@ -66,8 +64,7 @@ public final class CollectionUtil {
 	public static <T extends Comparable<? super T>> T min(Iterator<? extends T> iterator) {
 		T next, candidate = iterator.next();
 		while (iterator.hasNext()) {
-            next = iterator.next();
-            if (next.compareTo(candidate) < 0) {
+            if ((next = iterator.next()).compareTo(candidate) < 0) {
                 candidate = next;
             }
         }
@@ -77,8 +74,7 @@ public final class CollectionUtil {
 	public static <T> T min(Iterator<? extends T> iterator, Comparator<T> comparator) {
 		T next, candidate = iterator.next();
 		while (iterator.hasNext()) {
-			next = iterator.next();
-			if (comparator.compare(next, candidate) < 0) {
+			if (comparator.compare(next = iterator.next(), candidate) < 0) {
 				candidate = next;
 			}
 		}
