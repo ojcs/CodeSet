@@ -2,6 +2,7 @@ package sep.util.collection;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,12 +41,56 @@ public final class CollectionUtil {
 		System.arraycopy(source, sourcePos, target, targetPos, length);
 	}
 	
+	public static <T extends Comparable<? super T>> T max(Iterator<? extends T> iterator) {
+		T next, candidate  = iterator.next();
+		while (iterator.hasNext()) {
+            next = iterator.next();
+            if (next.compareTo(candidate) > 0) {
+                candidate = next;
+            }
+        }
+		return candidate;
+	}
+	
+	public static <T> T max(Iterator<? extends T> iterator, Comparator<T> comparator) {
+		T next, candidate = iterator.next();
+		while (iterator.hasNext()) {
+			next = iterator.next();
+			if (comparator.compare(next, candidate) > 0) {
+				candidate = next;
+			}
+		}
+		return candidate;
+	}
+	
+	public static <T extends Comparable<? super T>> T min(Iterator<? extends T> iterator) {
+		T next, candidate = iterator.next();
+		while (iterator.hasNext()) {
+            next = iterator.next();
+            if (next.compareTo(candidate) < 0) {
+                candidate = next;
+            }
+        }
+		return candidate;
+	}
+	
+	public static <T> T min(Iterator<? extends T> iterator, Comparator<T> comparator) {
+		T next, candidate = iterator.next();
+		while (iterator.hasNext()) {
+			next = iterator.next();
+			if (comparator.compare(next, candidate) < 0) {
+				candidate = next;
+			}
+		}
+		return candidate;
+	}
+	
 	public static void removeAll(final Iterator<?> iterator) {
 		while (iterator.hasNext()) {
 			iterator.remove();
 		}
 	}
-	
+
 	public static void removeEmpty(final Iterator<? extends CharSequence> iterator) {
 		CharSequence cache;
 		while (iterator.hasNext()) {
@@ -83,7 +128,7 @@ public final class CollectionUtil {
 		}
 		return builder.deleteCharAt(builder.length()).append(']').toString();
 	}
-
+	
 	private CollectionUtil() {
 	}
 }
