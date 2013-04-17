@@ -37,10 +37,6 @@ public final class CollectionUtil {
 		return list;
 	}
 
-	public static <S extends T, T> void copy(final S[] source, final int sourcePos, final T[] target, final int targetPos, final int length) {
-		System.arraycopy(source, sourcePos, target, targetPos, length);
-	}
-	
 	public static <T extends Comparable<? super T>> T max(Iterator<? extends T> iterator) {
 		T next, candidate  = iterator.next();
 		while (iterator.hasNext()) {
