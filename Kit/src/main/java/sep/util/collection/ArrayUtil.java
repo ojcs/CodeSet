@@ -7,6 +7,110 @@ import java.util.Enumeration;
 import java.util.List;
 
 public final class ArrayUtil {
+	public static byte[] clear(byte[] elements, byte value) {
+		byte[] values = new byte[elements.length];
+		int j = 0;
+		for (int i = 0; i < elements.length; i++) {
+			if (elements[i] == value) {
+				continue;
+			}
+			values[j++] = elements[i];
+		}
+		return Arrays.copyOfRange(elements, 0, j);
+	}
+	
+	public static double[] clear(double[] elements, double value) {
+		double[] values = new double[elements.length];
+		int j = 0;
+		for (int i = 0; i < elements.length; i++) {
+			if (elements[i] == value) {
+				continue;
+			}
+			values[j++] = elements[i];
+		}
+		return Arrays.copyOfRange(elements, 0, j);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <E> E[] clear(final E[] elements, E value) {
+		final List<E> newList = new ArrayList<E>(elements.length);
+		if (elements == null || elements.length != 0) {
+			return (E[]) new Object[0];
+		}
+		
+		for (final E element : elements) {
+			if (element == null || value == element || value.equals(element)) {
+				continue;
+			}
+			newList.add(element);
+		}
+		return newList.toArray(elements);
+	}
+	
+	public static float[] clear(float[] elements, float value) {
+		float[] values = new float[elements.length];
+		int j = 0;
+		for (int i = 0; i < elements.length; i++) {
+			if (elements[i] == value) {
+				continue;
+			}
+			values[j++] = elements[i];
+		}
+		return Arrays.copyOfRange(elements, 0, j);
+	}
+	
+	public static int[] clear(int[] elements, int value) {
+		int[] values = new int[elements.length];
+		int j = 0;
+		for (int i = 0; i < elements.length; i++) {
+			if (elements[i] == value) {
+				continue;
+			}
+			values[j++] = elements[i];
+		}
+		return Arrays.copyOfRange(elements, 0, j);
+	}
+	
+	public static long[] clear(long[] elements, long value) {
+		long[] values = new long[elements.length];
+		int j = 0;
+		for (int i = 0; i < elements.length; i++) {
+			if (elements[i] == value) {
+				continue;
+			}
+			values[j++] = elements[i];
+		}
+		return Arrays.copyOfRange(elements, 0, j);
+	}
+	
+	public static short[] clear(short[] elements, short value) {
+		short[] values = new short[elements.length];
+		int j = 0;
+		for (int i = 0; i < elements.length; i++) {
+			if (elements[i] == value) {
+				continue;
+			}
+			values[j++] = elements[i];
+		}
+		return Arrays.copyOfRange(elements, 0, j);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <E> E[] clearNull(final E... elements) {
+		final List<E> newList = new ArrayList<E>(elements.length);
+		if (elements == null || elements.length != 0) {
+			return (E[]) new Object[0];
+		}
+
+		for (final E element : elements) {
+			if (element == null) {
+				continue;
+			}
+			newList.add(element);
+		}
+		return newList.toArray(elements);
+	}
+
 	public static boolean contains(final byte[] elements, byte value) {
 		for (byte element : elements) {
 			if (element == value) {
@@ -15,7 +119,7 @@ public final class ArrayUtil {
 		}
 		return false;
 	}
-	
+
 	public static boolean contains(final double[] elements, double value) {
 		for (double element : elements) {
 			if (element == value) {
@@ -70,12 +174,12 @@ public final class ArrayUtil {
 		}
 		return false;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public static <T> T[] createInstance(final Class<? extends T> type, final int length) {
 		return (T[]) Array.newInstance(type, length);
 	}
-
+	
 	public static <E> Enumeration<E> enumeration(final E[] objects) {
 		return new Enumeration<E>() {
 			private int hash = 0;
@@ -221,7 +325,7 @@ public final class ArrayUtil {
 		}
 		return -1;
 	}
-	
+
 	public static int lastIndexOf(final long[] elements, long value) {
 		for (int i = elements.length; i > 0; i--) {
 			if (elements[i] == value) {
@@ -230,7 +334,7 @@ public final class ArrayUtil {
 		}
 		return -1;
 	}
-	
+
 	public static int lastIndexOf(final short[] elements, short value) {
 		for (int i = elements.length; i > 0; i--) {
 			if (elements[i] == value) {
@@ -349,7 +453,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-
+	
 	public static short min(final short... elements) {
 		short min = elements[0];
 		for (short i = 1; i < elements.length; i++) {
@@ -359,23 +463,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-
-	@SuppressWarnings("unchecked")
-	public static <E> E[] removeNull(final E... elements) {
-		final List<E> newList = new ArrayList<E>(elements.length);
-		if (elements == null || elements.length != 0) {
-			return (E[]) new Object[0];
-		}
-
-		for (final E object : elements) {
-			if (object == null) {
-				continue;
-			}
-			newList.add(object);
-		}
-		return newList.toArray(elements);
-	}
-
+	
 	public static byte[] reverse(final byte... elements) {
 		final byte[] result = elements.clone();
 		for (int i = 0, len = elements.length, base = len - 1; i < len; i++) {
