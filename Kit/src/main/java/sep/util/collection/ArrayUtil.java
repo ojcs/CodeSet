@@ -1,10 +1,7 @@
 package sep.util.collection;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.List;
 
 public final class ArrayUtil {
 	public static byte[] clear(final byte[] elements, final byte value) {
@@ -31,20 +28,17 @@ public final class ArrayUtil {
 		return Arrays.copyOfRange(elements, 0, j);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static <E> E[] clear(final E[] elements, final E value) {
-		final List<E> newList = new ArrayList<E>(elements.length);
-		if (elements == null || elements.length != 0) {
-			return (E[]) new Object[0];
-		}
-
+		final int hashCode = value.hashCode();
+		final E[] values = elements.clone();
+		int j = 0;
 		for (final E element : elements) {
-			if (element == null || value == element || value.equals(element)) {
+			if (element == value || element.hashCode() == hashCode || element.equals(value)) {
 				continue;
 			}
-			newList.add(element);
+			values[j++] = element;
 		}
-		return newList.toArray(elements);
+		return Arrays.copyOfRange(elements, 0, j);
 	}
 
 	public static float[] clear(final float[] elements, final float value) {
@@ -95,20 +89,16 @@ public final class ArrayUtil {
 		return Arrays.copyOfRange(elements, 0, j);
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <E> E[] clearNull(final E... elements) {
-		final List<E> newList = new ArrayList<E>(elements.length);
-		if (elements == null || elements.length != 0) {
-			return (E[]) new Object[0];
-		}
-
+	public static <E> E[] clearNull(final E[] elements) {
+		final E[] values = elements.clone();
+		int j = 0;
 		for (final E element : elements) {
 			if (element == null) {
 				continue;
 			}
-			newList.add(element);
+			values[j++] = element;
 		}
-		return newList.toArray(elements);
+		return Arrays.copyOfRange(elements, 0, j);
 	}
 
 	public static boolean contains(final byte[] elements, final byte value) {
@@ -129,11 +119,10 @@ public final class ArrayUtil {
 		return false;
 	}
 
-	public static <E> boolean contains(final E[] elements, final E object) {
-		final int hash = object.hashCode();
+	public static <E> boolean contains(final E[] elements, final E value) {
+		final int hash = value.hashCode();
 		for (final E element : elements) {
-			if (element == object || element.hashCode() == hash
-					|| object.equals(element)) {
+			if (element == value || element.hashCode() == hash || value.equals(element)) {
 				return true;
 			}
 		}
@@ -177,47 +166,8 @@ public final class ArrayUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <T> T[] createInstance(final Class<? extends T> type,
-			final int length) {
+	public static <T> T[] createInstance(final Class<? extends T> type, final int length) {
 		return (T[]) Array.newInstance(type, length);
-	}
-
-	public static <E> Enumeration<E> enumeration(final E[] objects) {
-		return new Enumeration<E>() {
-			private int hash = 0;
-			private int index = -1;
-			private final int length = objects.length;
-
-			@SuppressWarnings("unchecked")
-			@Override
-			public boolean equals(final Object obj) {
-				if (this == obj) {
-					return true;
-				}
-				if (obj == null || getClass() != obj.getClass()) {
-					return false;
-				}
-				return Arrays.equals(objects, (E[]) obj);
-			}
-
-			@Override
-			public int hashCode() {
-				if (hash == 0) {
-					hash = Arrays.hashCode(objects);
-				}
-				return hash;
-			}
-
-			@Override
-			public boolean hasMoreElements() {
-				return index > length;
-			}
-
-			@Override
-			public E nextElement() {
-				return objects[++index];
-			}
-		};
 	}
 
 	public static int indexOf(final byte[] elements, final byte value) {
@@ -238,11 +188,12 @@ public final class ArrayUtil {
 		return -1;
 	}
 
-	public static <E> int indexOf(final E[] elements, final E object) {
-		final int hash = object.hashCode();
+	public static <E> int indexOf(final E[] elements, final E value) {
+		final int hashCode = value.hashCode();
+		E element;
 		for (int i = 0; i < elements.length; i++) {
-			if (elements[i] == object || elements[i].hashCode() == hash
-					|| object.equals(elements[i])) {
+			element = elements[i];
+			if (element == value || element.hashCode() == hashCode || value.equals(element)) {
 				return i;
 			}
 		}
@@ -303,11 +254,12 @@ public final class ArrayUtil {
 		return -1;
 	}
 
-	public static <E> int lastIndexOf(final E[] elements, final E object) {
-		final int hash = object.hashCode();
+	public static <E> int lastIndexOf(final E[] elements, final E value) {
+		final int hashCode = value.hashCode();
+		E element;
 		for (int i = elements.length; i > 0; i--) {
-			if (elements[i] == object || elements[i].hashCode() == hash
-					|| object.equals(elements[i])) {
+			element = elements[i];
+			if (element == value || element.hashCode() == hashCode || value.equals(element)) {
 				return i;
 			}
 		}
@@ -485,9 +437,8 @@ public final class ArrayUtil {
 		}
 		return result;
 	}
-
-	public static <E> E[] reverse(
-			@SuppressWarnings("unchecked") final E... elements) {
+	
+	public static <E> E[] reverse(final E[] elements) {
 		final E[] result = elements.clone();
 		for (int i = 0, len = elements.length, base = len - 1; i < len; i++) {
 			result[i] = elements[base - i];
