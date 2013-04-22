@@ -20,7 +20,6 @@
 				type : 'get',
 				async : false,
 				dataType : 'JSON',
-				
 
 				success : function(json) {
 					$this.attr('href', JSON.parse(json).url);
