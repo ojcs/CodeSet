@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        CSDN免积分下载
 // @description 免积分下载
-// @version     0.1.3
+// @version     0.1.4
 //
 // @grant       none
 //
@@ -17,9 +17,10 @@
 			var url = '//download.csdn.net/index.php/rest/source/getsourceinfo/' + location.pathname.match(/\d+$/)[0];
 			$.getJSON(url, function(data) {
 				$this.attr('href', data.url).html('<h1>免积分下载</h1>');
-			}).fail(function() {
-				$this.removeAttr('href').html('<h1>免积分下载地址获取失败。</h1>');
 			});
+			if (this.href.length === 19) {
+				$this.removeAttr('href').html('<h1>免积分下载地址获取失败。</h1>');
+			}
 		}
 	});
 })(jQuery);
