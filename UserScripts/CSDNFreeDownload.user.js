@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        CSDN免积分下载
 // @description CSDN免积分下载
-// @version     0.0.7
+// @version     0.1.0
 //
 // @grant       none
 // @author      @Sep
