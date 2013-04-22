@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        CSDN免积分下载
 // @description CSDN免积分下载
-// @version     0.0.3
+// @version     0.0.4
 //
 // @grant       none
 // @author      @Sep
@@ -11,12 +11,11 @@
 // @include     http://download.csdn.net/download/*
 // ==/UserScript==
 (function($, id){
-	this.url = 'http://download.csdn.net/index.php/rest/source/getsourceinfo/' + id;
 	$('.res_info .info').after('<a href="javascript:void(0)"><h1>免积分下载</h1></a>').next().click(function(){
 		if (this.href === 'javascript:void(0)') {
 			var $this = $(this);
 			$.ajax({
-				url  : this.url,
+				url  : 'http://download.csdn.net/index.php/rest/source/getsourceinfo/' + id,
 				type : 'get',
 				async : false,
 				dataType : 'JSON',
