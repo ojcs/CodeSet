@@ -10,24 +10,26 @@
 // @include     http://download.csdn.net/detail/*
 // @include     http://download.csdn.net/download/*
 // ==/UserScript==
-(function($){
-	var id = location.pathname.match(/\d+$/)[0];
-	
+(function($, id){
+	this.url = 'http://download.csdn.net/index.php/rest/source/getsourceinfo/' + id;
 	$('.res_info .info').after('<a href="javascript:void(0)"><h1>免积分下载</h1></a>').next().click(function(){
 		if (this.href === 'javascript:void(0)') {
 			var $this = $(this);
 			$.ajax({
-				type : 'get', async : false, dataType : 'JSON',
-				url  : 'http://download.csdn.net/index.php/rest/source/getsourceinfo/' + id,
+				url  : this.url,
+				type : 'get',
+				async : false,
+				dataType : 'JSON',
 				
-				success : function(data) {
-					$this.attr('href', JSON.parse(data).url);
+
+				success : function(json) {
+					$this.attr('href', JSON.parse(json).url);
 				},
-				error   : function(error) {
-					alert('免积分下载，下载地址获取失败。');
+				error : function() {
+					alert('免积分下载地址获取失败。');
 					$this.remove();
 				}
 			});
 		}
 	});
-})(jQuery);
+})(jQuery, location.pathname.match(/\d+$/)[0]);
