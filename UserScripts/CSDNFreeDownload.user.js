@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name        CSDN免积分下载
-// @description 
+// @description 免积分下载
 // @version     0.1.3
 //
 // @grant       none
-// @author      @Sep
-// @license		MIT License
+//
+// @downloadURL    https://github.com/Septembers/CodeSet/raw/master/UserScripts/CSDNFreeDownload.user.js
 //
 // @include     http://download.csdn.net/detail/*
 // @include     http://download.csdn.net/download/*
