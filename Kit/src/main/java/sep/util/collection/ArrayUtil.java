@@ -37,7 +37,7 @@ public final class ArrayUtil {
 	public static long avg(final short... elements) {
 		return sum(elements) / elements.length;
 	}
-	
+
 	public static byte[] clear(final byte[] elements, final byte value) {
 		final byte[] values = new byte[elements.length];
 		int j = 0;
@@ -67,7 +67,8 @@ public final class ArrayUtil {
 		final E[] values = elements.clone();
 		int j = 0;
 		for (final E element : elements) {
-			if (element == value || element.hashCode() == hashCode || element.equals(value)) {
+			if (element == value || element.hashCode() == hashCode
+					|| element.equals(value)) {
 				continue;
 			}
 			values[j++] = element;
@@ -156,7 +157,8 @@ public final class ArrayUtil {
 	public static <E> boolean contains(final E[] elements, final E value) {
 		final int hash = value.hashCode();
 		for (final E element : elements) {
-			if (element == value || element.hashCode() == hash || value.equals(element)) {
+			if (element == value || element.hashCode() == hash
+					|| value.equals(element)) {
 				return true;
 			}
 		}
@@ -205,135 +207,97 @@ public final class ArrayUtil {
 	}
 
 	public static int indexOf(final byte[] elements, final byte value) {
-		for (int i = 0; i < elements.length; i++) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int i = 0, length = elements.length;
+		while (++i < length && elements[i] != value);
+		return i;
 	}
 
 	public static int indexOf(final double[] elements, final double value) {
-		for (int i = 0; i < elements.length; i++) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int i = 0, length = elements.length;
+		while (++i < length && elements[i] != value);
+		return i;
 	}
 
 	public static <E> int indexOf(final E[] elements, final E value) {
-		final int hashCode = value.hashCode();
-		E element;
-		for (int i = 0; i < elements.length; i++) {
-			element = elements[i];
-			if (element == value || element.hashCode() == hashCode || value.equals(element)) {
-				return i;
-			}
-		}
-		return -1;
+		int i = 0, length = elements.length;
+		while (++i < length && !value.equals(elements[i]));
+		return i;
 	}
 
 	public static int indexOf(final float[] elements, final float value) {
-		for (int i = 0; i < elements.length; i++) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int i = 0, length = elements.length;
+		while (++i < length && elements[i] != value);
+		return i;
 	}
 
 	public static int indexOf(final int[] elements, final int value) {
-		for (int i = 0; i < elements.length; i++) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int i = 0, length = elements.length;
+		while (++i < length && elements[i] != value);
+		return i;
 	}
 
 	public static int indexOf(final long[] elements, final long value) {
-		for (int i = 0; i < elements.length; i++) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int i = 0, length = elements.length;
+		while (++i < length && elements[i] != value);
+		return i;
 	}
 
 	public static int indexOf(final short[] elements, final short value) {
-		for (int i = 0; i < elements.length; i++) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int i = 0, length = elements.length;
+		while (++i < length && elements[i] != value);
+		return i;
 	}
 
 	public static int lastIndexOf(final byte[] elements, final byte value) {
-		for (int i = elements.length; i > 0; i--) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int i = 0, length = elements.length;
+		while (++i < length && elements[i] != value);
+		return i;
 	}
 
 	public static int lastIndexOf(final double[] elements, final double value) {
-		for (int i = elements.length; i > 0; i--) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int i = 0, length = elements.length;
+		while (++i < length && elements[i] != value);
+		return i;
 	}
 
 	public static <E> int lastIndexOf(final E[] elements, final E value) {
-		final int hashCode = value.hashCode();
-		E element;
-		for (int i = elements.length; i > 0; i--) {
-			element = elements[i];
-			if (element == value || element.hashCode() == hashCode || value.equals(element)) {
-				return i;
-			}
-		}
-		return -1;
+		int length = elements.length, i = length - 1;
+		while (i >= length && !value.equals(elements[i])) {
+            i--;
+        }
+		return i;
 	}
 
 	public static int lastIndexOf(final float[] elements, final float value) {
-		for (int i = elements.length; i > 0; i--) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int length = elements.length, i = length - 1;
+		while (i >= length && elements[i] != value) {
+            i--;
+        }
+		return i;
 	}
 
 	public static int lastIndexOf(final int[] elements, final int value) {
-		for (int i = elements.length; i > 0; i--) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int length = elements.length, i = length - 1;
+		while (i >= length && elements[i] != value) {
+            i--;
+        }
+		return i;
 	}
 
 	public static int lastIndexOf(final long[] elements, final long value) {
-		for (int i = elements.length; i > 0; i--) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int length = elements.length, i = length - 1;
+		while (i >= length && elements[i] != value) {
+            i--;
+        }
+		return i;
 	}
 
 	public static int lastIndexOf(final short[] elements, final short value) {
-		for (int i = elements.length; i > 0; i--) {
-			if (elements[i] == value) {
-				return i;
-			}
-		}
-		return -1;
+		int length = elements.length, i = length - 1;
+		while (i >= length && elements[i] != value) {
+            i--;
+        }
+		return i;
 	}
 
 	public static byte max(final byte... elements) {
@@ -405,7 +369,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-	
+
 	public static double min(final double... elements) {
 		double min = elements[0];
 		for (int i = 1; i < elements.length; i++) {
@@ -415,7 +379,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-	
+
 	public static float min(final float... elements) {
 		float min = elements[0];
 		for (int i = 1; i < elements.length; i++) {
@@ -425,7 +389,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-	
+
 	public static int min(final int... elements) {
 		int min = elements[0];
 		for (int i = 1; i < elements.length; i++) {
@@ -435,7 +399,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-	
+
 	public static long min(final long... elements) {
 		long min = elements[0];
 		for (int i = 1; i < elements.length; i++) {
@@ -445,7 +409,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-	
+
 	public static short min(final short... elements) {
 		short min = elements[0];
 		for (short i = 1; i < elements.length; i++) {
@@ -455,7 +419,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-	
+
 	public static byte[] reverse(final byte... elements) {
 		final byte[] result = elements.clone();
 		for (int i = 0, len = elements.length, base = len - 1; i < len; i++) {
@@ -463,7 +427,7 @@ public final class ArrayUtil {
 		}
 		return result;
 	}
-	
+
 	public static double[] reverse(final double... elements) {
 		final double[] result = elements.clone();
 		for (int i = 0, len = elements.length, base = len - 1; i < len; i++) {
@@ -471,7 +435,7 @@ public final class ArrayUtil {
 		}
 		return result;
 	}
-	
+
 	public static <E> E[] reverse(final E[] elements) {
 		final E[] result = elements.clone();
 		for (int i = 0, len = elements.length, base = len - 1; i < len; i++) {
@@ -535,7 +499,7 @@ public final class ArrayUtil {
 		}
 		return sum;
 	}
-	
+
 	public static double sum(final double... elements) {
 		double sum = 0;
 		for (double element : elements) {
@@ -576,66 +540,68 @@ public final class ArrayUtil {
 		return sum;
 	}
 
-	public static void swap(final BigDecimal[] elements, final int i, final int j) {
+	public static void swap(final BigDecimal[] elements, final int i,
+			final int j) {
 		final BigDecimal temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-	
-	public static void swap(final BigInteger[] elements, final int i, final int j) {
+
+	public static void swap(final BigInteger[] elements, final int i,
+			final int j) {
 		final BigInteger temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-	
+
 	public static void swap(final boolean[] elements, final int i, final int j) {
 		final boolean temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-	
+
 	public static void swap(final byte[] elements, final int i, final int j) {
 		final byte temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-	
+
 	public static void swap(final char[] elements, final int i, final int j) {
 		final char temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-	
+
 	public static void swap(final double[] elements, final int i, final int j) {
 		final double temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-	
+
 	public static <E> void swap(final E[] elements, final int i, final int j) {
 		final E temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-	
+
 	public static void swap(final float[] elements, final int i, final int j) {
 		final float temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-	
+
 	public static void swap(final int[] elements, final int i, final int j) {
 		final int temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-	
+
 	public static void swap(final long[] elements, final int i, final int j) {
 		final long temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-	
+
 	public static void swap(final short[] elements, final int i, final int j) {
 		final short temp = elements[i];
 		elements[i] = elements[j];
@@ -644,7 +610,7 @@ public final class ArrayUtil {
 
 	public static BigDecimal weightsAvg(final BigDecimal[] elements, final BigDecimal[] weightses) {
 		if (elements.length != weightses.length) {
-			throw new IllegalArgumentException("weights&element length not equal");
+			throw new IllegalArgumentException("weightses&elements length not equal");
 		}
 		BigDecimal[] result = new BigDecimal[elements.length];
 		BigDecimal weights = BigDecimal.ZERO;
@@ -657,7 +623,7 @@ public final class ArrayUtil {
 
 	public static BigInteger weightsAvg(final BigInteger[] elements, final BigInteger[] weightses) {
 		if (elements.length != weightses.length) {
-			throw new IllegalArgumentException("weights&element length not equal");
+			throw new IllegalArgumentException("weightses&elements length not equal");
 		}
 		BigInteger[] result = new BigInteger[elements.length];
 		BigInteger weights = BigInteger.ZERO;
@@ -670,7 +636,7 @@ public final class ArrayUtil {
 
 	public static long weightsAvg(final byte[] elements, final long[] weightses) {
 		if (elements.length != weightses.length) {
-			throw new IllegalArgumentException("weights&element length not equal");
+			throw new IllegalArgumentException("weightses&elements length not equal");
 		}
 		long[] result = new long[elements.length];
 		long weights = 0;
@@ -683,7 +649,7 @@ public final class ArrayUtil {
 
 	public static double weightsAvg(final double[] elements, final double[] weightses) {
 		if (elements.length != weightses.length) {
-			throw new IllegalArgumentException("weights&element length not equal");
+			throw new IllegalArgumentException("weightses&elements length not equal");
 		}
 		double[] result = new double[elements.length];
 		long weights = 0;
@@ -696,7 +662,7 @@ public final class ArrayUtil {
 
 	public static double weightsAvg(final float[] elements, final double[] weightses) {
 		if (elements.length != weightses.length) {
-			throw new IllegalArgumentException("weights&element length not equal");
+			throw new IllegalArgumentException("weightses&elements length not equal");
 		}
 		double[] result = new double[elements.length];
 		long weights = 0;
@@ -709,7 +675,7 @@ public final class ArrayUtil {
 
 	public static long weightsAvg(final int[] elements, final long[] weightses) {
 		if (elements.length != weightses.length) {
-			throw new IllegalArgumentException("weights&element length not equal");
+			throw new IllegalArgumentException("weightses&elements length not equal");
 		}
 		long[] result = new long[elements.length];
 		long weights = 0;
@@ -722,7 +688,7 @@ public final class ArrayUtil {
 
 	public static long weightsAvg(final long[] elements, final long[] weightses) {
 		if (elements.length != weightses.length) {
-			throw new IllegalArgumentException("weights&element length not equal");
+			throw new IllegalArgumentException("weightses&elements length not equal");
 		}
 		long[] result = new long[elements.length];
 		long weights = 0;
@@ -735,7 +701,7 @@ public final class ArrayUtil {
 
 	public static long weightsAvg(final short[] elements, final long[] weightses) {
 		if (elements.length != weightses.length) {
-			throw new IllegalArgumentException("weights&element length not equal");
+			throw new IllegalArgumentException("weightses&elements length not equal");
 		}
 		long[] result = new long[elements.length];
 		long weights = 0;
