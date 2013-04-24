@@ -1,9 +1,43 @@
 package sep.util.collection;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Arrays;
 
 public final class ArrayUtil {
+	public static BigDecimal avg(final BigDecimal... elements) {
+		return sum(elements).divide(BigDecimal.valueOf(elements.length));
+	}
+
+	public static BigInteger avg(final BigInteger... elements) {
+		return sum(elements).divide(BigInteger.valueOf(elements.length));
+	}
+
+	public static long avg(final byte... elements) {
+		return sum(elements) / elements.length;
+	}
+
+	public static double avg(final double... elements) {
+		return sum(elements) / elements.length;
+	}
+
+	public static double avg(final float... elements) {
+		return sum(elements) / elements.length;
+	}
+
+	public static long avg(final int... elements) {
+		return sum(elements) / elements.length;
+	}
+
+	public static long avg(final long... elements) {
+		return sum(elements) / elements.length;
+	}
+
+	public static long avg(final short... elements) {
+		return sum(elements) / elements.length;
+	}
+	
 	public static byte[] clear(final byte[] elements, final byte value) {
 		final byte[] values = new byte[elements.length];
 		int j = 0;
@@ -371,7 +405,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-
+	
 	public static double min(final double... elements) {
 		double min = elements[0];
 		for (int i = 1; i < elements.length; i++) {
@@ -381,7 +415,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-
+	
 	public static float min(final float... elements) {
 		float min = elements[0];
 		for (int i = 1; i < elements.length; i++) {
@@ -391,7 +425,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-
+	
 	public static int min(final int... elements) {
 		int min = elements[0];
 		for (int i = 1; i < elements.length; i++) {
@@ -401,7 +435,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-
+	
 	public static long min(final long... elements) {
 		long min = elements[0];
 		for (int i = 1; i < elements.length; i++) {
@@ -411,7 +445,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-
+	
 	public static short min(final short... elements) {
 		short min = elements[0];
 		for (short i = 1; i < elements.length; i++) {
@@ -421,7 +455,7 @@ public final class ArrayUtil {
 		}
 		return min;
 	}
-
+	
 	public static byte[] reverse(final byte... elements) {
 		final byte[] result = elements.clone();
 		for (int i = 0, len = elements.length, base = len - 1; i < len; i++) {
@@ -429,7 +463,7 @@ public final class ArrayUtil {
 		}
 		return result;
 	}
-
+	
 	public static double[] reverse(final double... elements) {
 		final double[] result = elements.clone();
 		for (int i = 0, len = elements.length, base = len - 1; i < len; i++) {
@@ -478,58 +512,238 @@ public final class ArrayUtil {
 		return result;
 	}
 
+	public static BigDecimal sum(final BigDecimal... elements) {
+		BigDecimal sum = BigDecimal.ZERO;
+		for (BigDecimal element : elements) {
+			sum.add(element);
+		}
+		return sum;
+	}
+
+	public static BigInteger sum(final BigInteger... elements) {
+		BigInteger sum = BigInteger.ZERO;
+		for (BigInteger element : elements) {
+			sum.add(element);
+		}
+		return sum;
+	}
+
+	public static long sum(final byte... elements) {
+		long sum = 0;
+		for (byte element : elements) {
+			sum += element;
+		}
+		return sum;
+	}
+	
+	public static double sum(final double... elements) {
+		double sum = 0;
+		for (double element : elements) {
+			sum += element;
+		}
+		return sum;
+	}
+
+	public static double sum(final float... elements) {
+		double sum = 0;
+		for (float element : elements) {
+			sum += element;
+		}
+		return sum;
+	}
+
+	public static long sum(final int... elements) {
+		long sum = 0;
+		for (int element : elements) {
+			sum += element;
+		}
+		return sum;
+	}
+
+	public static long sum(final long... elements) {
+		long sum = 0;
+		for (long element : elements) {
+			sum += element;
+		}
+		return sum;
+	}
+
+	public static long sum(final short... elements) {
+		long sum = 0;
+		for (short element : elements) {
+			sum += element;
+		}
+		return sum;
+	}
+
+	public static void swap(final BigDecimal[] elements, final int i, final int j) {
+		final BigDecimal temp = elements[i];
+		elements[i] = elements[j];
+		elements[j] = temp;
+	}
+	
+	public static void swap(final BigInteger[] elements, final int i, final int j) {
+		final BigInteger temp = elements[i];
+		elements[i] = elements[j];
+		elements[j] = temp;
+	}
+	
 	public static void swap(final boolean[] elements, final int i, final int j) {
 		final boolean temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-
+	
 	public static void swap(final byte[] elements, final int i, final int j) {
 		final byte temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-
+	
 	public static void swap(final char[] elements, final int i, final int j) {
 		final char temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-
+	
 	public static void swap(final double[] elements, final int i, final int j) {
 		final double temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-
+	
 	public static <E> void swap(final E[] elements, final int i, final int j) {
 		final E temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-
+	
 	public static void swap(final float[] elements, final int i, final int j) {
 		final float temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-
+	
 	public static void swap(final int[] elements, final int i, final int j) {
 		final int temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-
+	
 	public static void swap(final long[] elements, final int i, final int j) {
 		final long temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
 	}
-
+	
 	public static void swap(final short[] elements, final int i, final int j) {
 		final short temp = elements[i];
 		elements[i] = elements[j];
 		elements[j] = temp;
+	}
+
+	public static BigDecimal weightsAvg(final BigDecimal[] elements, final BigDecimal[] weightses) {
+		if (elements.length != weightses.length) {
+			throw new IllegalArgumentException("weights&element length not equal");
+		}
+		BigDecimal[] result = new BigDecimal[elements.length];
+		BigDecimal weights = BigDecimal.ZERO;
+		for (int i = 0; i < elements.length; i++) {
+			result[i] = elements[i].multiply(weightses[i]);
+			weights = weights.add(weightses[i]);
+		}
+		return sum(result).divide(weights);
+	}
+
+	public static BigInteger weightsAvg(final BigInteger[] elements, final BigInteger[] weightses) {
+		if (elements.length != weightses.length) {
+			throw new IllegalArgumentException("weights&element length not equal");
+		}
+		BigInteger[] result = new BigInteger[elements.length];
+		BigInteger weights = BigInteger.ZERO;
+		for (int i = 0; i < elements.length; i++) {
+			result[i] = elements[i].multiply(weightses[i]);
+			weights = weights.add(weightses[i]);
+		}
+		return sum(result).divide(weights);
+	}
+
+	public static long weightsAvg(final byte[] elements, final long[] weightses) {
+		if (elements.length != weightses.length) {
+			throw new IllegalArgumentException("weights&element length not equal");
+		}
+		long[] result = new long[elements.length];
+		long weights = 0;
+		for (int i = 0; i < elements.length; i++) {
+			result[i] = elements[i] * weightses[i];
+			weights += weightses[i];
+		}
+		return sum(elements) / weights;
+	}
+
+	public static double weightsAvg(final double[] elements, final double[] weightses) {
+		if (elements.length != weightses.length) {
+			throw new IllegalArgumentException("weights&element length not equal");
+		}
+		double[] result = new double[elements.length];
+		long weights = 0;
+		for (int i = 0; i < elements.length; i++) {
+			result[i] = elements[i] * weightses[i];
+			weights += weightses[i];
+		}
+		return sum(elements) / weights;
+	}
+
+	public static double weightsAvg(final float[] elements, final double[] weightses) {
+		if (elements.length != weightses.length) {
+			throw new IllegalArgumentException("weights&element length not equal");
+		}
+		double[] result = new double[elements.length];
+		long weights = 0;
+		for (int i = 0; i < elements.length; i++) {
+			result[i] = elements[i] * weightses[i];
+			weights += weightses[i];
+		}
+		return sum(elements) / weights;
+	}
+
+	public static long weightsAvg(final int[] elements, final long[] weightses) {
+		if (elements.length != weightses.length) {
+			throw new IllegalArgumentException("weights&element length not equal");
+		}
+		long[] result = new long[elements.length];
+		long weights = 0;
+		for (int i = 0; i < elements.length; i++) {
+			result[i] = elements[i] * weightses[i];
+			weights += weightses[i];
+		}
+		return sum(elements) / weights;
+	}
+
+	public static long weightsAvg(final long[] elements, final long[] weightses) {
+		if (elements.length != weightses.length) {
+			throw new IllegalArgumentException("weights&element length not equal");
+		}
+		long[] result = new long[elements.length];
+		long weights = 0;
+		for (int i = 0; i < elements.length; i++) {
+			result[i] = elements[i] * weightses[i];
+			weights += weightses[i];
+		}
+		return sum(elements) / weights;
+	}
+
+	public static long weightsAvg(final short[] elements, final long[] weightses) {
+		if (elements.length != weightses.length) {
+			throw new IllegalArgumentException("weights&element length not equal");
+		}
+		long[] result = new long[elements.length];
+		long weights = 0;
+		for (int i = 0; i < elements.length; i++) {
+			result[i] = elements[i] * weightses[i];
+			weights += weightses[i];
+		}
+		return sum(elements) / weights;
 	}
 
 	private ArrayUtil() {
