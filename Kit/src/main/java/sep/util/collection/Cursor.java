@@ -38,7 +38,7 @@ public final class Cursor<E> implements Iterable<E>, Iterator<E>, Enumeration<E>
 	}
 
 	public static <E> Cursor<E> of(final Enumeration<E> enumeration) {
-		return new Cursor<>(enumeration);
+		return new Cursor<>(new EnumerationIterator<>(enumeration));
 	}
 
 	public static <E> Cursor<E> of(final Iterable<E> iterable) {
@@ -50,18 +50,6 @@ public final class Cursor<E> implements Iterable<E>, Iterator<E>, Enumeration<E>
 	}
 
 	protected final Iterator<E> iterator;
-
-	protected Cursor(final Cursor<E> iterable) {
-		this(iterable.iterator());
-	}
-
-	protected Cursor(final Enumeration<E> enumeration) {
-		this(new EnumerationIterator<>(enumeration));
-	}
-
-	protected Cursor(final Iterable<E> iterable) {
-		this(iterable.iterator());
-	}
 
 	protected Cursor(final Iterator<E> iterator) {
 		this.iterator = iterator;
