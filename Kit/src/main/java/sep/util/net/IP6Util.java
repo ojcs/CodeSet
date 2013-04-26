@@ -43,7 +43,7 @@ public final class IP6Util {
 		Set<Inet6Address> set = new HashSet<Inet6Address>();
 		final Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
 		outer: while (interfaces.hasMoreElements()) {
-			for (InetAddress address : new Cursor<InetAddress>(interfaces.nextElement().getInetAddresses())) {
+			for (InetAddress address : Cursor.of(interfaces.nextElement().getInetAddresses())) {
 				if (address instanceof Inet6Address && !IPUtil.isReservedAddr(address)) {
 					set.add((Inet6Address) address);
 					break outer;
