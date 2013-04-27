@@ -1,6 +1,7 @@
 package sep.util.collection;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -55,9 +56,10 @@ public final class Cursor<E> implements Iterable<E>, Iterator<E>, Enumeration<E>
 		this.iterator = iterator;
 	}
 
-	@Override
-	public int hashCode() {
-		return iterator.hashCode();
+	public void appendTo(Collection<E> collection) {
+		while (iterator.hasNext()) {
+			collection.add(iterator.next());
+		}
 	}
 
 	@Override
@@ -104,20 +106,20 @@ public final class Cursor<E> implements Iterable<E>, Iterator<E>, Enumeration<E>
 
 	public List<E> toList() {
 		final List<E> list = new ArrayList<>();
-		for (E element : this) {
-			list.add(element);
+		while (iterator.hasNext()) {
+			list.add(iterator.next());
 		}
 		return list;
 	}
 
 	public Set<E> toSet() {
 		final Set<E> set = new HashSet<>();
-		for (E element : this) {
-			set.add(element);
+		while (iterator.hasNext()) {
+			set.add(iterator.next());
 		}
 		return set;
 	}
-
+	
 	@Override
 	public String toString() {
 		return CollectionUtil.toString(iterator);
