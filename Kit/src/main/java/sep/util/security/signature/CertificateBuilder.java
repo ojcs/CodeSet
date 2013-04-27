@@ -59,7 +59,7 @@ public final class CertificateBuilder {
 		return new PublicKeyCipher(algorithm, new KeyPair(publicKey, privateKey));
 	}
 
-	public void setPrivateKey(KeyStore store, char[] password, String alias) throws GeneralSecurityException, IOException {
+	public void setPrivateKey(KeyStore store, char[] password, String alias) throws GeneralSecurityException {
 		this.privateKey = (PrivateKey) store.getKey(alias, password);
 	}
 	
