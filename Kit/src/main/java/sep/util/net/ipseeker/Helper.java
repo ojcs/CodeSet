@@ -131,6 +131,6 @@ class Helper {
 		final byte[] buf = new byte[0xFF];
 		offset = -1;
 		while ((buf[++offset] = buffer.get()) != 0);
-			return (offset != 0) ? new String(buf, 0, offset, Charset.forName("GBK")) : null;
+		return (offset != 0) ? new String(buf, 0, offset, Charset.forName("GBK")) : null;
 	}
 }
