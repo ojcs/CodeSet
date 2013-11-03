@@ -11,3 +11,6 @@ Sep代码集
 > 授权：Public Domain
 
 > 如果需要使用请自行构建
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Septembers/codeset/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
